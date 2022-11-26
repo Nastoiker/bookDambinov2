@@ -143,7 +143,7 @@ header {
 /* container boooks */
 .container_book {
   display: grid;
-  grid-template-columns: max-content;
+    grid-template-columns: repeat(auto-fit, 300px);
 }
 
 .header-card {
@@ -170,6 +170,9 @@ header {
   display: flex;
 }
 
+.container_genres {
+
+}
 footer {
     bottom: 0;
     display: flex;

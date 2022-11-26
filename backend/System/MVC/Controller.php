@@ -58,7 +58,6 @@ class Controller {
             throw new Exception(sprintf('{ %s } this model file not found', $file));
         }
     }
-
 	// send response faster
     public function send($status, $msg) {
         $this->response->setHeader(sprintf('HTTP/1.1 ' . $status . ' %s' , $this->response->getStatusCodeText($status)));

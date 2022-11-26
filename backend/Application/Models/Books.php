@@ -8,6 +8,11 @@ class ModelsBooks extends Model {
         return [$this->getAllBooks(null), $this->getAllAuthors(null)];
     }
 
+    public function setPhoto($img, $id) {
+        $sql = "UPDATE book SET img = '$img' where id = '$id'";
+        $query = $this->db->query($sql);
+        return ['picture' => $img];
+    }
     public function getAllBooks($param) {
 
         // sql statement
@@ -31,7 +36,10 @@ class ModelsBooks extends Model {
             foreach($query->rows as $key => $value):
                 $data['books'][] = [
                         'book'    => $value,
-                        'authors' => $this->getAuthorsBook($value['id'])
+                        'authors' => $this->getAuthorsBook($value['id']),
+                     'comment' => $this->getCommentBookById($value['id']),
+                    'ratingAvg' => (int) $this->getRatingBookById($value['id'])['AVG(rating)'],
+                    'ratingCount' => (int) $this->getRatingBookById($value['id'])["COUNT(rating)"]
                     ];
             endforeach;
         } else {
@@ -127,6 +135,8 @@ class ModelsBooks extends Model {
                     'book' => $value,
                     'authors' => $this->getAuthorsBook($value['id']),
                     'comment' => $this->getCommentBookById($value['id']),
+                    'ratingAvg' => (int) $this->getRatingBookById($value['id'])['AVG(rating)'],
+                    'ratingCount' => (int) $this->getRatingBookById($value['id'])["COUNT(rating)"]
                 ];
             endforeach;
         } else {
@@ -144,6 +154,14 @@ class ModelsBooks extends Model {
         $writtenById = $param["writtenById"];
         $bookId = $param["bookId"];
         $query = $this->db->query("INSERT INTO `comment`(`id`, `createdAt`, `comment`, `writtenById`, `bookId`) VALUES (null,'$date','$comment','$writtenById','$bookId')");
+        return 'correct';
+    }
+    public function setRatingByBookId($param) {
+        $date = date("Y-m-d H:i:s");;
+        $authorById = $param["authorById"];
+        $bookId = $param["bookId"];
+        $rating = $param["rating"];
+        $query = $this->db->query("INSERT INTO `rating`(`id`, `createdAt`, `updatedAt`, `bookId`, `authorId`, `rating`) VALUES (null,'$date','$date','$bookId','$authorById','$rating')");
         return 'correct';
     }
     public function getBooksByGenresId($param) {
@@ -172,8 +190,12 @@ class ModelsBooks extends Model {
                 array_push($data, $comment);
             endforeach;
         }
-
         return $data;
+    }
+    private function getRatingBookById($id) {
+        $query  = $this->db->query("SELECT AVG(rating), COUNT(rating) FROM  rating  where bookId =" . (int) $id) ;
+
+        return $query->row;
     }
     public function getAuthorById($param) {
         $query =  $this->db->query("SELECT * FROM authorsonbook INNER JOIN authors on `authors`.`id` = `authorsonbook`.`authorsId` 

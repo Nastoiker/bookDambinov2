@@ -4,10 +4,37 @@ async function getBooks() {
 const passport = async () =>
 {
     const res = await getBooks();
-    console.log(res);
-
+    let books = JSON.stringify(res);
+    const res1 = JSON.parse(books);
+    console.log(res1.books);
+    showBook(res1.books);
 }
-console.log(passport());
+const showBook = (arr) => {
+
+    arr.forEach(book => {
+        let container_book = document.querySelector('.container_book');
+        container_book.innerHTML +=` <div class="card_book">
+                <div class="info_book">
+                    <div class="header-card">
+                        <div>
+                            <img src="assets/src/icons/star.svg" alt="star">
+                            <span>${book.ratingAvg}</span>
+                        </div>
+                        <div>
+                            <span>${book.ratingCount}</span>
+                            <span>отзыв.</span>
+                        </div>
+                    </div>
+                    <div class="img_book">
+                        <img  src="../backend/Uploaded/Images/${book.book.img}" style="width:100%; height: 100%" alt="book">
+                    </div>
+                </div>
+                <h4>${book.book.name}</h4>
+                <button>Подробнее</button>
+            </div>`
+    })
+}
+passport();
 class Products {
 
     render() {

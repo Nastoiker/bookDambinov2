@@ -37,12 +37,10 @@ $router->get('/books/getbooksbygenre/:genreId', 'Books@getBooksByGenre');
 
 // If you use SPACE in the url, it should convert the space to -, /home-index
 $router->get('/home index', 'User@index');
-
-$router->post('/upload', 'User@uploadImage');
-
 $router->post('/user', 'User@post');
 $router->post('/user/registration', 'User@Registration');
 $router->post('/user/auth', 'User@auth');
 
 $router->post('/books/setcomment', 'Books@setCommentByBookId');
-
+$router->post('/books/setrating', 'Books@setRatingForBook');
+$router->post('/books/setpicture', 'Books@uploadImage');

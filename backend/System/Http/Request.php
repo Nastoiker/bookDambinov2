@@ -41,6 +41,7 @@ class Request {
         $this->request = ($_REQUEST);
         $this->cookie = $this->clean($_COOKIE);
         $this->files = $this->clean($_FILES);
+        $this->text= $this->clean($_POST);
     }
 
     /**
