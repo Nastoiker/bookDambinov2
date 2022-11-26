@@ -13,28 +13,18 @@ class ModelsBooks extends Model {
         // sql statement
         $sql = "SELECT * FROM " . DB_PREFIX . "book";
 
-        // pagination 
-        $this->pagination->total = $this->getCountBooks();
 
-        // check valid page
-        if (isset($param['page']) && is_numeric($param['page'])) {
-            $this->pagination->page = (int) $param['page'];
-        } else {
-            $this->pagination->page = 1;
-        }
+
+
 
         // render page data
-        $page_data = $this->pagination->render();  
-        $offset = ($this->pagination->page - 1) * $page_data['limit'];      
 
         // read books with limit of page
-        $sql .= " ORDER BY id DESC LIMIT " . $offset . ", " . $page_data['limit'];
 
         // exec query
         $query = $this->db->query($sql);
 
         $data = [];
-        $data['page_data'] = $page_data;
 
         // Conclusion
         if ($query->num_rows) {
@@ -57,27 +47,16 @@ class ModelsBooks extends Model {
     public function getAllAuthors($param) {
         $sql = "SELECT * FROM " . DB_PREFIX . "authors";
 
-        // pagination 
-        $this->pagination->total = $this->getCountAuthors();
-
+        // pagination
         // check valid page
-        if (isset($param['page']) && is_numeric($param['page'])) {
-            $this->pagination->page = (int) $param['page'];
-        } else {
-            $this->pagination->page = 1;
-        }
 
         // render page data
-        $page_data = $this->pagination->render();  
-        $offset = ($this->pagination->page - 1) * $page_data['limit'];      
 
         // read books with limit of page
-        $sql .= " ORDER BY id DESC LIMIT " . $offset . ", " . $page_data['limit'];
 
         $query = $this->db->query($sql);
 
         $data = [];
-        $data['page_data'] = $page_data;
 
         if ($query->num_rows) {
             foreach($query->rows as $key => $value):
@@ -92,7 +71,6 @@ class ModelsBooks extends Model {
                 'books'    => array()
             ];
         }
-
         return $data;
     }
 
@@ -103,32 +81,22 @@ class ModelsBooks extends Model {
         $total = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "authors WHERE fullname LIKE '%" . $this->db->escape($param['author']) . "%'");
         
         // pagination 
-        $this->pagination->total = ($total->num_rows > 0) ? (int) $total->row['total'] : 0;
 
         // check valid page
-        if (isset($param['page']) && is_numeric($param['page'])) {
-            $this->pagination->page = (int) $param['page'];
-        } else {
-            $this->pagination->page = 1;
-        }
+
 
         // render page data
-        $page_data = $this->pagination->render();  
-        $offset = ($this->pagination->page - 1) * $page_data['limit'];      
 
         // read books with limit of page
-        $sql .= " ORDER BY id DESC LIMIT " . $offset . ", " . $page_data['limit'];
 
         $query = $this->db->query($sql);
 
         $data = [];
-        $data['page_data'] = $page_data;
-
         if ($query->num_rows) {
             foreach($query->rows as $key => $value):
                 $data['result'][] = [
                         'author'   => $value,
-                        'books'    => $this->getBooksAuthor($value['id'])
+                        'books'    => $this->getBooksAuthor($value['id']),
                     ];
             endforeach;
         } else {
@@ -141,75 +109,90 @@ class ModelsBooks extends Model {
         return $data;
     }
 
-    public function searchBooksByTitle($param) {
-        $sql = "SELECT * FROM " . DB_PREFIX . "book WHERE title LIKE '%" . $this->db->escape($param['title']) . "%'";
+    public function searchBooksByTitle($param)
+    {
+        $like = urldecode( $this->db->escape($param['name']));
+        $sql = "SELECT * FROM " . DB_PREFIX . "book WHERE name LIKE '%' '$like' '%'";
 
-        // total data find
-        $total = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "books WHERE title LIKE '%" . $this->db->escape($param['title']) . "%'");
-        
-        // pagination 
-        $this->pagination->total = ($total->num_rows > 0) ? (int) $total->row['total'] : 0;
+        $total = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "book WHERE name LIKE '%" . $this->db->escape($param['name']) . "%'");
 
-        // check valid page
-        if (isset($param['page']) && is_numeric($param['page'])) {
-            $this->pagination->page = (int) $param['page'];
-        } else {
-            $this->pagination->page = 1;
-        }
-
-        // render page data
-        $page_data = $this->pagination->render();  
-        $offset = ($this->pagination->page - 1) * $page_data['limit'];      
-
-        // read books with limit of page
-        $sql .= " ORDER BY id DESC LIMIT " . $offset . ", " . $page_data['limit'];
 
         $query = $this->db->query($sql);
 
         $data = [];
-        $data['page_data'] = $page_data;
 
         if ($query->num_rows) {
-            foreach($query->rows as $key => $value):
+            foreach ($query->rows as $key => $value):
                 $data['result'][] = [
-                        'book'      => $value,
-                        'authors'   => $this->getAuthorsBook($value['id'])
-                    ];
+                    'book' => $value,
+                    'authors' => $this->getAuthorsBook($value['id']),
+                    'comment' => $this->getCommentBookById($value['id']),
+                ];
             endforeach;
         } else {
             $data['result'][] = [
-                'book'       => array(),
-                'authors'    => array()
+                'book' => array(),
+                'authors' => array()
             ];
         }
 
         return $data;
     }
-
-    public function searchBooksByISBN($book_isbn) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "book WHERE isbn LIKE '%" . $this->db->escape($book_isbn) . "%'");
-
+    public function setCommentByBookId($param) {
+        $date = date("Y-m-d H:i:s");;
+        $comment =$param['comment'];
+        $writtenById = $param["writtenById"];
+        $bookId = $param["bookId"];
+        $query = $this->db->query("INSERT INTO `comment`(`id`, `createdAt`, `comment`, `writtenById`, `bookId`) VALUES (null,'$date','$comment','$writtenById','$bookId')");
+        return 'correct';
+    }
+    public function getBooksByGenresId($param) {
+        $query =  $this->db->query("SELECT * FROM genresonbook INNER JOIN genres on genres.id = genresonbook.genresId INNER JOIN book on book.id = genresonbook.bookId WHERE genresonbook.genresId = " . (int) $param['genreId'] );
         $data = [];
-
-        $data['count'] = $query->num_rows;
-
         if ($query->num_rows) {
-            foreach($query->rows as $key => $value):
-                $data['result'][] = [
-                        'book'      => $value,
-                        'authors'   => $this->getAuthorsBook($value['id'])
-                    ];
+            foreach($query->rows as $result):
+                $data['genres'][] = [
+                    'book'=> $this->getBook($result['bookId']),
+                ];
             endforeach;
-        } else {
-            $data['result'][] = [
-                'book'       => array(),
-                'authors'    => array()
-            ];
+        }
+        return $data;
+    }
+    private function getGenres($id) {
+        $query  = $this->db->query("SELECT * FROM  comment  where bookId =" . (int) $id) ;
+        return $query->row;
+    }
+    private function getCommentBookById($id) {
+        $query  = $this->db->query("SELECT * FROM  comment  where bookId =" . (int) $id) ;
+        $data = [];
+        if ($query->num_rows) {
+            foreach($query->rows as $result):
+                $comment['comment'] = $query->row;
+                $comment['author'] = $this->getUser($result['writtenById']);
+                array_push($data, $comment);
+            endforeach;
         }
 
         return $data;
     }
+    public function getAuthorById($param) {
+        $query =  $this->db->query("SELECT * FROM authorsonbook INNER JOIN authors on `authors`.`id` = `authorsonbook`.`authorsId` 
+          INNER JOIN book on `book`.`id` = `authorsonbook`.`bookId` WHERE `authorsonbook`.`authorsId` = " . (int) $param['id'] );
+        $data = [];
+        if ($query->num_rows) {
+            foreach($query->rows as $result):
+                $author = $this->getAuthor($result['authorsId']);
+                $author['book'] = $this->getBook($result['bookId']);
+                array_push($data, $author);
+            endforeach;
+        }
+        return $data;
+    }
+    private function getUser($id) {
+        $query = $this->db->query("SELECT email, login, image, status, role FROM " . DB_PREFIX . "usermodel WHERE id = " . (int) $id . "");
 
+        return $query->row;
+    }
     private function getBooksAuthor($author) {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "authorsonbook WHERE authorsId = " . (int) $author . "");
 

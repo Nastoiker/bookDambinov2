@@ -1,11 +1,12 @@
 <?php
 
 // paths
-$router->get('/', function() {
-    echo '<div style="text-align: center;width: 350px;margin: 50px auto;font-size: 25px;padding: 50px;box-shadow: 0 0 10px #dedede;border-radius: 5px;">
-        Welcome To The Library <br><br>
-        <a href="https://github.com/afgprogrammer/php-books-library" title="afgprogrammer-github"> See Doc In Github </a>
-    </div>';
+
+$router->get('/:name', function($param) {
+    echo
+        'Welcome To The Library'  . $param['name'];
+        
+
 });
 
 // Get All Books And Authors
@@ -15,11 +16,9 @@ $router->get('/install', 'System@index');
 
 // books router
 $router->get('/books', 'Books@books');
-$router->get('/books/:page', 'Books@books');
 
 // search books
-$router->get('/books/title/:title', 'Books@searchBooksByTitle');
-$router->get('/books/title/:title/:page', 'Books@searchBooksByTitle');
+$router->get('/books/name/:name', 'Books@searchBooksByTitle');
 
 $router->get('/books/isbn/:isbn', 'Books@searchBooksByISBN');
 
@@ -33,3 +32,17 @@ $router->get('/authors/:page', 'Books@authors');
 // search author
 $router->get('/authors/:author', 'Books@searchBooksByAuthors');
 $router->get('/authors/:author/:page', 'Books@searchBooksByAuthors');
+$router->get('/home', 'home@index');
+$router->get('/books/getbooksbygenre/:genreId', 'Books@getBooksByGenre');
+
+// If you use SPACE in the url, it should convert the space to -, /home-index
+$router->get('/home index', 'User@index');
+
+$router->post('/upload', 'User@uploadImage');
+
+$router->post('/user', 'User@post');
+$router->post('/user/registration', 'User@Registration');
+$router->post('/user/auth', 'User@auth');
+
+$router->post('/books/setcomment', 'Books@setCommentByBookId');
+

@@ -171,9 +171,8 @@ class Router {
      */
     private function convertPatternToRegex($matches) {
         $key = str_replace(':', '', $matches[0]);
-        return '(?P<' . $key . '>[a-zA-Z0-9_\-\.\!\~\*\\\'\(\)\:\@\&\=\$\+,%]+)';
+        return '(?P<' . $key . '>[0-9А-Яа-я_\-\.\!\~\*\\\'\(\)\:\@\&\=\$\+,%]+)';
     }
-
     /**
      *  run application
      */

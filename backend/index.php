@@ -12,7 +12,6 @@ $request = new Http\Request();
 $response = new Http\Response();
 
 // pagination
-$pagination = new Pagination\Pagination();
 
 // set default header
 $response->setHeader('Access-Control-Allow-Origin: *');

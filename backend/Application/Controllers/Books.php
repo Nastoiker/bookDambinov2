@@ -26,7 +26,20 @@ class ControllersBooks  extends Controller {
         $this->response->sendStatus(200);
         $this->response->setContent($book_list);
     }
+    public function getBooksByGenre($param) {
+        if (isset($param['genreId'])) {
 
+            $model = $this->model('books');
+            $result = $model->getBooksByGenresId($param);
+            $this->response->sendStatus(200);
+            $this->response->setContent($result);
+        } else {
+            $this->response->sendStatus(200);
+            $this->response->setContent([
+                'message'   => 'Invalid author name OR Your author name is too short'
+            ]);
+        }
+    }
     public function authors($param) {
 
         $model = $this->model('books');
@@ -59,7 +72,7 @@ class ControllersBooks  extends Controller {
     public function searchBooksByTitle($param) {
 
         // check valid param
-        if (isset($param['title']) && $this->validSearchBooks($param['title'])) {
+        if (isset($param['name']) && $this->validSearchBooks($param['name'])) {
 
             $model = $this->model('books');
             $result = $model->searchBooksByTitle($param);
@@ -74,35 +87,14 @@ class ControllersBooks  extends Controller {
             ]);
         }
     }
-
-    public function searchBooksByISBN($param) {
-
-        // check valid param
-        if ($this->validISBN($param)) {
-
-            $model = $this->model('books');
-            $result = $model->searchBooksByISBN(clean($param['isbn']));
-
-            // Send Response
-            $this->response->sendStatus(200);
+    public function setCommentByBookId() {
+        $param = $this->request->input();
+        $model = $this->model('books');
+            $result = $model->setCommentByBookId($param);
+            $this->response->sendStatus(201);
             $this->response->setContent($result);
-        } else {
-            $this->response->sendStatus(200);
-            $this->response->setContent([
-                'message'   => 'Invalid ISBN OR Your ISBN is too short'
-            ]);
-        }
+
     }
-
-    private function validISBN($param) {
-
-        // check param
-        if (!empty($param) && isset($param['isbn']) && is_numeric($param['isbn']) && strlen((string) $param['isbn']) > 0 && $param['isbn'] != 0)
-            return true;
-        
-        return false;
-    }
-
     private function validSearchBooks($param) {
 
         // check param
