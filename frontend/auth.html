@@ -3,23 +3,35 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Form</title>
-	<link rel="stylesheet" href="auth.css">
+	<link rel="stylesheet" href="assets/styles/auth.css">
 </head>
 <body>
-	
-	<div class="form">
-		<h1>Вход</h1>
+	<form class="form" name="loginForm">
 		<div class="input-form">
-			<input type="text" placeholder="Логин">
+			<label for="email">Email address</label>
+			<input
+					type="email"
+					class="form-control"
+					id="email"
+					aria-describedby="emailHelp"
+					placeholder="Enter email"
+					data-required="email"
+					data-invalid-message="Please provide valid email example@example.com"
+					required
+			/>
 		</div>
 		<div class="input-form">
-			<input type="password" placeholder="Пароль">
+			<label for="password">Password</label>
+			<input
+					type="password"
+					class="form-control"
+					id="password"
+					placeholder="Password"
+					data-required="password"
+					required
+			/>
 		</div>
-		<div class="input-form">
-			<input type="submit" value="Войти">
-		</div>
-		<a href="#" class="forget">регистрация</a>
-	</div>
-
+		<button type="submit" class="">Submit</button>
+	</form>
 </body>
 </html>

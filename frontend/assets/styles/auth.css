@@ -12,6 +12,8 @@ body {
 	left: 50%;
 	transform: translate(-50%,-50%);
 	background: rgba(0,0,0,.7);
+	padding: 50px;
+	border-radius: 25px;
 }
 
 .form h1 {
@@ -39,7 +41,7 @@ body {
 	box-sizing: border-box;
 }
 
-.input-form input[type="text"]:focus, .input-form input[type="password"]:focus {
+.input-form input[type="email"]:focus, .input-form input[type="password"]:focus {
 	border: 1px solid #0fc3f5;
 }
 
@@ -57,7 +59,7 @@ body {
 	background: #4442db;
 }
 
-.form a {
+.form button {
 	display: block;
 	padding: 0 0 30px;
 	text-align: center;
@@ -65,7 +67,30 @@ body {
 	text-decoration: none;
 	transition: .3s;
 }
-
-.form a:hover {
+button {
+	margin-left: auto;
+	margin-right: auto;
+}
+.form button:hover {
 	color: #0fc3f5;
+	text-align: center;
+}
+input {
+	border-radius: 25px;
+
+}
+input::placeholder {
+	padding: 25px;
+
+}
+button {
+	border-radius: 25px;
+}
+button {
+	border-radius: 25px;
+	width: 300px;
+}
+label {
+	font-size: 25px;
+	margin: 25px;
 }
