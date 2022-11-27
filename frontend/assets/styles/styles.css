@@ -65,6 +65,10 @@ header {
     align-items: center;
     height: 100px;
 }
+body {
+    flex: 1 0 auto;
+    min-height: 1024px
+}
 .logo {
     grid-column: start / logoend;
     cursor: pointer;
@@ -170,12 +174,5 @@ header {
   display: flex;
 }
 
-.container_genres {
 
-}
-footer {
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-}
+

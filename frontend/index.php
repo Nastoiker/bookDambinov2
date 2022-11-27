@@ -1,32 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>damir</title>
-    <link rel="stylesheet" href="assets/styles/styles.css">
+    <link rel="stylesheet" href="./assets/styles/styles.css">
+    <link rel="stylesheet" href="./assets/styles/genres.css">
     <script src="assets/js/script.js"></script>
 
 </head>
+<?php include 'header.php';?>
 <body>
-    <header>
-        <div class="logo"><img src="assets/src/icons/logo.svg"  width="100px" alt="logo"></div>
-        <div class="categories">
-            <h4><a href="">Книги</a></h4>
-            <h4><a href="">Рейтинг</a></h4>
-            <h4><a href="">Жанры</a></h4>
-        </div>
-        <div class="search">
-            <input type="text" placeholder="найти книгу">
-            <img style="margin-left: -28px;"src="assets/src/icons/search.svg" alt="search">
-        </div>
-        <div class="reg_auth_btns">
-            <button onclick="window.location.href = 'reg.html'" class="reg-btn">регистрация</button>
-            <button onclick="window.location.href = 'auth.html'" class="auth-btn">авторизация</button>
-        </div>
-        <div class="profile">
-            <a href=""><img src="assets/src/icons/profile.svg" alt="profile"></a>
-        </div>
-    </header>
+
     <body>
         <div class="welcome">
             <div class="left-side-welcome">
@@ -52,6 +37,26 @@
                 </div>
             </div>
             <div class="container_genres">
+                <div  onclick="window.location.href =`./genre.php?id=4`" data-genres="Детектив">
+                    <h3>Детектив</h3>
+                    <img src="assets/src/genres/66.jpg" alt="genres">
+                </div>
+                <div onclick="window.location.href =`./genre.php?id=5`" data-genres="Приключения">
+                    <h3>Приключения</h3>
+                    <img src="assets/src/genres/advanteres.jpg" alt="genres">
+                </div>
+                <div  onclick="window.location.href =`./genre.php?id=2`" data-genres="Драмма">
+                    <h3>Драмма</h3>
+                    <img src="assets/src/genres/dramma.jpg" alt="genres">
+                </div>
+                <div  onclick="window.location.href =`./genre.php?id=3`" data-genres="Фантастика">
+                    <h3>Фантастика</h3>
+                    <img src="assets/src/genres/fantasy.jpg" alt="genres">
+                </div>
+                <div  onclick="window.location.href =`./genre.php?id=1`" data-genres="Мистика">
+                    <h3>Мистика</h3>
+                    <img src="assets/src/genres/mistikjpg.jpg" alt="genres">
+                </div>
 
             </div>
             <div class="more_book"><a href=""><h3>Посмотреть все</h3> <img src="assets/src/icons/arrow_more.svg" alt=""></a></div>
@@ -62,7 +67,7 @@
             <h2>Популярные</h2>
             <div class="filter_btns">
                 <img src="assets/src/icons/sort.svg" class="sort_img" alt="sort">
-                <div><p>По рейтингу</p></div>
+                <div><p id="sortBtnBook">По рейтингу</p></div>
                 <div><p>По популярности</p></div>
                 <div><p>Новые</p></div>
             </div>
@@ -81,14 +86,6 @@
       </div>
     </div>
 </body>
-<footer>
-        <div>
-            <h3>Компания</h3>
-            <p><a href="">О нас</a></p>
-        </div>
-        <div class="socials">
-            <p>damirdambinov@gmail.com</p>
-            <p>+79608668848</p>
-        </div>
-</footer>
+<?php include 'footer.php';?>
+
 </html>

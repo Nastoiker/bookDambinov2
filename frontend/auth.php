@@ -33,5 +33,6 @@
 		</div>
 		<button type="submit" class="">Submit</button>
 	</form>
+    <script src="assets/js/auth.js"></script>
 </body>
 </html>

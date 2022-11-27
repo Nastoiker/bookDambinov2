@@ -38,7 +38,7 @@ class ModelsBooks extends Model {
                         'book'    => $value,
                         'authors' => $this->getAuthorsBook($value['id']),
                      'comment' => $this->getCommentBookById($value['id']),
-                    'ratingAvg' => (int) $this->getRatingBookById($value['id'])['AVG(rating)'],
+                    'ratingAvg' => (float) $this->getRatingBookById($value['id'])['round(AVG(rating),1)'],
                     'ratingCount' => (int) $this->getRatingBookById($value['id'])["COUNT(rating)"]
                     ];
             endforeach;
@@ -169,15 +169,14 @@ class ModelsBooks extends Model {
         $data = [];
         if ($query->num_rows) {
             foreach($query->rows as $result):
-                $data['genres'][] = [
-                    'book'=> $this->getBook($result['bookId']),
-                ];
+                $data[]=$this->getBookById($result['bookId']);
             endforeach;
         }
         return $data;
     }
     private function getGenres($id) {
-        $query  = $this->db->query("SELECT * FROM  comment  where bookId =" . (int) $id) ;
+//        $query  = $this->db->query("SELECT * FROM  genresonbook  where bookId =" . (int) $id) ;
+        $query =  $this->db->query("select name from genresonbook INNER JOIN genres  on genres.id = genresonbook.genresId  where bookId =" .  $id . "") ;
         return $query->row;
     }
     private function getCommentBookById($id) {
@@ -193,7 +192,7 @@ class ModelsBooks extends Model {
         return $data;
     }
     private function getRatingBookById($id) {
-        $query  = $this->db->query("SELECT AVG(rating), COUNT(rating) FROM  rating  where bookId =" . (int) $id) ;
+        $query  = $this->db->query("SELECT round(AVG(rating),1), COUNT(rating) FROM  rating  where bookId =" . (int) $id) ;
 
         return $query->row;
     }
@@ -209,6 +208,19 @@ class ModelsBooks extends Model {
             endforeach;
         }
         return $data;
+    }
+    public function getBookById($id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "book WHERE id = " . (int) $id . "");
+        if ($query->num_rows) {
+            foreach($query->rows as $result):
+                $book = $query->row;
+                $book['author'] = $this->getAuthorsBook($id);
+                $book['genres'] = $this->getGenres($id);
+                $book['comment'] = $this->getCommentBookById($id);
+                $book['rating'] = $this->getRatingBookById($id);
+            endforeach;
+        }
+        return $book;
     }
     private function getUser($id) {
         $query = $this->db->query("SELECT email, login, image, status, role FROM " . DB_PREFIX . "usermodel WHERE id = " . (int) $id . "");

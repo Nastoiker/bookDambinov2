@@ -1,0 +1,23 @@
+.comments {
+    display: flex;
+}
+.user_comment{
+    display: flex;
+    justify-content: space-between;
+}
+.info__usercomment {
+    display: flex;
+}
+.info__usercomment img{
+    width: 30px;
+    border-radius: 25px;
+}
+.wrapper__book {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.img_book {
+    width: 300px;
+    height: 500px;
+}

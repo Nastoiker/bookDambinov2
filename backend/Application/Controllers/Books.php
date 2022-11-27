@@ -74,7 +74,12 @@ class ControllersBooks  extends Controller {
             ]);
         }
     }
-
+    public function searchBooksById($param){
+        $model = $this->model('books');
+        $result = $model->getBookById((int) $param['id']);
+        $this->response->sendStatus(200);
+        $this->response->setContent($result);
+    }
     public function searchBooksByTitle($param) {
 
         // check valid param
