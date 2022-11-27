@@ -2,26 +2,31 @@ $(document).ready(function() {
 
     // Обработчик события keyup, сработает после того как пользователь отпустит кнопку, после ввода чего-либо в поле поиска.
     // Поле поиска из файла 'index.php' имеет id='search'
+    $('body').on('input', '.input-number', function(){
+        this.value = this.value.replace(/[^а-я]/g, '');
+    });
     $("#search").keyup(function() {
 
-        var name = $('#search').val();
-        if (name === "") {
-            $("#display").html("");
+        let name = $('#search').val();
+        name.replace(' ', '');
+        if (name === "" || name.includes(' ')) {
+            $("#display").empty();
+            $("#display").css({"padding": '0px'});
         }
         else {
             $("#display").css({"padding": '10px'});
             $.ajax({
                 type: "get", // Указываем что будем обращатся к серверу через метод 'POST'
-                url: `http://bookservice:88/books/name//${name}`, // Указываем путь к обработчику. То есть указывем куда будем отправлять данные на сервере.
+                url: `http://bookservice:88/books/name/${name}`,
                 success: function(response) {
+                    $("#display").empty();
                     response.result.forEach( e =>{
-                        console.log(e);
-                        $("#display").append(`<a class="a" href="./book.php?id=${e.book.id}">${e.book.name}</a><br>`);
+                            console.log(e);
+                        $("#display").append(`<a href="./book.php?id=${e.book.id}">${e.book.name}</a><br>`);
                     }
                     )
                 }
-            });
-
+            });// Указываем путь к обработчику. То есть указывем куда будем отправлять данные на сервере.
         }
 
     });
