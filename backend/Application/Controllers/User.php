@@ -56,8 +56,13 @@ class ControllersUser  extends Controller {
             $model = $this->model('user');
             $users = $model->auth($data);
             $data = ['data' => $users];
-            $this->response->sendStatus(201);
-            $this->response->setContent($data);
+            if($data['data'] === null ){
+                $this->response->sendStatus(401);
+                $this->response->setContent(['message' => 'такой пользователь не найден']);
+            } else {
+                $this->response->sendStatus(201);
+                $this->response->setContent($data);
+            }
         }
     }
 

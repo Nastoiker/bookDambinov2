@@ -9,7 +9,7 @@
 
 </head>
 <?php include 'header.php';?>
-
+<h1 id="titleGenre"></h1>
 <body >
     <div class="container_book">
 

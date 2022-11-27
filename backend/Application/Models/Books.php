@@ -135,7 +135,7 @@ class ModelsBooks extends Model {
                     'book' => $value,
                     'authors' => $this->getAuthorsBook($value['id']),
                     'comment' => $this->getCommentBookById($value['id']),
-                    'ratingAvg' => (int) $this->getRatingBookById($value['id'])['AVG(rating)'],
+                    'ratingAvg' => (int) $this->getRatingBookById($value['id'])['round(AVG(rating),1)'],
                     'ratingCount' => (int) $this->getRatingBookById($value['id'])["COUNT(rating)"]
                 ];
             endforeach;

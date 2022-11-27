@@ -1,6 +1,10 @@
 let get = location.search;
 let id = get.replace( '?id=', '');
 const bookInfo = document.querySelector(".wrapper__book");
+const genres = ['Мистика',  'Драмма', 'Фанстастика', 'Детектив','Приключения']
+
+
+document.getElementById('titleGenre').innerHTML = genres[id - 1];
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));

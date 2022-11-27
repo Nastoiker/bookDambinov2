@@ -31,8 +31,15 @@ export async function registration(email, login, password) {
                 body:  JSON.stringify({ email,login ,password }),
             },
         );
-
-        localStorage.setItem('email', '')
+        const reslove = await response.json()
+        const res = JSON.parse(reslove);
+        if(res.data === "admin") {
+            localStorage.setItem('status', 'admin')
+        } else {
+            localStorage.setItem('email', res.data.id);
+            localStorage.setItem('email', res.data.email);
+            localStorage.setItem('login', res.data.login);
+        }
     }
     catch(e) {
         return Promise.reject(e);
@@ -47,6 +54,7 @@ export async function login(email, password) {
             },
         );
         console.log(response);
+
         return response.json();
     } catch (err) {
         console.log(err);
