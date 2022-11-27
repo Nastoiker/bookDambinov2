@@ -4,13 +4,16 @@ $(document).ready(function() {
     // Поле поиска из файла 'index.php' имеет id='search'
     $('body').on('input', '.input-number', function(){
         this.value = this.value.replace(/[^а-я]/g, '');
+        // if( this.value === '') {};
+
     });
     $("#search").keyup(function() {
-
+        $("#search").removeClass('animate');
         let name = $('#search').val();
         name.replace(' ', '');
         if (name === "" || name.includes(' ')) {
             $("#display").empty();
+
             $("#display").css({"padding": '0px'});
         }
         else {
@@ -25,6 +28,9 @@ $(document).ready(function() {
                         $("#display").append(`<a href="./book.php?id=${e.book.id}">${e.book.name}</a><br>`);
                     }
                     )
+                },
+                error: function(){
+                    $("#search").addClass('animate')
                 }
             });// Указываем путь к обработчику. То есть указывем куда будем отправлять данные на сервере.
         }

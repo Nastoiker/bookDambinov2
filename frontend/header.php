@@ -33,5 +33,13 @@
         border-radius: 25px;
         border: 1px solid black;
     }
+    .animate {
+        animation: shake .3s;
+    }
+    @keyframes shake {
+        25% { transform: translateX(5px)}
+        50% { transform: translateX(-5px)}
+        50%: { transform: translateX(5px)}
+    }
 
 </style>
