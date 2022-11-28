@@ -80,21 +80,27 @@ class ControllersBooks  extends Controller {
         $this->response->sendStatus(200);
         $this->response->setContent($result);
     }
-    public function searchBooksByTitle($param) {
-
+    public function searchBooksByTitle() {
+        $param = $this->request->input();
         // check valid param
         if (isset($param['name']) && $this->validSearchBooks($param['name'])) {
 
             $model = $this->model('books');
             $result = $model->searchBooksByTitle($param);
-
-            // Send Response
-            $this->response->sendStatus(200);
-            $this->response->setContent($result);
+            if(count($result['result'][0]['book']) === 0) {
+                $this->response->sendStatus(404);
+                $this->response->setContent([
+                    'message'   => 'не найден'
+                ]);
+            } else {
+                $this->response->sendStatus(200);
+                // Send Response
+                $this->response->setContent($result);
+            }
         } else {
-            $this->response->sendStatus(200);
+            $this->response->sendStatus(400);
             $this->response->setContent([
-                'message'   => 'Invalid title OR Your title is too short'
+                'message'   => 'не найден'
             ]);
         }
     }

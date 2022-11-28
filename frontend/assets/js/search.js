@@ -9,26 +9,26 @@ $(document).ready(function() {
     });
     $("#search").keyup(function() {
         $("#search").removeClass('animate');
-        let name = $('#search').val();
-        name.replace(' ', '');
-        if (name === "" || name.includes(' ')) {
+        let value = $('#search').val();
+        value.replace(' ', '');
+        if (value === "" || value.includes(' ')) {
             $("#display").empty();
 
             $("#display").css({"padding": '0px'});
         }
         else {
+            const res = JSON.stringify({ name: value});
             $("#display").css({"padding": '10px'});
             $.ajax({
-                type: "get", // Указываем что будем обращатся к серверу через метод 'POST'
-                url: `http://bookservice:88/books/name/${name}`,
+                method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+                url: `http://bookservice:88/books/name`,
+                data: res,
                 success: function(response) {
                     $("#display").empty();
-                    response.result.forEach( e =>{
-                            console.log(e);
+                    response.result.forEach((e) => {
                         $("#display").append(`<a href="./book.php?id=${e.book.id}">${e.book.name}</a><br>`);
-                    }
-                    )
-                },
+                    })
+                 },
                 error: function(){
                     $("#search").addClass('animate')
                 }

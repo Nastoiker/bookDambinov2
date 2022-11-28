@@ -18,7 +18,7 @@ $router->get('/install', 'System@index');
 $router->get('/books', 'Books@books');
 
 // search books
-$router->get('/books/name/:name', 'Books@searchBooksByTitle');
+$router->post('/books/name', 'Books@searchBooksByTitle');
 
 $router->get('/books/isbn/:isbn', 'Books@searchBooksByISBN');
 
