@@ -184,3 +184,6 @@ body {
 
 
 
+img[src="Static/avatars/null"] {
+    width: 100px;
+}

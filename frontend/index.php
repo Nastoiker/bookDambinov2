@@ -68,10 +68,8 @@
             </div>
         </div>
         <div class="container_book">
-
             </div>
         </div>
-         
         </div>
         </div>
         <div class="more_book"><a href="" >

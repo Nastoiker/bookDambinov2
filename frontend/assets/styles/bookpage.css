@@ -1,16 +1,17 @@
-.comments {
-    display: flex;
-}
-.user_comment{
-    display: flex;
-    justify-content: space-between;
-}
+
+/*.user_comment{*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
 .info__usercomment {
     display: flex;
+    align-items: center;
 }
 .info__usercomment img{
-    width: 30px;
-    border-radius: 25px;
+    width: 100px;
+    height: 80px;
+    border-radius: 100px;
+    padding: 10px
 }
 .wrapper__book {
     display: flex;
@@ -23,4 +24,15 @@
 }
 .comment_text {
     resize: none;
+    display: inline-block;
+    border-radius: 10px
 }
+.comment_text::placeholder {
+   padding: 10px
+}
+.message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

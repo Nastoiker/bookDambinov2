@@ -28,6 +28,7 @@ const container_book = document.querySelector('.container_book');
 async function getBooksBygenre(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
+
 const arrGenres = [1, 2, 3, 4 ,5];
 const getCountBygenres = async (id) => {
     const res = await getBooksBygenre(id);

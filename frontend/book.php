@@ -13,11 +13,11 @@
 <div  class="wrapper__book">
 
 </div>
-<form>
+<div class="form_comment">
     <h3>Оставьте свой комментарий</h3>
-    <textarea class="comment_text" name="comment" id="" cols="30" rows="3" placeholder="Оставить комментарий"></textarea>
-    <button></button>
-</form>
+    <textarea class="comment_text" name="comment" id="" cols="50" rows="3" placeholder="Оставить комментарий"></textarea>
+    <button style="display: block">отправить</button>
+</div>
 <div class="comment">
 
 </div>

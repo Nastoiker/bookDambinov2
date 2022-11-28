@@ -42,23 +42,26 @@ const showComment = (object) => {
     object.forEach(comment => {
         commentsBook.innerHTML += `
     <div class="comments">
-        <div class="user_comment">
             <div class="info__usercomment">
-                <div> <img src="Static/avatars/${comment.author.image}" alt="userIcon"><h4>${comment.author.login}</h4></div> 
-            </div>
-        </div>
-    <div id ="authorId${comment.author.id}" class="message">
+                 <img id="Avavat${comment.author.id}" src="Static/avatars/${comment.author.image}" alt="userIcon">
+                 <h4>${comment.author.login}</h4>
+             </div>
+        <div id ="authorId${comment.author.id}" >
       </div>
-        
     </div>
     `;
         const commentsAuthor = comment.commentsAuthor.map( comment => comment);
 
         const commentsHtml = document.getElementById(`authorId${comment.author.id}`);
-        commentsAuthor.forEach( e => { e.createdAt = e.createdAt.replace('.000', ''); commentsHtml.innerHTML += `<div><p>${e.comment}</p> <span>${e.createdAt}</span></div>` });
+        console.log(commentsHtml);
+        commentsAuthor.forEach( e => { e.createdAt = e.createdAt.replace('.000', ''); commentsHtml.innerHTML += `<div class="message"><p>${e.comment}</p> <span>${e.createdAt}</span></div>` });
     });
-
 }
+$(function() {
+    $('.info__usercomment').find('img[src=""]').each(function() {
+        this.src = 'name.gif'
+    })
+});
 
 //init
 (async () => {
