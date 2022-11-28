@@ -45,3 +45,4 @@ $router->post('/books/setcomment', 'Books@setCommentByBookId');
 $router->post('/books/setrating', 'Books@setRatingForBook');
 $router->post('/books/setpicture', 'Books@uploadImage');
 $router->get('/books/searchbooksbyid/:id', 'Books@searchBooksById');
+$router->post('/user/setavatar', 'User@uploadImage');

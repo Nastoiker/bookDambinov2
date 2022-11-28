@@ -70,8 +70,10 @@ class ControllersUser  extends Controller {
         if(isset($this->request->files['image'])){
             $image = $this->request->files['image'];
             $errors = array();
-
+            $UserId = $this->request->text['userId'];
+            $image = $this->request->files['image'];
             // File info
+            $name = mt_rand();
             $file_name = $image['name'];
             $file_size = $image['size'];
             $file_tmp = $image['tmp_name'];
@@ -95,7 +97,9 @@ class ControllersUser  extends Controller {
             }
 
             if(empty($errors) == true) {
-                move_uploaded_file($file_tmp, UPLOAD . "Images/" . $file_name);
+                move_uploaded_file($file_tmp, UPLOAD . "avatars/" . $name . '.' . $file_ext);
+                $model = $this->model('user');
+                $res = $model->setAvatar($name . '.' . $file_ext, $UserId);
                 $this->response->sendStatus(201);
             } else {
                 $this->response->sendStatus(500);

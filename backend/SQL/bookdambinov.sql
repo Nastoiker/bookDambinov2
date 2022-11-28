@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 24 2022 г., 14:40
+-- Время создания: Ноя 28 2022 г., 09:26
 -- Версия сервера: 8.0.24
--- Версия PHP: 8.0.14
+-- Версия PHP: 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -78,8 +78,8 @@ CREATE TABLE `book` (
   `id` int NOT NULL,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `releseYear` date NOT NULL,
-  `description` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `img` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL
+  `description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -87,13 +87,13 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`id`, `name`, `releseYear`, `description`, `img`) VALUES
-(1, 'Незнайка учится', '2022-11-15', NULL, '0'),
-(2, 'Незнайка-путешественник', '2022-11-15', NULL, '0'),
-(3, 'Винтик, Шпунтик и пылесос', '2022-11-15', NULL, '0'),
-(4, 'Затерянный мир', '2022-11-15', NULL, '0'),
-(5, 'Шерлок Холмс', '2022-11-15', NULL, '0'),
-(6, 'Руслан и Людмила', '2022-11-15', NULL, '0'),
-(7, 'Сказка о рыбаке и рыбке', '2022-11-15', NULL, '0');
+(1, 'Незнайка учится', '2022-11-15', NULL, '956121980.jpg'),
+(2, 'Незнайка-путешественник', '2022-11-15', NULL, '905914212.png'),
+(3, 'Винтик, Шпунтик и пылесос', '2022-11-15', NULL, '1527999604.jpg'),
+(4, 'Затерянный мир', '2022-11-15', NULL, '1452542747.jpg'),
+(5, 'Шерлок Холмс', '2022-11-15', NULL, '872108512.jpg'),
+(6, 'Руслан и Людмила', '2022-11-15', NULL, '229931457.jpg'),
+(7, 'Сказка о рыбаке и рыбке', '2022-11-15', NULL, '616096028.jpg');
 
 -- --------------------------------------------------------
 
@@ -109,6 +109,14 @@ CREATE TABLE `comment` (
   `bookId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `comment`
+--
+
+INSERT INTO `comment` (`id`, `createdAt`, `comment`, `writtenById`, `bookId`) VALUES
+(2, '2022-11-26 10:17:06.000', 'sdasdad', 1, 1),
+(3, '2022-11-26 10:18:25.000', 'sdasdad', 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -119,6 +127,17 @@ CREATE TABLE `genres` (
   `id` int NOT NULL,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `genres`
+--
+
+INSERT INTO `genres` (`id`, `name`) VALUES
+(4, 'Детектив'),
+(2, 'Драмма'),
+(1, 'Мистика'),
+(5, 'Приключения'),
+(3, 'Фантастика');
 
 -- --------------------------------------------------------
 
@@ -131,6 +150,14 @@ CREATE TABLE `genresonbook` (
   `bookId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `genresonbook`
+--
+
+INSERT INTO `genresonbook` (`genresId`, `bookId`) VALUES
+(1, 1),
+(1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -141,11 +168,22 @@ CREATE TABLE `rating` (
   `id` int NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  `delivered` tinyint(1) NOT NULL DEFAULT '0',
   `bookId` int NOT NULL,
   `authorId` int NOT NULL,
   `rating` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `rating`
+--
+
+INSERT INTO `rating` (`id`, `createdAt`, `updatedAt`, `bookId`, `authorId`, `rating`) VALUES
+(1, '2022-11-26 16:21:28.000', '2022-11-26 16:21:28.000', 1, 1, 4),
+(2, '2022-11-26 16:22:20.000', '2022-11-26 16:22:20.000', 1, 1, 4),
+(3, '2022-11-26 16:23:05.000', '2022-11-26 16:23:05.000', 1, 1, 4),
+(4, '2022-11-26 23:11:33.000', '2022-11-26 23:11:33.000', 3, 1, 5),
+(5, '2022-11-27 16:00:13.000', '2022-11-27 16:00:13.000', 2, 1, 5),
+(6, '2022-11-27 17:18:37.000', '2022-11-27 17:18:37.000', 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -158,10 +196,23 @@ CREATE TABLE `usermodel` (
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `login` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `status` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `usermodel`
+--
+
+INSERT INTO `usermodel` (`id`, `email`, `login`, `password`, `image`, `role`, `status`) VALUES
+(1, 'sadas', 'sadasd', '', '1704536109.jpg', 'user', NULL),
+(2, 'sadasasd', 'sadasd', 'ad7efb125807448a39050565293061b7', NULL, 'user', NULL),
+(3, 'damur2004@gmail.com', 'admin', '9cdfb439c7876e703e307864c9167a15', NULL, 'admin', NULL),
+(4, 'asd@gmail.com', 'asd', '7815696ecbf1c96e6894b779456d330e', NULL, 'user', NULL),
+(5, 'asdgmail.com', 'asd', '7815696ecbf1c96e6894b779456d330e', NULL, 'user', NULL),
+(6, 'asds@gmail.com', 'asd', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', NULL),
+(7, 'asdsgmail.com', 'asd', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -243,25 +294,25 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT для таблицы `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
 --
 ALTER TABLE `genres`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `usermodel`
 --
 ALTER TABLE `usermodel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

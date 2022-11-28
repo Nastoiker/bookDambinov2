@@ -22,6 +22,11 @@ class ModelsUser extends Model {
                 ];
             }
         }
+        public function setAvatar($img, $id) {
+            $sql = "UPDATE usermodel SET image = '$img' where id = '$id'";
+            $query = $this->db->query($sql);
+            return ['picture' => $img];
+        }
         public function auth($param) {
             $adminUser = 'damur2004@gmail.com';
             $adminPasword = 'lol';
