@@ -21,11 +21,44 @@ async function passport ()
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
     console.log(res1.books);
-    document.getElementById("sortBtnBook").onclick = () => { res1.books = sortByRating(res1.books)};
     showBook(res1.books);
 }
 const container_book = document.querySelector('.container_book');
+//Подсчет книг по жанрам
+async function getBooksBygenre(id) {
+    return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+}
+const arrGenres = [1, 2, 3, 4 ,5];
+const getCountBygenres = async (id) => {
+    const res = await getBooksBygenre(id);
+    let books = JSON.stringify(res);
+    const res1 = JSON.parse(books);
+    const genres = document.getElementById(`genres${id}`)
+    const genreCard = document.getElementById(`genreCard${id}`)
+    genreCard.setAttribute('countBooksByGenre', res1.length);
+    genres.innerHTML = res1.length;
+    genres.setAttribute('countBooksByGenre', res1.length)
+}
+arrGenres.forEach( genresId => getCountBygenres(genresId));
+const sortGenre = (typeSort= 1) => {
+    const container_genres = document.querySelector('.container_genres');
+    const list = Array.prototype.slice.call(container_genres.children);
+    document.querySelector('.container_genres').innerHTML = '';
+    switch (typeSort) {
+        case 1: {
+            const sortedItemsByPopular = list.sort((a, b) => Number(b.getAttribute('countBooksByGenre')) - Number(a.getAttribute('countBooksByGenre')));
+            console.log(1);
+            console.log(sortedItemsByPopular);
+            sortedItemsByPopular.forEach((el) => {
+                container_genres.appendChild(el)
+            })
+            break;
+        }
+    }
+}
+//вывод всех книг
 const showBook = (arr) => {
+
     arr.forEach(book => {
         container_book.innerHTML +=` <div class="card_book"  data-pos="${book.book.id}"data-rating="${book.ratingCount}" data-avg-rating="${book.ratingAvg}">
                 <div class="info_book">
@@ -87,9 +120,6 @@ const sort = (typeSort= 1) => {
         }
     }
 }
-const sortByRating= (arr) => {
-    arr = arr.sort( (a, b) => a.ratingAvg - b.ratingAvg);
-    return arr;
-}
+
 
 

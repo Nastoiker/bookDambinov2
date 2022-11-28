@@ -28,30 +28,29 @@
                 <h2>Жанры</h2>
                 <div class="filter_btns">
                     <img src="assets/src/icons/sort.svg" class="sort_img" alt="sort">
-                    <div><p>Популярные</p></div>
-                    <div><p>Популярное  в наличиии</p></div>
-                    <div><p>Рейтинг</p></div>
+                    <div onclick="sortGenre(1)"><p>Популярные</p></div>
+                    
                 </div>
             </div>
             <div class="container_genres">
-                <div  onclick="window.location.href =`./genre.php?id=4`" data-genres="Детектив">
-                    <h3>Детектив</h3>
+                <div  onclick="window.location.href =`./genre.php?id=4`" id="genreCard4" data-genres="Детектив">
+                    <div class="info_genre"><h3>Детектив</h3><span id="genres4" class="count_Bygenres"></span></div>
                     <img src="assets/src/genres/66.jpg" alt="genres">
                 </div>
-                <div onclick="window.location.href =`./genre.php?id=5`" data-genres="Приключения">
-                    <h3>Приключения</h3>
+                <div onclick="window.location.href =`./genre.php?id=5`" id="genreCard5" data-genres="Приключения">
+                    <div class="info_genre"><h3>Приключения</h3><span id="genres5" class="count_Bygenres"></span></div>
                     <img src="assets/src/genres/advanteres.jpg" alt="genres">
                 </div>
-                <div  onclick="window.location.href =`./genre.php?id=2`" data-genres="Драмма">
-                    <h3>Драмма</h3>
+                <div  onclick="window.location.href =`./genre.php?id=2`" id="genreCard2" data-genres="Драмма">
+                    <div class="info_genre"><h3>Драмма</h3><span id="genres2" class="count_Bygenres"></span></div>
                     <img src="assets/src/genres/dramma.jpg" alt="genres">
                 </div>
-                <div  onclick="window.location.href =`./genre.php?id=3`" data-genres="Фантастика">
-                    <h3>Фантастика</h3>
+                <div  onclick="window.location.href =`./genre.php?id=3`" id="genreCard3" data-genres="Фантастика">
+                    <div class="info_genre"><h3>Фантастика</h3><span id="genres3" class="count_Bygenres"></span></div>
                     <img src="assets/src/genres/fantasy.jpg" alt="genres">
                 </div>
-                <div  onclick="window.location.href =`./genre.php?id=1`" data-genres="Мистика">
-                    <h3>Мистика</h3>
+                <div  onclick="window.location.href =`./genre.php?id=1`"id="genreCard1" data-genres="Мистика">
+                    <div class="info_genre"><h3>Мистика</h3><span id="genres1" class="count_Bygenres"></span></div>
                     <img src="assets/src/genres/mistikjpg.jpg" alt="genres">
                 </div>
 

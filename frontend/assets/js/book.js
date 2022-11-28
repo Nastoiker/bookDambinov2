@@ -22,9 +22,6 @@ const showBook = (object) => {
         <div class="leftsite">
         <h2>${object.name}</h2>
         <img  class="img_book"  src="./Static/Images/${object.img}" alt="book">
-        <label for="">комментарии</label>
-        <textarea name="comment" id="" cols="30" rows="3" placeholder="Оставить комментарий"></textarea>
-        
     </div>
     <div class="information">
         <div><img src="assets/src/icons/star.svg" alt="star"><span>${object.rating['round(AVG(rating),1)']}</span></div>
@@ -41,24 +38,28 @@ const showBook = (object) => {
 }
 
 const showComment = (object) => {
+
     object.forEach(comment => {
         commentsBook.innerHTML += `
     <div class="comments">
         <div class="user_comment">
             <div class="info__usercomment">
-                <h4>${comment.author.login}</h4>
-                <img src="Static/avatars/${comment.author.img}" alt="userIcon">
+                <div> <img src="Static/avatars/${comment.author.image}" alt="userIcon"><h4>${comment.author.login}</h4></div> 
             </div>
         </div>
-    <div>
-    <p class="message">
-        ${comment.comment.comment}
-      </p>
-</div>
+    <div id ="authorId${comment.author.id}" class="message">
+      </div>
         
     </div>
-    `});
+    `;
+        const commentsAuthor = comment.commentsAuthor.map( comment => comment);
+
+        const commentsHtml = document.getElementById(`authorId${comment.author.id}`);
+        commentsAuthor.forEach( e => { e.createdAt = e.createdAt.replace('.000', ''); commentsHtml.innerHTML += `<div><p>${e.comment}</p> <span>${e.createdAt}</span></div>` });
+    });
+
 }
+
 //init
 (async () => {
     await passport()

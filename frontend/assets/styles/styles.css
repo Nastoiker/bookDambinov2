@@ -106,7 +106,11 @@ body {
     width: 680px;
     height: 1024px;
 }
-
+.info_genre {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .filter {
     display: flex;
     justify-content:space-between;

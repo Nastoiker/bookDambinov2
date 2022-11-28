@@ -180,13 +180,17 @@ class ModelsBooks extends Model {
         return $query->row;
     }
     private function getCommentBookById($id) {
-        $query  = $this->db->query("SELECT * FROM  comment  where bookId =" . (int) $id) ;
+        $query  = $this->db->query("SELECT * FROM  comment  where  bookId=" . (int) $id );
         $data = [];
+        $check = -1;
         if ($query->num_rows) {
             foreach($query->rows as $result):
-                $comment['comment'] = $query->row;
-                $comment['author'] = $this->getUser($result['writtenById']);
-                array_push($data, $comment);
+                if($result['writtenById'] !== $check ) {
+                    $comment['commentsAuthor'] = $this->commentByUserId($result['writtenById'], $result['bookId']);
+                    $comment['author'] = $this->getUser($result['writtenById']);
+                    $check = $result['writtenById'];
+                    array_push($data, $comment);
+                }
             endforeach;
         }
         return $data;
@@ -195,6 +199,10 @@ class ModelsBooks extends Model {
         $query  = $this->db->query("SELECT round(AVG(rating),1), COUNT(rating) FROM  rating  where bookId =" . (int) $id) ;
 
         return $query->row;
+    }
+    private function commentByUserId($UserId, $bookId) {
+        $query  = $this->db->query("SELECT * FROM  comment  where  writtenById =" . (int) $UserId .  " and bookId =" . (int) $bookId );
+        return $query->rows;
     }
     public function getAuthorById($param) {
         $query =  $this->db->query("SELECT * FROM authorsonbook INNER JOIN authors on `authors`.`id` = `authorsonbook`.`authorsId` 
@@ -223,7 +231,7 @@ class ModelsBooks extends Model {
         return $book;
     }
     private function getUser($id) {
-        $query = $this->db->query("SELECT email, login, image, status, role FROM " . DB_PREFIX . "usermodel WHERE id = " . (int) $id . "");
+        $query = $this->db->query("SELECT id, email, login, image, status, role FROM " . DB_PREFIX . "usermodel WHERE id = " . (int) $id . "");
 
         return $query->row;
     }
