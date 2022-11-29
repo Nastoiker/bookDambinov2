@@ -5,39 +5,48 @@
     <title>Form</title>
     <link rel="stylesheet" href="assets/styles/reg.css">
 </head>
+<script
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'>
+</script>
 <body>
-<form>
-    <img onclick="window.location.href =`./index.php`" src="assets/src/icons/arrow_more.svg" style="transform: rotate(180deg)" alt="">
+<img onclick="window.location.href =`./index.php`" src="assets/src/icons/arrow_more.svg" autofocus style="transform: rotate(180deg)" alt="">
 
-    <input id="input-1" type="text" placeholder="John Doe" required autofocus />
-    <label for="input-1">
-        <span class="label-text">Full Name</span>
-        <span class="nav-dot"></span>
-        <div class="signup-button-trigger">Sign Up</div>
-    </label>
-    <input id="input-2" type="text" placeholder="john" required />
-    <label for="input-2">
-        <span class="label-text">Username</span>
-        <span class="nav-dot"></span>
-    </label>
-    <input id="input-3" type="email" placeholder="email@address.com" required />
-    <label for="input-3">
-        <span class="label-text">Почта</span>
-        <span class="nav-dot"></span>
-    </label>
-    <input id="input-4" type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
-    <label for="input-4">
-        <span class="label-text">Пароль</span>
-        <span class="nav-dot"></span>
-    </label>
-    <input id="input-5" type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
-    <label for="input-5">
-        <span class="label-text">Подтвердите пароль</span>
-        <span class="nav-dot"></span>
-    </label>
-    <button type="submit">Зарегестрироваться</button>
-    <p class="tip">Enter</p>
-    <div class="signup-button">Зарегестироваться</div>
+
+<form id="msform" enctype="multipart/data">
+    <!-- progressbar -->
+    <ul id="progressbar">
+        <li class="active">Account Setup</li>
+        <li>Social Profiles</li>
+        <li>Personal Details</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+        <h2 class="fs-title">Создать свой аккаунт</h2>
+        <h3 class="fs-subtitle">Ваш профиль</h3>
+        <input type="text" name="email" placeholder="Email" />
+        <input type="text" name="login" placeholder="Логин" />
+        <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Пароль</h2>
+        <h3 class="fs-subtitle">Укажите пароль для дальнейшнего использования</h3>
+        <input type="password" name="pass" placeholder="Password" />
+        <input type="password" name="cpass" placeholder="Подтвердите" />
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+        <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Установить аватарку </h2>
+        <h3 class="fs-subtitle">опционально</h3>
+        <input id="input-6" type="file" accept="image/jpeg,image/png,image/jpg"/>
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+    </fieldset>
 </form>
+<script src="assets/js/reg1.js"></script>
+
 </body>
 </html>

@@ -19,7 +19,7 @@
     }
 </style>
 <body>
-<img onclick="window.location.href =`./index.php`" src="assets/src/icons/arrow_more.svg" style="transform: rotate(180deg)" alt="">
+<img onclick="window.location.href =`./index.php`" src="assets/src/icons/arrow_more.svg" autofocus style="transform: rotate(180deg)" alt="">
 	<form class="form" name="loginForm">
 		<div class="input-form">
 			<label for="email">email</label>
@@ -27,6 +27,7 @@
 					type="email"
 					class="form-control"
 					id="email"
+                    name="email"
 					aria-describedby="emailHelp"
 					placeholder="Enter email"
 					data-required="email"
@@ -40,6 +41,7 @@
 					type="password"
 					class="form-control"
 					id="password"
+                    name="password"
 					placeholder="Password"
 					data-required="password"
 					required
