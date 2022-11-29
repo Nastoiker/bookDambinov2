@@ -1,3 +1,15 @@
+switch (localStorage.role) {
+    case 'admin': {
+        window.location.href = 'admin.php'
+    }
+    case 'user': {
+        document.querySelector('.reg_auth_btns').innerHTML = '';
+        document.querySelector('.welcome__registration').innerHTML = '';
+    }
+}
+if(localStorage.status === 'Banned') {
+    window.location.href = "";
+}
 async function getBooks() {
     return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }

@@ -33,11 +33,27 @@ class ModelsUser extends Model {
             if(($param['email'] === $adminUser) && $param['password'] === $adminPasword ) { return 'admin'; };
             $email = $param['email'];
             $password = md5($param['password']);
-            $query = $this->db->query("select id, email, login from usermodel where email = '$email' and password = '$password'");
-            if($query->num_rows) {
-                return $query->row;
-            } else {
+            $query = $this->db->query("select id, email, login, status, image from usermodel where email = '$email' and password = '$password'");
+            if($this->checkBan($query->row['id'])) {
                 return null;
             }
+            if(!$query->num_rows) {
+                return null;
+            }
+            return $query->row;
+        }
+        public function banUser($param) {
+            if($this->checkBan($param['id']) === true) {
+                return 'allreadyBanned'. $param['id'];
+            }
+            $this->db->query("update usermodel set status ='banned' where id =" . $param['id'] ."");
+            return 'UserBanned' . $param['id'];
+        }
+        private function checkBan($id): bool
+        {
+            $query = $this->db->query("select status  from usermodel  where id = " . $id ."");
+            if(!($query->row['status'] === 'banned')) {
+                return false;
+            } else { return true; } ;
         }
 }

@@ -60,9 +60,10 @@
 	display: block;
 	padding: 0 0 30px;
 	text-align: center;
-	color: #fff;
+	color: #131111;
 	text-decoration: none;
 	transition: .3s;
+	padding: 10px;
 }
 button {
 	margin-left: auto;
@@ -71,6 +72,7 @@ button {
 .form button:hover {
 	color: #0fc3f5;
 	text-align: center;
+	background-color: #EAD676;
 }
 input {
 	border-radius: 25px;
@@ -90,4 +92,10 @@ button {
 label {
 	font-size: 25px;
 	margin: 25px;
+}
+.alert-success {
+	border: 2px green;
+}
+.alert-danger {
+	border: 2px red;
 }

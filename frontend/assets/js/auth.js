@@ -1,28 +1,36 @@
 async function onSubmit() {
-    const isValidForm = inputs.every(el => {
-        const isValidInput = validate(el);
-        if (!isValidInput) {
-            showInputError(el);
-        }
-        return isValidInput;
-    });
-
-    if (!isValidForm) return;
-
+    const inputEmail = document.getElementById('email');
+    const inputPassword =  document.getElementById('password');
+    const form = document.forms['loginForm'];
     try {
-        await login(inputEmail.value, inputPassword.value);
-        await getNews();
+        const response = await login(inputEmail.value, inputPassword.value);
+        const result = await response.json();
+        const  { data } = await JSON.parse(result);
+        if(data === 'admin') {
+            localStorage.setItem('role', data);
+            window.location.href('index.php');
+        }
+        if(!(data.status === 'allow') )  {
+            throw new Error();
+        }
+        if(!(data.status === 'allow') )  {
+            throw new Error();
+        }
+        notify({ msg: 'Успешный вход', className: 'alert-success' });
+        localStorage.setItem('role', data.role);
+        localStorage.setItem('login', data.login);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('avatar', data.image);
         form.reset();
-        notify({ msg: 'Login success', className: 'alert-success' });
     } catch (err) {
-        notify({ mas: 'Login faild', className: 'alert-danger' });
+        notify({ msg: 'Ошибка авторизации', className: 'alert-danger' });
     }
 }
-export const components = {
-    form: document.forms['loginForm'],
-    inputEmail: document.getElementById('email'),
-    inputPassword: document.getElementById('password'),
-};
+const notify = (response) => {
+    const message_area = document.getElementById("response_message");
+    message_area.classList.add(response.className);
+    message_area.value = response.msg;
+}
 export async function registration(email, login, password) {
     try {
         const response = await fetch(

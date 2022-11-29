@@ -14,6 +14,9 @@
         width: auto;
         margin:0;
     }
+    .btn_auth {
+        padding: 40px;
+    }
 </style>
 <body>
 <img onclick="window.location.href =`./index.php`" src="assets/src/icons/arrow_more.svg" style="transform: rotate(180deg)" alt="">
@@ -42,8 +45,9 @@
 					required
 			/>
 		</div>
-		<button type="submit" class="">Авторизоваться</button>
+		<button type="submit" >Авторизоваться</button>
 	</form>
+    <p id="response_message"></p>
     <script src="assets/js/auth.js"></script>
 </body>
 </html>

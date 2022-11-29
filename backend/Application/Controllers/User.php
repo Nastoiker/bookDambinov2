@@ -58,9 +58,26 @@ class ControllersUser  extends Controller {
             $data = ['data' => $users];
             if($data['data'] === null ){
                 $this->response->sendStatus(401);
-                $this->response->setContent(['message' => 'такой пользователь не найден']);
+                $this->response->setContent(['message' => 'ошибка авторизации']);
             } else {
                 $this->response->sendStatus(201);
+                $this->response->setContent($data);
+            }
+        }
+    }
+    public function banUser() {
+        if ($this->request->getMethod() == "PUT") {
+            $data = $this->request->input();
+            $model = $this->model('user');
+                $users = $model->banUser($data);
+                if (!($users == 'UserBanned' )) {
+                    $data = ['data' => $users];
+                    $this->response->sendStatus(201);
+                    $this->response->setContent($data);
+                }
+             else {
+                 $data = ['data' => $users];
+                $this->response->sendStatus(400);
                 $this->response->setContent($data);
             }
         }
