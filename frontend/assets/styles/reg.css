@@ -15,6 +15,9 @@ html {
 body {
     font-family: montserrat, arial, verdana;
 }
+img {
+    background: white;
+}
 /*form styles*/
 #msform {
     width: 400px;
@@ -25,12 +28,13 @@ body {
 #msform fieldset {
     background: white;
     border: 0 none;
-    border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
     padding: 20px 30px;
     box-sizing: border-box;
     width: 80%;
     margin: 0 10%;
+    border-radius: 25px;
+
 
     /*stacking fieldsets above each other*/
     position: relative;
@@ -40,25 +44,26 @@ body {
     display: none;
 }
 /*inputs*/
-#msform input, #msform textarea {
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 10px;
+#msform input {
     width: 100%;
+    font-size: 20px;
+    background: none;
+    outline: none;
+    border: 1px solid #eeee;
     box-sizing: border-box;
-    font-family: montserrat;
-    color: #2C3E50;
-    font-size: 13px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 25px;
+
 }
-/*buttons*/
+
+
 #msform .action-button {
     width: 100px;
     background: #27AE60;
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 1px;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
@@ -130,4 +135,59 @@ body {
 }
 
 
+
+.wrap {
+    position: relative;
+    margin-top: 100px;
+}
+
+.check-sign {
+    position: absolute;
+    background: #67b2ce;
+}
+
+#check-part-1 {
+    width: 0;
+    opacity: 0;
+    height: 20px;
+    transform:rotate(45deg);
+    transform-origin: 0 10px;
+    left: 21px;
+    top: -20px;
+
+
+}
+
+#check-part-2 {
+    width: 0;
+    height: 20px;
+    transform: rotate(-45deg);
+    left: 55px;
+    opacity: 0;
+    top: 2px;
+    transform-origin: 0 10px;
+}
+
+
+
+input:checked + .wrap #check-part-2 {
+    opacity: 1;
+    width: 100px;
+    transition: width .4s .4s , opacity .3s .4s;
+}
+
+input:checked + .wrap #check-part-1 {
+    opacity: 1;
+    width: 50px;
+    transition: width .4s, opacity .3s;
+}
+
+label {
+    width: 140px;
+    height: 140px;
+    border: 1px solid #e3e3e3;
+    display: block;
+    cursor: pointer;
+    transition: background .4s;
+}
 

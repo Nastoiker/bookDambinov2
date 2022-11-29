@@ -43,11 +43,16 @@ class ControllersUser  extends Controller {
             $model = $this->model('user');
             // Read All Task
             $users = $model->registration($data);
-
+            if($users === null) {
+                $this->response->sendStatus(401);
+                $this->response->setContent(['message' => 'такой пользователь уже существует']);
+            } else {
+                $data = ['data' => $users];
+                $this->response->sendStatus(201);
+                $this->response->setContent($data);
+            }
             // Prepare Data
-            $data = ['data' => $users];
-            $this->response->sendStatus(201);
-            $this->response->setContent($data);
+
         }
     }
     public function Auth() {

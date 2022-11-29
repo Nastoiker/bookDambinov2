@@ -7,18 +7,20 @@ class ModelsUser extends Model {
         // $this->db->query( write your sql syntax: "SELECT * FROM " . DB_PREFIX . "user");
     }
         public function registration($param) {
-            $email = $param['email'];
+            $email = strval($param['email']);
             $login = $param['login'];
             $password = md5($param['password']);
-            $query = $this->db->query("select * from usermodel where email = '$email'");
+            $query = $this->db->query("select * from usermodel where email='$email'");
             if($query->num_rows) {
                 return null;
             } else {
                 $sql = "INSERT INTO `usermodel` (`id`, `email`, `login`, `password`) VALUES (null, '$email' ,  '$login' , '$password' )";
                 $this->db->query($sql);
+                $queryId = $this->db->query("SELECT id FROM usermodel WHERE email = '$email'" );
                 return [
                     'login'      => $param['login'],
                     'email'    => $param['email'],
+                    'id' => $queryId->row['id'],
                 ];
             }
         }
@@ -54,6 +56,6 @@ class ModelsUser extends Model {
             $query = $this->db->query("select status  from usermodel  where id = " . $id ."");
             if(!($query->row['status'] === 'banned')) {
                 return false;
-            } else { return true; } ;
+            } else { return true; }
         }
 }

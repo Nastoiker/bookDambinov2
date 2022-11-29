@@ -68,16 +68,15 @@
             </div>
         </div>
         <div class="container_book">
-            </div>
         </div>
         </div>
-        </div>
+
         <div class="more_book"><a href="" >
           <h3>Посмотреть все</h3>
           <img src="assets/src/icons/arrow_more.svg" alt="">
         </a>
       </div>
-    </div>
+
 </body>
 <script src="assets/js/script.js"></script>
 

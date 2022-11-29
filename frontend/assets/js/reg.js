@@ -33,6 +33,7 @@ $(".next").click(function(){
             current_fs.hide();
             animating = false;
         },
+        //this comes from the custom easing plugin
         easing: 'easeInOutBack'
     });
 });
@@ -65,6 +66,38 @@ $(".previous").click(function(){
 });
 
 $(".submit").click(function(){
+        let email = $('#emailInput').val();
+        let login = $('#loginInput').val();
+        let password = $('#passwordInput').val();
+        let image = $('#image_file').files();
+        let DataImage = new FormData();
+        data.append('image', image);
+        const res1 = { email: email, login: login, password};
+        const jsonres = JSON.stringify(res1);
+            const res = JSON.stringify({ name: value});
+            $("#display").css({"padding": '10px'});
+            $.ajax({
+                method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+                url: `http://bookservice:88/user/registration`,
+                data: jsonres,
+                success: function(response) {
+                    $("#display").empty();
+                    dataImage.append('userId', response.data.id)
+                    $.ajax({
+                        method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+                        url: `http://bookservice:88/user/setavatar`,
+                        data: DataImage,
+                    })
+                },
+                error: function(){
+                    $("#search").addClass('animate')
+                }
+            });// Указываем путь к обработчику. То есть указывем куда будем отправлять данные на сервере.
+
+
+    });
+
+});
     return false;
 })
 

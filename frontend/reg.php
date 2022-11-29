@@ -18,35 +18,39 @@
 <form id="msform" enctype="multipart/data">
     <!-- progressbar -->
     <ul id="progressbar">
-        <li class="active">Account Setup</li>
-        <li>Social Profiles</li>
-        <li>Personal Details</li>
+        <li class="active">Персональные данные</li>
+        <li>Пароль</li>
+        <li>Аватар</li>
     </ul>
     <!-- fieldsets -->
     <fieldset>
         <h2 class="fs-title">Создать свой аккаунт</h2>
         <h3 class="fs-subtitle">Ваш профиль</h3>
-        <input type="text" name="email" placeholder="Email" />
-        <input type="text" name="login" placeholder="Логин" />
-        <input type="button" name="next" class="next action-button" value="Next" />
+        <input type="text" id="emailInput" name="email" placeholder="Email" />
+        <input type="text" id="loginInput" name="login" placeholder="Логин" />
+        <input type="button" name="next" class="next action-button" value="Далeе" />
     </fieldset>
     <fieldset>
         <h2 class="fs-title">Пароль</h2>
         <h3 class="fs-subtitle">Укажите пароль для дальнейшнего использования</h3>
-        <input type="password" name="pass" placeholder="Password" />
-        <input type="password" name="cpass" placeholder="Подтвердите" />
-        <input type="button" name="previous" class="previous action-button" value="Previous" />
-        <input type="button" name="next" class="next action-button" value="Next" />
+        <input type="password" name="pass" placeholder="Пароль" />
+        <input type="password" id="passwordInput" name="cpass" placeholder="Подтвердите" />
+        <input type="button" name="previous" class="previous action-button" value="Пред." />
+        <input type="button" name="next" class="next action-button" value="Далeе" />
     </fieldset>
     <fieldset>
         <h2 class="fs-title">Установить аватарку </h2>
         <h3 class="fs-subtitle">опционально</h3>
-        <input id="input-6" type="file" accept="image/jpeg,image/png,image/jpg"/>
-        <input type="button" name="previous" class="previous action-button" value="Previous" />
-        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+        <input id="image_file" type="file" accept="image/jpeg,image/png,image/jpg"/>
+        <input type="button" name="previous" class="previous action-button" value="Пред." />
+        <input type="submit" id ="regist" name="submit" class="submit action-button" value="Создать" />
     </fieldset>
+    <div class="wrap">
+        <div id="check-part-1" class="check-sign"></div>
+        <div id="check-part-2" class="check-sign"></div>
+    </div>
 </form>
-<script src="assets/js/reg1.js"></script>
+<script src="assets/js/reg.js"></script>
 
 </body>
 </html>
