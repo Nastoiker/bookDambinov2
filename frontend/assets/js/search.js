@@ -1,3 +1,13 @@
+console.log(localStorage);
+
+switch (localStorage.role) {
+    case 'admin': {
+        window.location.href = 'admin.php'
+    }
+    case 'user': {
+        document.querySelector('.reg_auth_btns').style = "display: none";
+    }
+}
 $(document).ready(function() {
 
     // Обработчик события keyup, сработает после того как пользователь отпустит кнопку, после ввода чего-либо в поле поиска.

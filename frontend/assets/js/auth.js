@@ -1,28 +1,39 @@
+document.getElementById('btn_submit').addEventListener('click', async (event) => {
+    event.preventDefault();
+    await onSubmit();
+})
 async function onSubmit() {
+    const form = document.forms['loginForm'];
     const inputEmail = document.getElementById('email');
     const inputPassword =  document.getElementById('password');
-    const form = document.forms['loginForm'];
     try {
-        const response = await login(inputEmail.value, inputPassword.value);
+        const response = await fetch(
+            `http://bookservice:88/user/auth`, {
+                method: 'POST',
+                body:  JSON.stringify({ email: inputEmail.value, password: inputPassword.value }),
+            },
+        );
         const result = await response.json();
-        const  { data } = await JSON.parse(result);
+        console.log(result);
+        const  { data } = await result;
         if(data === 'admin') {
             localStorage.setItem('role', data);
-            window.location.href('index.php');
         }
         if(!(data.status === 'allow') )  {
             throw new Error();
         }
         if(!(data.status === 'allow') )  {
-            throw new Error();
+            throw new Error('error');
         }
         notify({ msg: 'Успешный вход', className: 'alert-success' });
         localStorage.setItem('role', data.role);
         localStorage.setItem('login', data.login);
         localStorage.setItem('email', data.email);
         localStorage.setItem('avatar', data.image);
-        form.reset();
+        localStorage.setItem('status', data.status);
+        console.log(localStorage);
     } catch (err) {
+        console.log(err.message);
         notify({ msg: 'Ошибка авторизации', className: 'alert-danger' });
     }
 }
@@ -31,10 +42,11 @@ const notify = (response) => {
     message_area.classList.add(response.className);
     message_area.value = response.msg;
 }
-export async function registration(email, login, password) {
+
+ async function registration(email, login, password) {
     try {
         const response = await fetch(
-            `/auth/login`, {
+            `http://bookservice:88/user/reg`, {
                 method: 'POST',
                 body:  JSON.stringify({ email,login ,password }),
             },
@@ -53,17 +65,12 @@ export async function registration(email, login, password) {
         return Promise.reject(e);
     }
 }
-export async function login(email, password) {
+ async function login(email, password) {
     try {
-        const response = await fetch(
-            `/auth/login`, {
-                method: 'POST',
-                body:  JSON.stringify({ email, password }),
-            },
-        );
-        console.log(response);
+        console.log(JSON.stringify({ email, password }));
 
-        return response.json();
+
+        return await response.json();
     } catch (err) {
         console.log(err);
         return Promise.reject(err);

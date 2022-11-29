@@ -45,7 +45,7 @@
 					required
 			/>
 		</div>
-		<button type="submit" >Авторизоваться</button>
+		<button type="submit" id="btn_submit" >Авторизоваться</button>
 	</form>
     <p id="response_message"></p>
     <script src="assets/js/auth.js"></script>

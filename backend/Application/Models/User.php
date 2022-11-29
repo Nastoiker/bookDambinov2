@@ -33,7 +33,7 @@ class ModelsUser extends Model {
             if(($param['email'] === $adminUser) && $param['password'] === $adminPasword ) { return 'admin'; };
             $email = $param['email'];
             $password = md5($param['password']);
-            $query = $this->db->query("select id, email, login, status, image from usermodel where email = '$email' and password = '$password'");
+            $query = $this->db->query("select id, email, login, status, image, role from usermodel where email = '$email' and password = '$password'");
             if($this->checkBan($query->row['id'])) {
                 return null;
             }
