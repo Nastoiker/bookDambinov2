@@ -64,42 +64,61 @@ $(".previous").click(function(){
         easing: 'easeInOutBack'
     });
 });
-
-$(".submit").click(function(){
+var DataImage = new FormData();
+$("#msform").submit(function(e){
+        e.preventDefault();
         let email = $('#emailInput').val();
         let login = $('#loginInput').val();
         let password = $('#passwordInput').val();
-        let image = $('#image_file').files();
-        let DataImage = new FormData();
-        data.append('image', image);
+        let image = $('#image_file')[0].files[0];
+        DataImage.append('image', image);
         const res1 = { email: email, login: login, password};
         const jsonres = JSON.stringify(res1);
-            const res = JSON.stringify({ name: value});
             $("#display").css({"padding": '10px'});
             $.ajax({
                 method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
                 url: `http://bookservice:88/user/registration`,
                 data: jsonres,
+                processData: false,
+                cache: false,
                 success: function(response) {
-                    $("#display").empty();
-                    dataImage.append('userId', response.data.id)
+                    localStorage.setItem('id', response.data.id);
+                    localStorage.setItem('email', response.data.email);
+                    localStorage.setItem('login', response.data.login);
+                    let id = Number(response.data.id);
+                    DataImage.append('userId', id);
                     $.ajax({
                         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
                         url: `http://bookservice:88/user/setavatar`,
                         data: DataImage,
-                    })
+                        processData: false,
+                        contentType: false,
+                        succes: function() {
+
+                        },
+                        error: function(){
+                            $('.notify').fadeIn(function(){
+                                $('.notify').animate({
+                                    'width': '100%',
+                                    'left': 0
+                                },1000).animate({'top':0});
+                            });
+                        }
+                    });
                 },
                 error: function(){
-                    $("#search").addClass('animate')
+                    $('.notify').text('ошибка авторизации');
+                    $('.notify').css('background', 'red');
+                    $('.notify').fadeIn(function(){
+                        $('.notify').animate({
+                            'width': '100%',
+                            'left': 0
+                        },1000).animate({'top':0});
+                    });
                 }
-            });// Указываем путь к обработчику. То есть указывем куда будем отправлять данные на сервере.
-
-
+            });
     });
 
-});
-    return false;
-})
 
 // $(document).ready(function() {
 //     $('body').on('input', '.input-number', function(){

@@ -49,7 +49,12 @@
         <div id="check-part-1" class="check-sign"></div>
         <div id="check-part-2" class="check-sign"></div>
     </div>
+
 </form>
+<div class="notify">
+    Успешный вход
+</div>
+
 <script src="assets/js/reg.js"></script>
 
 </body>

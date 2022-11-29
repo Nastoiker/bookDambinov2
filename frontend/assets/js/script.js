@@ -8,6 +8,8 @@ switch (localStorage.role) {
     }
 }
 console.log(localStorage.getItem('email'));
+console.log(localStorage.getItem('id'));
+
 if(localStorage.status === 'Banned') {
     window.location.href = "";
 }

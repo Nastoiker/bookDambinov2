@@ -93,7 +93,6 @@ class ControllersUser  extends Controller {
             $image = $this->request->files['image'];
             $errors = array();
             $UserId = $this->request->text['userId'];
-            $image = $this->request->files['image'];
             // File info
             $name = mt_rand();
             $file_name = $image['name'];
