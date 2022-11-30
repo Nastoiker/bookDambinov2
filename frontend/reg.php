@@ -13,7 +13,8 @@
 </script>
 <body>
 <img onclick="window.location.href =`./index.php`" src="assets/src/icons/arrow_more.svg" autofocus style="transform: rotate(180deg)" alt="">
-
+<?php
+?>
 
 <form id="msform" enctype="multipart/data">
     <!-- progressbar -->

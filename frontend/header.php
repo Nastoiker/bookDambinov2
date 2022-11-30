@@ -5,7 +5,7 @@
     <div class="logo" onclick="window.location.href =`./index.php`"><img src="assets/src/icons/logo.svg"  width="100px" alt="logo"></div>
     <div class="categories">
         <h4><a href="books.php">Книги</a></h4>
-        <h4><a href="">Рейтинг</a></h4>
+        <h4><a href="authors.php">Авторы</a></h4>
         <h4><a href="">Жанры</a></h4>
     </div>
     <div class="search">

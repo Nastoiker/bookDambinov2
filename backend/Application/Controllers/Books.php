@@ -56,7 +56,17 @@ class ControllersBooks  extends Controller {
         $this->response->sendStatus(200);
         $this->response->setContent($author_list);
     }
-
+    public function getbooksbyauthors($param) {
+        $model = $this->model('books');
+        $authors_list = $model->getAuthorById($param);
+        if(!$authors_list) {
+            $this->response->sendStatus(404);
+            $this->response->setContent(['message' => 'автор не найден']);
+        } else {
+            $this->response->sendStatus(200);
+            $this->response->setContent($authors_list);
+        }
+    }
     public function searchBooksByAuthors($param) {
 
         // check valid param

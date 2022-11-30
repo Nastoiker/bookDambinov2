@@ -68,10 +68,9 @@ class ModelsBooks extends Model {
 
         if ($query->num_rows) {
             foreach($query->rows as $key => $value):
-                $data['authors'][] = [
-                        'author'   => $value,
-                        'books'    => $this->getBooksAuthor($value['id'])
-                    ];
+                $data[] =
+                        $value
+                    ;
             endforeach;
         } else {
             $data['authors'][] = [
@@ -212,15 +211,26 @@ class ModelsBooks extends Model {
         $query =  $this->db->query("SELECT * FROM authorsonbook INNER JOIN authors on `authors`.`id` = `authorsonbook`.`authorsId` 
           INNER JOIN book on `book`.`id` = `authorsonbook`.`bookId` WHERE `authorsonbook`.`authorsId` = " . (int) $param['id'] );
         $data = [];
+        $count = 0;
+        $sumrating = 0;
         if ($query->num_rows) {
             foreach($query->rows as $result):
-                $author = $this->getAuthor($result['authorsId']);
+                $author['rating'] = $this->getRatingBookById($result['bookId']);
+                $sumrating+=(int) $author['rating']["round(AVG(rating),1)"];
                 $author['book'] = $this->getBook($result['bookId']);
+                if( $author['rating']['round(AVG(rating),1)'] !== null) { $count++; }
                 array_push($data, $author);
             endforeach;
         }
-        return $data;
+        $queryAuthor =  $this->db->query("SELECT * FROM authors WHERE id=" . $query->row['authorsId']  );
+        $rating =  $sumrating / $count;
+        $resultarr = $queryAuthor->row;
+        $resultarr['count_book'] = count($data);
+        $resultarr['books'] = $data;
+        $resultarr['rating_author'] = round($rating, 1);
+        return $resultarr;
     }
+
     public function getBookById($id) {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "book WHERE id = " . (int) $id . "");
         if ($query->num_rows) {

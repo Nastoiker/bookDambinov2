@@ -16,6 +16,7 @@ $response = new Http\Response();
 // set default header
 $response->setHeader('Access-Control-Allow-Origin: *');
 $response->setHeader("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+$response->setHeader('Access-Control-Allow-Headers: *');
 $response->setHeader('Content-Type: application/json; charset=UTF-8');
 
 // set request url and method

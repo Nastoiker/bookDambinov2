@@ -93,7 +93,8 @@ $("#msform").submit(function(e){
                         data: DataImage,
                         processData: false,
                         contentType: false,
-                        error: function () {
+                        success: function (e) {
+                            localStorage.setItem('image', e.picture);
                             $('.notify').fadeIn(function () {
                                 $('.notify').text('успешная регистрация');
                                 $('.notify').animate({
@@ -101,8 +102,7 @@ $("#msform").submit(function(e){
                                     'left': 0
                                 }, 1000).animate({'top': 0});
                             });
-                            setTimeout('5000');
-                            window.location.href = './index.php';
+                            setTimeout(() => { window.location.href = './index.php'; }, 5000);
                         }
                     });
                 },

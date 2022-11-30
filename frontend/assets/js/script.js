@@ -5,9 +5,9 @@ switch (localStorage.role) {
     case 'user': {
     }
 }
+localStorage.clear();
 console.log(localStorage.getItem('email'));
 console.log(localStorage.getItem('role'));
-console.log(localStorage.getItem('image'));
 
 if(localStorage.status === 'Banned') {
     window.location.href = "";
@@ -38,7 +38,6 @@ async function passport ()
     showBook(res1.books);
 }
 const container_book = document.querySelector('.container_book');
-//Подсчет книг по жанрам
 async function getBooksBygenre(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
