@@ -16,10 +16,11 @@ async function passport () {
     console.log(res);
     showBook(res1);
 }
+let container_book = document.querySelector('.container_book');
 const showBook = (arr) => {
     arr.forEach(book => {
-        let container_book = document.querySelector('.container_book');
-        container_book.innerHTML +=` <div class="card_book">
+
+        container_book.innerHTML +=` <div class="card_book" data-pos="${book.id}" data-rating="${book.rating["COUNT(rating)"]}" data-avg-rating="${book.rating['round(AVG(rating),1)']}">
                 <div class="info_book">
                     <div class="header-card">
                         <div>
@@ -40,6 +41,38 @@ const showBook = (arr) => {
             </div>`
     })
 }
+const sort = (typeSort= 1) => {
+    const list = Array.prototype.slice.call(container_book.children);
+    container_book.innerHTML = '';
+    switch (typeSort) {
+        case 1: {
+            const sortedItemsByColDawn = list.sort((a, b) => Number(b.getAttribute('data-avg-rating')) - Number(a.getAttribute('data-avg-rating')));
+            console.log(1);
+            console.log(sortedItemsByColDawn);
+            sortedItemsByColDawn.forEach((el) => {
+                container_book.appendChild(el)
+            })
+            break;
+        }
+        case 2: {
+            const sortedItemsByMane = list.sort((a, b) => Number(b.getAttribute('data-rating') ) - Number(a.getAttribute('data-rating')));
+            container_book.innerHTML = '';
+            sortedItemsByMane.forEach((el) => {
+                container_book.appendChild(el)
+            })
+            break;
+        }
+        case 3: {
+            const sortedItemsByColDawn = list.sort((a, b) => Number(b.getAttribute('data-pos')) - Number(a.getAttribute('data-pos')));
+            container_book.innerHTML = '';
+            sortedItemsByColDawn.forEach((el) => {
+                container_book.appendChild(el)
+            })
+            break;
+        }
+    }
+}
+
 (async () => {
     await passport()
 

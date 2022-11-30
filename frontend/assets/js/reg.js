@@ -81,7 +81,7 @@ $("#msform").submit(function(e){
                 data: jsonres,
                 processData: false,
                 cache: false,
-                success: function(response) {
+                success: function (response) {
                     localStorage.setItem('id', response.data.id);
                     localStorage.setItem('email', response.data.email);
                     localStorage.setItem('login', response.data.login);
@@ -93,31 +93,31 @@ $("#msform").submit(function(e){
                         data: DataImage,
                         processData: false,
                         contentType: false,
-                        succes: function() {
-
-                        },
-                        error: function(){
-                            $('.notify').fadeIn(function(){
+                        error: function () {
+                            $('.notify').fadeIn(function () {
+                                $('.notify').text('успешная регистрация');
                                 $('.notify').animate({
                                     'width': '100%',
                                     'left': 0
-                                },1000).animate({'top':0});
+                                }, 1000).animate({'top': 0});
                             });
+                            setTimeout('5000');
+                            window.location.href = './index.php';
                         }
                     });
                 },
-                error: function(){
-                    $('.notify').text('ошибка авторизации');
+                error: function () {
+                    $('.notify').text('ошибка регистрации');
                     $('.notify').css('background', 'red');
-                    $('.notify').fadeIn(function(){
+                    $('.notify').fadeIn(function () {
                         $('.notify').animate({
                             'width': '100%',
                             'left': 0
-                        },1000).animate({'top':0});
+                        }, 1000).animate({'top': 0});
                     });
                 }
-            });
-    });
+            });});
+
 
 
 // $(document).ready(function() {

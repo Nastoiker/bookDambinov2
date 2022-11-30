@@ -25,11 +25,15 @@
 .comment_text {
     resize: none;
     display: inline-block;
-    border-radius: 10px
+    border-radius: 10px;
 }
 .comment_text::placeholder {
    padding: 10px
 }
+.comment_text {
+    padding: 10px
+}
+
 .message {
     display: flex;
     justify-content: space-between;

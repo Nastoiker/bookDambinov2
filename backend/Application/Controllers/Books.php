@@ -32,6 +32,7 @@ class ControllersBooks  extends Controller {
         $this->response->sendStatus(200);
         $this->response->setContent($book_list);
     }
+
     public function getBooksByGenre($param) {
         if (isset($param['genreId'])) {
 
@@ -112,6 +113,15 @@ class ControllersBooks  extends Controller {
             $this->response->setContent($result);
 
     }
+    public function deleteBookId() {
+        if ($this->request->getMethod() == "DELETE") {
+            $param = $this->request->input();
+            $model = $this->model('books');
+            $result = $model->deleteBookById($param);
+            $this->response->sendStatus(202);
+            $this->response->setContent($result);
+        }
+    }
     private function validSearchBooks($param) {
 
         // check param
@@ -120,8 +130,9 @@ class ControllersBooks  extends Controller {
         
         return false;
     }
-    public function uploadImage() {
-        if(isset($this->request->files['image'])) {
+    public function uploadImage()
+    {
+        if (isset($this->request->files['image'])) {
             $errors = array();
             $BookId = $this->request->text['bookId'];
             $image = $this->request->files['image'];
@@ -137,28 +148,42 @@ class ControllersBooks  extends Controller {
             $file_ext = strtolower(end($file_ext));
 
             // White list extensions
-            $extensions = array("jpeg","jpg","png");
+            $extensions = array("jpeg", "jpg", "png");
 
             // Check it's valid file for upload
-            if(in_array($file_ext, $extensions) === false) {
+            if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
             }
 
             // Check file size
-            if($file_size > 2097152) {
+            if ($file_size > 2097152) {
                 $errors[] = 'File size must be exactly 2 MB';
             }
 
-            if(empty($errors) == true) {
-                move_uploaded_file($file_tmp, UPLOAD . "Images/" . $name .'.'. $file_ext);
+            if (empty($errors) == true) {
+                move_uploaded_file($file_tmp, UPLOAD . "Images/" . $name . '.' . $file_ext);
                 $this->response->sendStatus(201);
                 $model = $this->model('Books');
                 $res = $model->setPhoto($name . '.' . $file_ext, $BookId);
                 $this->response->setContent($res);
-            }
-            else {
+            } else {
                 $this->response->sendStatus(500);
             }
         }
     }
+        public function getUserByid() {
+            if ($this->request->getMethod() == "POST") {
+                $data = $this->request->input();
+                $model = $this->model('Books');
+                $users = $model->getUserByid($data['id']);
+                if($users === null ){
+                    $this->response->sendStatus(404);
+                    $this->response->setContent(['message' => 'такой id не существует']);
+                } else {
+                    $this->response->sendStatus(200);
+                    $this->response->setContent($users);
+                }
+            }
+        }
+
 }

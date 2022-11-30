@@ -55,6 +55,7 @@ class ControllersUser  extends Controller {
 
         }
     }
+
     public function Auth() {
         if ($this->request->getMethod() == "POST") {
             $data = $this->request->input();
@@ -122,6 +123,7 @@ class ControllersUser  extends Controller {
                 $model = $this->model('user');
                 $res = $model->setAvatar($name . '.' . $file_ext, $UserId);
                 $this->response->sendStatus(201);
+                $this->response->sendContent(['picture' => $name . '.' . $file_ext]);
             } else {
                 $this->response->sendStatus(500);
             }

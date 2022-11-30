@@ -17,8 +17,8 @@
         <button onclick="window.location.href = 'auth.php'" class="auth-btn">авторизация</button>
     </div>
     <div id="display"></div>
-    <div class="profile">
-        <a href="profile.php"><img src="assets/src/icons/profile.svg" alt="profile"></a>
+    <div id="profile"class="profile">
+        <a href="profile.php"><img id="icon_profile" width=50 src="assets/src/icons/profile.svg" alt="profile"></a>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="assets/js/search.js"></script>

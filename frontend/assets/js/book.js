@@ -4,11 +4,30 @@ let param = [];
 
 let get = location.search;  // строка GET запроса, то есть все данные после ?
 let id = get.replace( '?id=', '');
+localStorage.setItem('BookId', id);
 const bookInfo = document.querySelector(".wrapper__book");
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
+$(".form_comment").submit(function(e){
+    let BookId = localStorage.getItem('BookId');
+    e.preventDefault();
+    let comment = $('.comment_text').val();
+    let id = Number(localStorage.getItem('id'))
+    const res1 = { comment: comment, writtenById: id, bookId: BookId};
+    const jsonres = JSON.stringify(res1);
+    $.ajax({
+        method: "POST",
+        url: `http://bookservice:88/books/setcomment`,
+        data: jsonres,
+        success: function () {
+            console.log('комментарий оставлен');
+        },
+        error: function () {
+            console.log('error');
+        }
+    });});
 async function passport () {
     const res = await getBooks(id);
     let books = JSON.stringify(res);

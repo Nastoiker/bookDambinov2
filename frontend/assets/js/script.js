@@ -1,14 +1,13 @@
 switch (localStorage.role) {
     case 'admin': {
-        window.location.href = 'admin.php'
+        window.location.href = './admin.php'
     }
     case 'user': {
-        document.querySelector('.reg_auth_btns').style = "display: none";
-        document.querySelector('.welcome__registration').style = "display: none";
     }
 }
 console.log(localStorage.getItem('email'));
-console.log(localStorage.getItem('id'));
+console.log(localStorage.getItem('role'));
+console.log(localStorage.getItem('image'));
 
 if(localStorage.status === 'Banned') {
     window.location.href = "";

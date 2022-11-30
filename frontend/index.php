@@ -6,9 +6,11 @@
     <title>damir</title>
     <link rel="stylesheet" href="./assets/styles/styles.css">
     <link rel="stylesheet" href="./assets/styles/genres.css">
-    </script>
+
 </head>
-<?php include 'header.php';?>
+<?php include 'header.php';
+
+?>
 <body>
 
         <div class="welcome">
@@ -17,7 +19,7 @@
                     Книги могут изменить вашу жизнь
                 </h1>
                 <p>Книжный сервис</p>
-                <button class="welcome__registration">регистрация</button>
+                <button id="welcome__registration" class="welcome__registration">регистрация</button>
             </div>
             <div class="right-side-welcome">
                 <img src="assets/src/imgs/welcome.jpg" alt="">

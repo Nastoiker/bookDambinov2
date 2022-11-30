@@ -6,10 +6,23 @@ switch (localStorage.role) {
     }
     case 'user': {
         document.querySelector('.reg_auth_btns').style = "display: none";
+        document.getElementById("icon_profile").src=`Static/avatars/${localStorage.getItem('image')}`;
+        document.getElementById('profile').innerHTML+=`<div style="padding-left: 20%"><h5>${localStorage.getItem('login')}</h5><h5>${localStorage.getItem('email')}</h5></div>`
     }
 }
 $(document).ready(function() {
-
+    let id = Number(localStorage.getItem('id'));
+    const object = JSON.stringify({id})
+    $.ajax({
+        method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+        url: `http://bookservice:88/books/getuserbyid`,
+        data: object,
+        success: function (e) {
+            console.log(e);
+            localStorage.setItem('image', e.image);
+            localStorage.setItem('role', e.role);
+        }
+    });
     // Обработчик события keyup, сработает после того как пользователь отпустит кнопку, после ввода чего-либо в поле поиска.
     // Поле поиска из файла 'index.php' имеет id='search'
     $('body').on('input', '.input-number', function(){

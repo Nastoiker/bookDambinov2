@@ -9,8 +9,17 @@
 
 </head>
 <?php include 'header.php';?>
-<h1 id="titleGenre"></h1>
+<div class="filter">
+    <h1 id="titleGenre"></h1>
+    <div class="filter_btns">
+        <img src="assets/src/icons/sort.svg" class="sort_img" alt="sort">
+        <div onclick="sort(1)"><p id="sortBtnBook">По рейтингу</p></div>
+        <div onclick="sort(2)"><p>По популярности</p></div>
+        <div onclick="sort(3)"><p>Новые</p></div>
+    </div>
+</div>
 <body >
+
     <div class="container_book">
 
     </div>

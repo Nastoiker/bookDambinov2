@@ -51,6 +51,7 @@ class ModelsUser extends Model {
             $this->db->query("update usermodel set status ='banned' where id =" . $param['id'] ."");
             return 'UserBanned' . $param['id'];
         }
+
         private function checkBan($id): bool
         {
             $query = $this->db->query("select status  from usermodel  where id = " . $id ."");

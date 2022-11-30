@@ -148,6 +148,10 @@ class ModelsBooks extends Model {
 
         return $data;
     }
+    public function deleteBookById($id) {
+        $query = $this->db->query("DELETE FROM book where id=" . $id);
+        return 'correct';
+    }
     public function setCommentByBookId($param) {
         $date = date("Y-m-d H:i:s");;
         $comment =$param['comment'];
@@ -288,5 +292,13 @@ class ModelsBooks extends Model {
         $query = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "authors");
 
         return ($query->num_rows > 0) ? (int) $query->row['total'] : 0;
+    }
+    public function getUserByid($id) {
+        $query = $this->db->query("select * from usermodel where id=" . $id);
+        if(!$query->num_rows) {
+            return null;
+        } else {
+            return $query->row;
+        }
     }
 }

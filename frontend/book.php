@@ -10,19 +10,25 @@
 </head>
 <?php include 'header.php';?>
 <body>
+<style>
+    textarea {
+        padding: 10px;
+    };
+</style>
 <div  class="wrapper__book">
 
 </div>
-<div class="form_comment">
+<form class="form_comment">
     <h3>Оставьте свой комментарий</h3>
-    <textarea class="comment_text" name="comment" id="" cols="50" rows="3" placeholder="Оставить комментарий"></textarea>
-    <button style="display: block">отправить</button>
-</div>
+    <textarea class="comment_text" name="comment" id="" cols="50" rows="5" placeholder="Оставить комментарий"></textarea>
+    <button type="submit" style="display: block">отправить</button>
+</form>
 <div class="comment">
 
 </div>
 </body>
 <?php include 'footer.php';?>
-<script src="assets/js/book.js"></script>
+<script src="assets/js/comment.js"></script>
 
+<script src="assets/js/book.js"></script>
 </html>

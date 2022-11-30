@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 28 2022 г., 09:26
--- Версия сервера: 8.0.24
--- Версия PHP: 8.0.8
+-- Время создания: Ноя 30 2022 г., 12:56
+-- Версия сервера: 8.0.29
+-- Версия PHP: 8.0.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -115,7 +115,14 @@ CREATE TABLE `comment` (
 
 INSERT INTO `comment` (`id`, `createdAt`, `comment`, `writtenById`, `bookId`) VALUES
 (2, '2022-11-26 10:17:06.000', 'sdasdad', 1, 1),
-(3, '2022-11-26 10:18:25.000', 'sdasdad', 1, 2);
+(3, '2022-11-26 10:18:25.000', 'sdasdad', 1, 2),
+(5, '2022-11-28 12:25:38.000', 'comment1', 1, 1),
+(6, '2022-11-28 12:26:19.000', 'comment1', 1, 1),
+(7, '2022-11-28 12:45:45.000', 'comment1', 2, 1),
+(8, '2022-11-30 12:05:17.000', 'comment1', 16, 1),
+(9, '2022-11-30 12:21:06.000', 'asdasdasdasd', 16, 1),
+(10, '2022-11-30 12:22:14.000', 'asdasdadasd', 16, 1),
+(11, '2022-11-30 12:22:30.000', 'asdasd', 16, 1);
 
 -- --------------------------------------------------------
 
@@ -196,9 +203,9 @@ CREATE TABLE `usermodel` (
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `login` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'avatar.jpg',
   `role` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `status` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'allow'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -210,9 +217,19 @@ INSERT INTO `usermodel` (`id`, `email`, `login`, `password`, `image`, `role`, `s
 (2, 'sadasasd', 'sadasd', 'ad7efb125807448a39050565293061b7', NULL, 'user', NULL),
 (3, 'damur2004@gmail.com', 'admin', '9cdfb439c7876e703e307864c9167a15', NULL, 'admin', NULL),
 (4, 'asd@gmail.com', 'asd', '7815696ecbf1c96e6894b779456d330e', NULL, 'user', NULL),
-(5, 'asdgmail.com', 'asd', '7815696ecbf1c96e6894b779456d330e', NULL, 'user', NULL),
-(6, 'asds@gmail.com', 'asd', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', NULL),
-(7, 'asdsgmail.com', 'asd', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', NULL);
+(5, 'asdgmail.com', 'asd', '7815696ecbf1c96e6894b779456d330e', NULL, 'user', 'banned'),
+(6, 'asds@gmail.com', 'asd', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', 'banned'),
+(7, 'asdsgmail.com', 'asd', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', 'banned'),
+(8, '', '', 'd41d8cd98f00b204e9800998ecf8427e', NULL, 'user', 'allow'),
+(9, 'noob@gmail.com', 'noob', '9cdfb439c7876e703e307864c9167a15', NULL, 'user', 'allow'),
+(10, 'sad@asd.asd', 'lol', '7815696ecbf1c96e6894b779456d330e', '1085911935.png', 'user', 'allow'),
+(11, 'sad@asd.asdsadasd', 'lol', '9cdfb439c7876e703e307864c9167a15', '969402447.png', 'user', 'allow'),
+(12, 'asd@gmail.comasdasd', 'lol', '202cb962ac59075b964b07152d234b70', '1994075168.png', 'user', 'allow'),
+(13, 'asd@gsadasdmail.com', 'asd', '7815696ecbf1c96e6894b779456d330e', 'avatar.jpg', 'user', 'allow'),
+(14, 'asd@gmailasdsad.com', 'asd', '7815696ecbf1c96e6894b779456d330e', 'avatar.jpg', 'user', 'allow'),
+(15, 'as1212dasd@asd.sad', 'asd', '7815696ecbf1c96e6894b779456d330e', '395358184.png', 'user', 'allow'),
+(16, 'asd@213123gmail.com', 'asdasd', '7815696ecbf1c96e6894b779456d330e', '2068265150.png', 'user', 'allow'),
+(17, 'noob123123@gmail.com', 'noobsadasd', '94182a87e6d8862e86271775668c40ab', 'avatar.jpg', 'user', 'allow');
 
 --
 -- Индексы сохранённых таблиц
@@ -294,7 +311,7 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT для таблицы `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
@@ -312,7 +329,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT для таблицы `usermodel`
 --
 ALTER TABLE `usermodel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
