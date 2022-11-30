@@ -68,9 +68,10 @@ class ModelsBooks extends Model {
 
         if ($query->num_rows) {
             foreach($query->rows as $key => $value):
-                $data[] =
-                        $value
-                    ;
+                $value['rating_Author'] = $this->getAuthorById($value)['rating_author'];
+                     $value['countBook'] = $this->getAuthorById($value)['count_book'];
+                $data[] = $value;
+
             endforeach;
         } else {
             $data['authors'][] = [
@@ -216,14 +217,18 @@ class ModelsBooks extends Model {
         if ($query->num_rows) {
             foreach($query->rows as $result):
                 $author['rating'] = $this->getRatingBookById($result['bookId']);
-                $sumrating+=(int) $author['rating']["round(AVG(rating),1)"];
+                $sumrating+= (float) $author['rating']["round(AVG(rating),1)"];
                 $author['book'] = $this->getBook($result['bookId']);
                 if( $author['rating']['round(AVG(rating),1)'] !== null) { $count++; }
                 array_push($data, $author);
             endforeach;
         }
         $queryAuthor =  $this->db->query("SELECT * FROM authors WHERE id=" . $query->row['authorsId']  );
-        $rating =  $sumrating / $count;
+        if($count === 0) {
+            $rating = 0;
+        } else {
+            $rating =  $sumrating / $count;
+        }
         $resultarr = $queryAuthor->row;
         $resultarr['count_book'] = count($data);
         $resultarr['books'] = $data;
