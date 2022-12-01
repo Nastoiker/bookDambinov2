@@ -180,6 +180,10 @@ class ModelsBooks extends Model {
         $query =  $this->db->query("select name from genresonbook INNER JOIN genres  on genres.id = genresonbook.genresId  where bookId =" .  $id . "") ;
         return $query->row;
     }
+    public function getAllGenres() {
+        $query =  $this->db->query("SELECT `id`, `name` FROM `genres`");
+        return $query->rows;
+    }
     private function getCommentBookById($id) {
         $query  = $this->db->query("SELECT * FROM  comment  where  bookId=" . (int) $id );
         $data = [];

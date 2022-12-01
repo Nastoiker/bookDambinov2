@@ -7,9 +7,9 @@ async function getAllUsers() {
 async function getAllAuthor() {
     return new Promise(resolve => fetch('http://bookservice:88/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
-// async function getAllGenre() {
-//     return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
-// }
+async function getAllGenre() {
+    return new Promise(resolve => fetch('http://bookservice:88/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+}
 // async function getAllComments() {
 //     return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 // }
@@ -18,6 +18,8 @@ async function passport() {
     const books = await getBooks();
     showUsers(users);
     showBooks(books.books);
+    await showAuthors();
+    await showGenres();
 }
 function showUsers(arr) {
     const userWrapper = document.getElementById('users');
@@ -35,7 +37,15 @@ function showUsers(arr) {
 }
 async function showAuthors() {
     const authors = await getAllAuthor();
-
+    authors.forEach(author => {
+        document.getElementById('authors').innerHTML +=`<option value="${author.id}">${author.firstName + ' ' +author.lastname}</option>`
+    })
+};
+async function showGenres() {
+    const authors = await getAllGenre();
+    authors.forEach(genre => {
+        document.getElementById('genres').innerHTML +=`<option value="${genre.id}">${genre.name}</option>`
+    })
 };
 function showBooks(arr) {
     const bookWrapper = document.getElementById('books');
@@ -56,26 +66,37 @@ function showBooks(arr) {
 
 })();
 $("#create_book").submit(function(e){
+
     e.preventDefault();
-    let email = $('#emailInput').val();
-    let login = $('#loginInput').val();
-    let password = $('#passwordInput').val();
+
+    DataBook = new FormData();
+    let name_book = $('#name_book').val();
+    DataBook.append('Name', name_book);
+    let release = $('#release').val();
+    DataBook.append('releseYear', release);
+    let description = $('#description').val();
+    DataBook.append('description', description);
     let image = $('#image_file')[0].files[0];
-    DataImage.append('image', image);
-    const res1 = { email: email, login: login, password};
-    const jsonres = JSON.stringify(res1);
+    DataBook.append('image', image);
+
+
+    const genres = $('#genres :selected')
+        .map((i, el) => Number(el.value))
+        .toArray();
+    let authors = $('#authors :selected')
+        .map((i, el) => Number(el.value))
+        .toArray();
+    console.log(authors);
+    DataBook.append('authorId', genres);
+    DataBook.append('GenreId', authors);
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
-        url: `http://bookservice:88/user/registration`,
-        data: jsonres,
+        url: `http://bookservice:88/admin/createbook`,
+        data: DataBook,
         processData: false,
         cache: false,
         success: function (response) {
-            localStorage.setItem('id', response.data.id);
-            localStorage.setItem('email', response.data.email);
-            localStorage.setItem('login', response.data.login);
-            let id = Number(response.data.id);
-            DataImage.append('userId', id);
+            console.log('ok');
         },
         error: function () {
             $('.notify').text('ошибка регистрации');

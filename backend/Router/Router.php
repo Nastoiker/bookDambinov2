@@ -52,4 +52,5 @@ $router->delete('/books/getuserbyid', 'Books@getUserByid');
 $router->get('/books/getbooksbyauthors/:id', 'Books@getbooksbyauthors');
 //admin
 $router->get('/admin/users', 'Admin@getAllUser');
-$router->post('admin/createbook', 'Admin@createBook');
+$router->post('/admin/createbook', 'Admin@createBook');
+$router->get('/books/getgenres', 'Books@getGenres');

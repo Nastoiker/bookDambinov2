@@ -47,6 +47,12 @@ class ControllersBooks  extends Controller {
             ]);
         }
     }
+    public function getGenres() {
+        $model = $this->model('books');
+        $result = $model->getAllGenres();
+        $this->response->sendStatus(200);
+        $this->response->setContent($result);
+    }
     public function authors($param) {
 
         $model = $this->model('books');

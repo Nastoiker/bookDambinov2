@@ -12,7 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="assets/js/services/adminpanel.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <title>admin</title>
 </head>
 <body>
@@ -205,24 +206,17 @@
     <form class="card" id="create_book" enctype="multipart/data">
         <h1>Создание новой книги</h1>
         <p><input type="text" id="name_book" placeholder="name" name="name"></p>
-        <p><input type="text" id="name_book" placeholder="	release" name="	release"></p>
-        <p><input type="text" id="name_book" placeholder="description" name="description"></p>
+        <p><input type="text" id="release" placeholder="	release" name="	release"></p>
+        <p><input type="text" id="description" placeholder="description" name="description"></p>
         <label for="image_file">обложка </label>
         <p> <input id="image_file" name="image_file" type="file" accept="image/jpeg,image/png,image/jpg"/></p>
-        <select size="3" multiple name="authors">
-            <option disabled>Выберите героя</option>
-            <option value="Чебурашка">Чебурашка</option>
-            <option value="Крокодил Гена">Крокодил Гена</option>
-            <option value="Шапокляк">Шапокляк</option>
-            <option value="Крыса Лариса">Крыса Лариса</option>
+        <select size="3" multiple id="genres" name="genres">
+            <option disabled>Выберите жанр(ы)</option>
+
         </select>
         <p>
-            <select size="3" multiple name="authors">
-                <option disabled>Выберите героя</option>
-                <option value="Чебурашка">Чебурашка</option>
-                <option value="Крокодил Гена">Крокодил Гена</option>
-                <option value="Шапокляк">Шапокляк</option>
-                <option value="Крыса Лариса">Крыса Лариса</option>
+            <select size="3" multiple id="authors" name="authors">
+                <option disabled>Выберите автора(ы)</option>
             </select>
         </p>
         <p><input type="submit" value="Отправить"></p>
