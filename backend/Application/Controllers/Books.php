@@ -140,47 +140,7 @@ class ControllersBooks  extends Controller {
         
         return false;
     }
-    public function uploadImage()
-    {
-        if (isset($this->request->files['image'])) {
-            $errors = array();
-            $BookId = $this->request->text['bookId'];
-            $image = $this->request->files['image'];
-            // File info
 
-            $file_name = $image['name'];
-            $name = mt_rand();
-            $file_size = $image['size'];
-            $file_tmp = $image['tmp_name'];
-            $file_type = $image['type'];
-            // Get file extension
-            $file_ext = explode('.', $file_name);
-            $file_ext = strtolower(end($file_ext));
-
-            // White list extensions
-            $extensions = array("jpeg", "jpg", "png");
-
-            // Check it's valid file for upload
-            if (in_array($file_ext, $extensions) === false) {
-                $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
-            }
-
-            // Check file size
-            if ($file_size > 2097152) {
-                $errors[] = 'File size must be exactly 2 MB';
-            }
-
-            if (empty($errors) == true) {
-                move_uploaded_file($file_tmp, UPLOAD . "Images/" . $name . '.' . $file_ext);
-                $this->response->sendStatus(201);
-                $model = $this->model('Books');
-                $res = $model->setPhoto($name . '.' . $file_ext, $BookId);
-                $this->response->setContent($res);
-            } else {
-                $this->response->sendStatus(500);
-            }
-        }
-    }
         public function getUserByid() {
             if ($this->request->getMethod() == "POST") {
                 $data = $this->request->input();

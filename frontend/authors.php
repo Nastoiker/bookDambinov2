@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>damir</title>
     <link rel="stylesheet" href="assets/styles/styles.css">
-
+    <link rel="stylesheet" href="assets/styles/authors.css">
 </head>
 <?php include 'header.php';?>
 <body>
@@ -38,6 +38,6 @@
 </div>
 </body>
 <?php include 'footer.php';?>
-<script src="assets/js/script.js"></script>
+<script src="assets/js/authors.js"></script>
 
 </html>

@@ -8,11 +8,7 @@ class ModelsBooks extends Model {
         return [$this->getAllBooks(null), $this->getAllAuthors(null)];
     }
 
-    public function setPhoto($img, $id) {
-        $sql = "UPDATE book SET img = '$img' where id = '$id'";
-        $query = $this->db->query($sql);
-        return ['picture' => $img];
-    }
+
     public function getAllBooks($param) {
 
         // sql statement
@@ -70,6 +66,7 @@ class ModelsBooks extends Model {
             foreach($query->rows as $key => $value):
                 $value['rating_Author'] = $this->getAuthorById($value)['rating_author'];
                      $value['countBook'] = $this->getAuthorById($value)['count_book'];
+                $value['countRating'] = $this->getAuthorById($value)['count_rating'];
                 $data[] = $value;
 
             endforeach;
@@ -213,11 +210,13 @@ class ModelsBooks extends Model {
           INNER JOIN book on `book`.`id` = `authorsonbook`.`bookId` WHERE `authorsonbook`.`authorsId` = " . (int) $param['id'] );
         $data = [];
         $count = 0;
+        $countrating = 0;
         $sumrating = 0;
         if ($query->num_rows) {
             foreach($query->rows as $result):
                 $author['rating'] = $this->getRatingBookById($result['bookId']);
                 $sumrating+= (float) $author['rating']["round(AVG(rating),1)"];
+                $countrating += (int)  $author['rating']["COUNT(rating)"];
                 $author['book'] = $this->getBook($result['bookId']);
                 if( $author['rating']['round(AVG(rating),1)'] !== null) { $count++; }
                 array_push($data, $author);
@@ -232,6 +231,7 @@ class ModelsBooks extends Model {
         $resultarr = $queryAuthor->row;
         $resultarr['count_book'] = count($data);
         $resultarr['books'] = $data;
+        $resultarr['count_rating'] = $countrating;
         $resultarr['rating_author'] = round($rating, 1);
         return $resultarr;
     }

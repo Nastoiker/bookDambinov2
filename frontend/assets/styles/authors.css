@@ -1,0 +1,17 @@
+.container_authors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    gap: 30px 0px;
+}
+.container_authors div img {
+    border-radius: 120px;
+    align-self: center;
+
+}
+.img_book {
+    border: 5px solid #603b0b;
+    background: #daaeae;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
