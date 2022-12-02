@@ -75,6 +75,18 @@ public function index() { }
             $description = $this->request->text['description'];
             $AuthorId = explode(',', $AuthorId);
             $GenreId = explode(',', $GenreId);
+            $releseYear = str_replace("'", '', $releseYear);
+            $Name = str_replace("'", '', $Name);
+            $description = str_replace("'", '', $description);
+
+            foreach($AuthorId as $key => $value):
+                $value = str_replace("'", '', $value);
+                $AuthorId[$key] = (int) $value;
+            endforeach;
+            foreach($GenreId as $key => $value):
+                $value = str_replace("'", '', $value);
+                $GenreId[$key] = (int) $value;
+            endforeach;
             $file_name = $image['name'];
             $name = mt_rand();
             $file_size = $image['size'];
@@ -82,6 +94,7 @@ public function index() { }
             $file_type = $image['type'];
             $extensions = array("jpeg", "jpg", "png");
             $file_ext = explode('.', $file_name);
+            $file_ext = strtolower(end($file_ext));
             $resultimage = $name . '.' . $file_ext;
             // Check it's valid file for upload
             if (in_array($file_ext, $extensions) === false) {

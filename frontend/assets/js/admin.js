@@ -5,7 +5,7 @@ async function getAllUsers() {
     return new Promise(resolve => fetch('http://bookservice:88/admin/users').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllAuthor() {
-    return new Promise(resolve => fetch('http://bookservice:88/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:88/books/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllGenre() {
     return new Promise(resolve => fetch('http://bookservice:88/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
@@ -66,47 +66,43 @@ function showBooks(arr) {
 
 })();
 $("#create_book").submit(function(e){
-
     e.preventDefault();
-
-    DataBook = new FormData();
+    let DataBook = new FormData();
     let name_book = $('#name_book').val();
     DataBook.append('Name', name_book);
     let release = $('#release').val();
-    DataBook.append('releseYear', release);
+    DataBook.append('releseYear', `${release}`);
     let description = $('#description').val();
-    DataBook.append('description', description);
+    DataBook.append('description', `${description}`);
     let image = $('#image_file')[0].files[0];
     DataBook.append('image', image);
-
-
-    const genres = $('#genres :selected')
+    let genres = $('#genres :selected')
         .map((i, el) => Number(el.value))
         .toArray();
     let authors = $('#authors :selected')
         .map((i, el) => Number(el.value))
         .toArray();
-    console.log(authors);
-    DataBook.append('authorId', genres);
-    DataBook.append('GenreId', authors);
+    authors = authors.join();
+    genres = genres.join()
+    DataBook.append('authorId', `${genres}`);
+    DataBook.append('GenreId', `${authors}`);
+    console.log(DataBook.get('authorId'));
+    for (var pair of DataBook.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
+
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
         url: `http://bookservice:88/admin/createbook`,
         data: DataBook,
         processData: false,
+        contentType: false,
         cache: false,
         success: function (response) {
             console.log('ok');
         },
-        error: function () {
-            $('.notify').text('ошибка регистрации');
-            $('.notify').css('background', 'red');
-            $('.notify').fadeIn(function () {
-                $('.notify').animate({
-                    'width': '100%',
-                    'left': 0
-                }, 1000).animate({'top': 0});
-            });
+        error: function (e) {
+           console.log(e);
         }
     });
 });

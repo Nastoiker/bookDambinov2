@@ -47,7 +47,11 @@ class ModelsBooks extends Model {
 
         return $data;
     }
-
+    public function Authors() {
+        $sql = "SELECT * FROM " . DB_PREFIX . "authors";
+        $res = $this->db->query($sql);
+        return $res->rows;
+    }
     public function getAllAuthors($param) {
         $sql = "SELECT * FROM " . DB_PREFIX . "authors";
 
@@ -297,7 +301,6 @@ class ModelsBooks extends Model {
 
     private function getAuthor($author_id) {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "authors WHERE id = " . (int) $author_id . "");
-
         return $query->row;
     }
 
