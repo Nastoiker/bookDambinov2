@@ -74,7 +74,7 @@ class ControllersUser  extends Controller {
         }
     }
     public function banUser() {
-        if ($this->request->getMethod() == "PUT") {
+        if ($this->request->getMethod() == "POST") {
             $data = $this->request->input();
             $model = $this->model('user');
                 $users = $model->banUser($data);

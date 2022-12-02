@@ -203,6 +203,19 @@
             </table>
         </div>
     </div>
+    <form class="card" id="create_author" enctype="multipart/data">
+        <h1>Создание нового автора</h1>
+        <p><input type="text" id="firstName_Author" placeholder="firstName_Author" name="name"></p>
+        <p><input type="text" id="lastName_Author" placeholder="lastName_Author" name="description"></p>
+        <label for="image_file">Фотка автора </label>
+        <p> <input id="image_author" name="image_author" type="file" accept="image/jpeg,image/png,image/jpg"/></p>
+        <p><input type="submit" value="Отправить"></p>
+    </form>
+    <form class="card" id="create_author" enctype="multipart/data">
+        <h1>Добавление нового жанра</h1>
+        <p><input type="text" id="firstName_Author" placeholder="жанр" name="name"></p>
+        <p><input type="submit" value="Отправить"></p>
+    </form>
     <form class="card" id="create_book" enctype="multipart/data">
         <h1>Создание новой книги</h1>
         <p><input type="text" id="name_book" placeholder="name" name="name"></p>

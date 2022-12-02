@@ -10,6 +10,26 @@ class ModelsAdmin extends Model {
         $query = $this->db->query($sql);
         return ['picture' => $img];
     }
+    public function deleteBook($param) {
+        $id = $param['id'];
+        $sql = "DELETE FROM book where id = '$id'";
+        $res = $this->db->query($sql);
+        return 'delete';
+    }
+    public function createNewAuthor($param) {
+
+        $firstName = $param['firstName'];
+        $lastname = $param['lastName'];
+        $sql = "INSERT INTO `authors`(`id`, `firstName`, `lastname`) VALUES (null,'$firstName','$lastname')";
+        $this->db->query($sql);
+        return 'created';
+    }
+    public function createNewGenre($param) {
+        $name = $param['name'];
+        $sql = "INSERT INTO `genres`(`id`, `name`) VALUES (null,'$name')";
+        $this->db->query($sql);
+        return 'created';
+    }
     public function createBook($data) {
         $name = $data['name'];
         $img = $data['image'];

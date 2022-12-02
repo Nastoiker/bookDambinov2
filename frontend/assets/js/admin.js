@@ -14,26 +14,42 @@ async function getAllGenre() {
 //     return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 // }
 async function passport() {
+
+
     const users = await getAllUsers();
-    const books = await getBooks();
     showUsers(users);
+    const books = await getBooks();
     showBooks(books.books);
     await showAuthors();
     await showGenres();
 }
 function showUsers(arr) {
     const userWrapper = document.getElementById('users');
+
     arr.forEach(user => {
-        userWrapper.innerHTML +=`<tr>
+        let doit = user.status === 'banned' ? 'разбанить' : 'забанить';
+            userWrapper.innerHTML +=`<tr>
             <td>${user.id}</td>
             <td>${user.email}</td>
             <td>${user.login}</td>
             <td>${user.image}</td>
             <td>${user.role}</td>
             <td>${user.status}</td>
-            <td><button onclick="banUser(${user.id})">забанить</button></td>
+            <td><button onclick="banUser(${user.id})">${doit}</button></td>
         </tr>`
     });
+}
+
+async function deleteBoook(id) {
+    id = Number(id);
+   await fetch('http://bookservice:88/admin/deletebook', {method: 'POST', body: JSON.stringify({id: id})});
+
+}
+async function banUser(id) {
+    id = Number(id);
+    const query = await fetch('http://bookservice:88/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
+    const users = await getAllUsers();
+    showUsers(users);
 }
 async function showAuthors() {
     const authors = await getAllAuthor();
@@ -56,8 +72,8 @@ function showBooks(arr) {
             <td>${book.book.releseYear}</td>
             <td>${book.book.description}</td>
             <td>${book.book.img}</td>
-            <td><button>удалить</button></td>
-            <td><button>редактировать</button></td>
+            <td><button onclick="deleteBoook(${book.book.id})">удалить</button></td>
+            <td><button onClick="eddit(${book.book.id})">редактировать</button></td>
         </tr>`
     })
 }
@@ -65,6 +81,30 @@ function showBooks(arr) {
     await passport()
 
 })();
+$("#create_author").submit(function(e){
+    e.preventDefault();
+    let DataAuthor = new FormData();
+    let firstName = $('#firstName_Author').val();
+    let lastName = $('#lastName_Author').val();
+    let image = $('#image_author')[0].files[0];
+    DataAuthor.append('firstName', `${firstName}`);
+    DataAuthor.append('lastName', `${lastName}`);
+    DataAuthor.append('image', image);
+    $.ajax({
+        method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+        url: `http://bookservice:88/admin/newauthor`,
+        data: DataAuthor,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (response) {
+            console.log('ok');
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+});
 $("#create_book").submit(function(e){
     e.preventDefault();
     let DataBook = new FormData();

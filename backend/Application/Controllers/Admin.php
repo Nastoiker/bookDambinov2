@@ -13,39 +13,23 @@ public function index() { }
         $this->response->setContent($data);
     }
     public function deleteBook() {
-        if ($this->request->getMethod() == "DELETE") {
+
             $data = $this->request->input();
-            $model = $this->model('user');
-            $users = $model->banUser($data);
-            if (!($users == 'UserBanned' )) {
-                $data = ['data' => $users];
-                $this->response->sendStatus(201);
-                $this->response->setContent($data);
-            }
-            else {
-                $data = ['data' => $users];
-                $this->response->sendStatus(400);
-                $this->response->setContent($data);
-            }
-        }
+            $model = $this->model('admin');
+            $users = $model->deleteBook($data);
+            $this->response->sendStatus(202);
+            $this->response->setContent(['message' => 'deleted']);
     }
-
-
     public function newAuthor() {
         if ($this->request->getMethod() == "POST") {
             $data = $this->request->input();
-            $model = $this->model('user');
-            $users = $model->banUser($data);
-            if (!($users == 'UserBanned' )) {
-                $data = ['data' => $users];
+
+                $data = $this->request->input();
+                $model = $this->model('admin');
+                $users = $model->createNewAuthor($data);
                 $this->response->sendStatus(201);
-                $this->response->setContent($data);
-            }
-            else {
-                $data = ['data' => $users];
-                $this->response->sendStatus(400);
-                $this->response->setContent($data);
-            }
+                $this->response->setContent(['message' => 'created']);
+
         }
     }
     public function deleteComment() {
@@ -127,6 +111,8 @@ public function index() { }
             }
 
         }
+    }
+    public function createNewGenre() {
     }
     public function uploadImage()
     {
