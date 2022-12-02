@@ -58,3 +58,4 @@ $router->post('/admin/deletebook', 'Admin@deleteBook');
 
 $router->post('/admin/newauthor', 'Admin@newAuthor');
 $router->get('/books/authors', 'Books@allAuthors');
+$router->get('/books/getgenres', 'Books@getGenres');

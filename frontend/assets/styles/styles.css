@@ -6,6 +6,38 @@
     --black: #000000;
     --dark-beige: #887E50;
 }
+.loaded {
+    transform: translateX(0em);
+    animation: some 2s;
+}
+
+.loaded:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2em;
+    height: 100%;
+    background-color: green;
+    background-color: rgba(255, 255, 255, 0.3);
+    animation: moveLight 1s;
+}
+@keyframes some {
+    from {
+        display: none;
+    }
+    to {
+        display: block;
+    }
+}
+@keyframes moveLight {
+    from {
+        transform: translateX(-4em) skewX(-45deg);
+    }
+    to {
+        transform: translateX(9em) skewX(-45deg);
+    }
+}
 
 @font-face {
 font-family: "Montserrat";
@@ -155,8 +187,11 @@ body {
   display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
     gap: 30px 0px;
-}
 
+}
+.displayNoneBook {
+    display: none;
+}
 .header-card {
   display: flex;
   align-items: center;
@@ -180,7 +215,11 @@ body {
 .more_book a {
   display: flex;
 }
-
+.more_book {
+    bottom: 0;
+    margin: 10px;
+    display: inline;
+}
 /*search*/
 
 

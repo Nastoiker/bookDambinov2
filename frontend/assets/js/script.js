@@ -5,6 +5,12 @@ switch (localStorage.role) {
     case 'user': {
     }
 }
+window.onload = function () {
+    const el = document.querySelectorAll('.card_book');
+    for(let value of el) {
+        value.classList.remove('loaded');
+    }
+}
 localStorage.clear();
 console.log(localStorage.getItem('email'));
 console.log(localStorage.getItem('role'));
@@ -37,6 +43,12 @@ async function passport ()
     console.log(res1.books);
     showBook(res1.books);
 }
+document.getElementById('more_book').addEventListener( 'click',(e) => {
+    const el = document.querySelectorAll('.displayNoneBook');
+    for(let value of el) {
+        value.classList.remove('displayNoneBook');
+    }
+});
 const container_book = document.querySelector('.container_book');
 async function getBooksBygenre(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
@@ -72,15 +84,20 @@ const sortGenre = (typeSort= 1) => {
 }
 //вывод всех книг
 const showBook = (arr) => {
-
+    let count = 0;
+    let classcheck = 'card_book';
     arr.forEach(book => {
-        container_book.innerHTML +=` <div class="card_book"  data-pos="${book.book.id}"data-rating="${book.ratingCount}" data-avg-rating="${book.ratingAvg}">
-                <div class="info_book">
+        count++;
+        if(count >=8) {
+            classcheck = 'card_book' + ' ' + 'displayNoneBook';
+        }
+        container_book.innerHTML +=` <div class="${classcheck}" data-pos="${book.book.id}"data-rating="${book.ratingCount}" data-avg-rating="${book.ratingAvg}">
+                <div class="info_book loaded">
                     <div class="header-card">
                         <div>
                             <img src="assets/src/icons/star.svg" alt="star">
                             <span>${book.ratingAvg}</span>
-                        </div>
+                            </div>
                         <div>
                             <span>${book.ratingCount}</span>
                             <span>отзыв.</span>
@@ -94,7 +111,9 @@ const showBook = (arr) => {
                 <button onclick="window.location.href =\`./book.php?id=${book.book.id}\`">Подробнее</button>
             </div>`
     })
+
 }
+
 // setTimeout( (async () => {
 //     await passport()
 //

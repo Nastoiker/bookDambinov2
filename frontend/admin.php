@@ -218,14 +218,15 @@
     <form class="card" id="create_book" enctype="multipart/data">
         <h1>Создание новой книги</h1>
         <p><input type="text" id="name_book" placeholder="name" name="name"></p>
-        <p><input type="date" id="release" placeholder="	release" name="	release"></p>
+        <p><input type="date" id="release" placeholder="release" name="	release"></p>
         <p><input type="text" id="description" placeholder="description" name="description"></p>
         <label for="image_file">обложка </label>
         <p> <input id="image_file" name="image_file" type="file" accept="image/jpeg,image/png,image/jpg"/></p>
-        <select size="3" multiple id="genres" name="genres">
-            <option disabled>Выберите жанр(ы)</option>
-
-        </select>
+        <p>
+            <select size="3" multiple id="genres" name="genres">
+                <option disabled>Выберите жанр(ы)</option>
+            </select>
+        </p>
         <p>
             <select size="3" multiple id="authors" name="authors">
                 <option disabled>Выберите автора(ы)</option>

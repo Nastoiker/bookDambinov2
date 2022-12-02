@@ -42,8 +42,8 @@ function showUsers(arr) {
 
 async function deleteBoook(id) {
     id = Number(id);
+    console.log(id);
    await fetch('http://bookservice:88/admin/deletebook', {method: 'POST', body: JSON.stringify({id: id})});
-
 }
 async function banUser(id) {
     id = Number(id);
@@ -58,8 +58,8 @@ async function showAuthors() {
     })
 };
 async function showGenres() {
-    const authors = await getAllGenre();
-    authors.forEach(genre => {
+    const genres = await getAllGenre();
+    genres.forEach(genre => {
         document.getElementById('genres').innerHTML +=`<option value="${genre.id}">${genre.name}</option>`
     })
 };
@@ -127,7 +127,7 @@ $("#create_book").submit(function(e){
     DataBook.append('authorId', `${genres}`);
     DataBook.append('GenreId', `${authors}`);
     console.log(DataBook.get('authorId'));
-    for (var pair of DataBook.entries()) {
+    for (let pair of DataBook.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
     }
 

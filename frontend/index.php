@@ -72,7 +72,7 @@
         </div>
         </div>
 
-        <div class="more_book"><a href="" >
+        <div class="more_book" id="more_book"><a>
           <h3>Посмотреть все</h3>
           <img src="assets/src/icons/arrow_more.svg" alt="">
         </a>
