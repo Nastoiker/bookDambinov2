@@ -173,9 +173,8 @@
                                     <th>eddit</th>
                                 </tr>
                             </table>
-                        </div>
-
-
+                        <button onclick="showBookAll()">Вывести</button>
+                    </div>
     </div>
     <div class="card">
         <div class="card-header">
@@ -199,8 +198,8 @@
                     <th>status</th>
                     <th>action</th>
                 </tr>
-
             </table>
+            <button onclick="showAuthorAll()">Вывести</button>
         </div>
     </div>
     <form class="card" id="create_author" enctype="multipart/data">
