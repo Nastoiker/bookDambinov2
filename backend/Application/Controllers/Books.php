@@ -59,10 +59,10 @@ class ControllersBooks  extends Controller {
         $this->response->sendStatus(200);
         $this->response->setContent($author_list);
     }
-    public function authors($param) {
+    public function authors() {
 
         $model = $this->model('books');
-        $author_list = $model->getAllAuthors($param);
+        $author_list = $model->getAllAuthors();
 
         // Send Response
         $this->response->sendStatus(200);

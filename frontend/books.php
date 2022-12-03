@@ -12,7 +12,6 @@
 
 
 
-</body>
 <div class="popular">
     <div class="filter">
         <h2>Книги</h2>
@@ -27,17 +26,8 @@
 
     </div>
 </div>
-
-</div>
-</div>
-<div class="more_book"><a href="" >
-        <h3>Посмотреть все</h3>
-        <img src="assets/src/icons/arrow_more.svg" alt="">
-    </a>
-</div>
-</div>
 </body>
 <?php include 'footer.php';?>
-<script src="assets/js/script.js"></script>
+<script src="assets/js/books.js"></script>
 
 </html>

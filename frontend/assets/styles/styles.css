@@ -25,17 +25,21 @@
 @keyframes some {
     from {
         display: none;
+
     }
     to {
         display: block;
+
     }
 }
 @keyframes moveLight {
     from {
         transform: translateX(-4em) skewX(-45deg);
+        opacity: 0;
     }
     to {
         transform: translateX(9em) skewX(-45deg);
+        opacity: 1;
     }
 }
 
@@ -218,12 +222,22 @@ body {
 .more_book {
     bottom: 0;
     margin: 10px;
-    display: inline;
+    display: flex;
+}
+.card_book {
+    transition: 1000ms all;
 }
 /*search*/
-
-
-
+.card_book:hover ~ .card_book {
+    transform: translate3d(50px, 0, 0);
+}
+.container_book:hover .card_book {
+    opacity: 0.3;
+}
+.container_book:hover .card_book:hover {
+    transform: scale(1.5);
+    opacity: 1;
+}
 
 
 img[src="Static/avatars/null"] {

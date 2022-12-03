@@ -1,0 +1,11 @@
+
+* {
+    box-sizing: border-box;
+}
+body {
+    width: 1224px;
+    margin: 0 auto;
+}
+.visible {
+    display: none
+}

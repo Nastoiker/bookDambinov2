@@ -52,7 +52,7 @@ class ModelsBooks extends Model {
         $res = $this->db->query($sql);
         return $res->rows;
     }
-    public function getAllAuthors($param) {
+    public function getAllAuthors() {
         $sql = "SELECT * FROM " . DB_PREFIX . "authors";
 
         // pagination
@@ -72,7 +72,6 @@ class ModelsBooks extends Model {
                      $value['countBook'] = $this->getAuthorById($value)['count_book'];
                 $value['countRating'] = $this->getAuthorById($value)['count_rating'];
                 $data[] = $value;
-
             endforeach;
         } else {
             $data['authors'][] = [
@@ -166,8 +165,15 @@ class ModelsBooks extends Model {
         $authorById = $param["authorById"];
         $bookId = $param["bookId"];
         $rating = $param["rating"];
-        $query = $this->db->query("INSERT INTO `rating`(`id`, `createdAt`, `updatedAt`, `bookId`, `authorId`, `rating`) VALUES (null,'$date','$date','$bookId','$authorById','$rating')");
+        $query = $this->db->query("SELECT * from rating where authorId =$authorById");
+        if ($query->num_rows) {
+            $this->db->query("UPDATE `rating` SET `rating`=$rating WHERE authorId = $authorById and bookId=$bookId");
+        }
+        else {
+            $query = $this->db->query("INSERT INTO `rating`(`id`, `createdAt`, `updatedAt`, `bookId`, `authorId`, `rating`) VALUES (null,'$date','$date','$bookId','$authorById','$rating')");
+        }
         return 'correct';
+
     }
     public function getBooksByGenresId($param) {
         $query =  $this->db->query("SELECT * FROM genresonbook INNER JOIN genres on genres.id = genresonbook.genresId INNER JOIN book on book.id = genresonbook.bookId WHERE genresonbook.genresId = " . (int) $param['genreId'] );
@@ -185,7 +191,7 @@ class ModelsBooks extends Model {
         return $query->row;
     }
     public function getAllGenres() {
-        $query =  $this->db->query("SELECT `id`, `name` FROM `genres`");
+        $query =  $this->db->query("SELECT `id`, `name`, `img` FROM `genres`");
         return $query->rows;
     }
     private function getCommentBookById($id) {
@@ -229,6 +235,14 @@ class ModelsBooks extends Model {
                 if( $author['rating']['round(AVG(rating),1)'] !== null) { $count++; }
                 array_push($data, $author);
             endforeach;
+        } else {
+            $query =  $this->db->query("SELECT * FROM authors WHERE id=". (int) $param['id']);
+            $resultarr = $query->row;
+            $resultarr['count_book'] = 0;
+            $resultarr['books'] = 0;
+            $resultarr['count_rating'] = 0;
+            $resultarr['rating_author'] = 0;
+            return $resultarr;
         }
         $queryAuthor =  $this->db->query("SELECT * FROM authors WHERE id=" . $query->row['authorsId']  );
         if($count === 0) {

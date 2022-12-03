@@ -81,9 +81,24 @@ $(function() {
         this.src = 'name.gif'
     })
 });
-
+$('input[name="rating"]').click(() => {
+    let value =  $('input[name="rating"]:checked').val();
+    alert(value);
+    $.ajax({
+        method: "POST",
+        url: `http://bookservice:88/books/setrating`,
+        data: JSON.stringify({rating: value, authorById: 1, bookId: id}),
+        success: function () {
+            console.log('комментарий оставлен');
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+});
 //init
-(async () => {
-    await passport()
-
-})();
+// (async () => {
+//     await passport()
+//
+// })();
+passport()

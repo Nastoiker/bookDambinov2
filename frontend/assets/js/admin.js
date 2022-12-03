@@ -13,6 +13,36 @@ async function getAllGenre() {
 // async function getAllComments() {
 //     return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 // }
+$('#search_book').on('keyup', function() {
+    var value = $(this).val();
+    var patt = new RegExp(value, "i");
+    $('#books').find('tr').each(function() {
+        var $table = $(this);
+        if (!($table.find('td').text().search(patt) >= 0)) {
+            $table.not('.t_head').hide();
+        }
+        if (($table.find('td').text().search(patt) >= 0)) {
+            $(this).show();
+        }
+    });
+});
+$('#search_user').on('keyup', function() {
+    var value = $(this).val();
+    var patt = new RegExp(value, "i");
+
+    $('#users').find('tr').each(function() {
+        var $table = $(this);
+
+        if (!($table.find('td').text().search(patt) >= 0)) {
+            $table.not('.t_head').hide();
+        }
+        if (($table.find('td').text().search(patt) >= 0)) {
+            $(this).show();
+        }
+
+    });
+
+});
 async function passport() {
 
 
@@ -57,6 +87,30 @@ async function showAuthors() {
         document.getElementById('authors').innerHTML +=`<option value="${author.id}">${author.firstName + ' ' +author.lastname}</option>`
     })
 };
+function showUserAll() {
+    const visible = document.getElementById('visibleUsers');
+    const btn = document.getElementById('BtnshowUserAll')
+    if(visible.classList.contains('visible')) {
+        visible.classList.remove('visible');
+        btn.innerHTML = 'Скрыть';
+    } else {
+        visible.classList.add('visible');
+        btn.innerHTML = 'Вывести';
+
+    }
+}
+function showBookAll() {
+    const visible = document.getElementById('visibleBook');
+    const btn = document.getElementById('BtnshowBookAll')
+    if(visible.classList.contains('visible')) {
+        visible.classList.remove('visible');
+        btn.innerHTML = 'Скрыть';
+    } else {
+        visible.classList.add('visible');
+        btn.innerHTML = 'Вывести';
+
+    }
+}
 async function showGenres() {
     const genres = await getAllGenre();
     genres.forEach(genre => {
@@ -67,7 +121,7 @@ function showBooks(arr) {
     const bookWrapper = document.getElementById('books');
     arr.forEach(book=> {
         bookWrapper.innerHTML +=` <tr>
-            <td>${book.book.id}</td>
+            <td><a href="./book.php?id=${book.book.id}">${book.book.id}</a></td>
             <td>${book.book.name}</td>
             <td>${book.book.releseYear}</td>
             <td>${book.book.description}</td>
@@ -75,12 +129,33 @@ function showBooks(arr) {
             <td><button onclick="deleteBoook(${book.book.id})">удалить</button></td>
             <td><button onClick="eddit(${book.book.id})">редактировать</button></td>
         </tr>`
-    })
+    });
 }
 (async () => {
     await passport()
 
 })();
+$("#create_genre").submit(function(e){
+    e.preventDefault();
+    let DataGenre = new FormData();
+    let name = $('#nameGenre').val();
+    let image = $('#image_genre')[0].files[0];
+    DataGenre.append('image', image);
+    DataGenre.append('name', name);
+    $.ajax({
+        method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+        url: `http://bookservice:88/admin/newgenre`,
+        data: DataGenre,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log('ok');
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+});
 $("#create_author").submit(function(e){
     e.preventDefault();
     let DataAuthor = new FormData();
@@ -96,7 +171,6 @@ $("#create_author").submit(function(e){
         data: DataAuthor,
         processData: false,
         contentType: false,
-        cache: false,
         success: function (response) {
             console.log('ok');
         },
@@ -124,8 +198,8 @@ $("#create_book").submit(function(e){
         .toArray();
     authors = authors.join();
     genres = genres.join()
-    DataBook.append('authorId', `${genres}`);
-    DataBook.append('GenreId', `${authors}`);
+    DataBook.append('authorId', `${authors}`);
+    DataBook.append('GenreId', `${genres}`);
     console.log(DataBook.get('authorId'));
     for (let pair of DataBook.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);

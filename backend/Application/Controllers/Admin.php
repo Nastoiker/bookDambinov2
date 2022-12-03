@@ -22,14 +22,26 @@ public function index() { }
     }
     public function newAuthor() {
         if ($this->request->getMethod() == "POST") {
-            $data = $this->request->input();
+            $image = $this->request->files['image'];
+            $lastName = $this->request->text['lastName'];
+            $firtName = $this->request->text['firstName'];
+            $name = mt_rand();
+            $check = $this->uploadImageMethod($image, $name, 'authors');
+            if(!$check) {
+                $this->response->sendStatus(500);
+                $this->response->setContent(['message' => 'error']);
+            } else {
 
-                $data = $this->request->input();
+                $data = [
+                    'image' => $check,
+                    'lastName' => $lastName,
+                    'firstName' => $firtName,
+                ];
                 $model = $this->model('admin');
                 $users = $model->createNewAuthor($data);
                 $this->response->sendStatus(201);
                 $this->response->setContent(['message' => 'created']);
-
+            }
         }
     }
     public function deleteComment() {
@@ -48,6 +60,31 @@ public function index() { }
                 $this->response->setContent($data);
             }
         }
+    }
+    private function uploadImageMethod($image, $name, $directory) {
+        $file_name = $image['name'];
+        $file_size = $image['size'];
+        $file_tmp = $image['tmp_name'];
+        $file_type = $image['type'];
+        $extensions = array("jpeg", "jpg", "png");
+        $file_ext = explode('.', $file_name);
+        $file_ext = strtolower(end($file_ext));
+        $resultimage = $name . '.' . $file_ext;
+        if (in_array($file_ext, $extensions) === false) {
+            $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
+        }
+
+        // Check file size
+        if ($file_size > 2097152) {
+            $errors[] = 'File size must be exactly 2 MB';
+        }
+
+        if (empty($errors) == true) {
+
+            move_uploaded_file($file_tmp, UPLOAD . $directory .'/' . $resultimage);
+            return $name . '.'. $file_ext;
+        }
+        return false;
     }
     public function createBook() {
         if ($this->request->getMethod() == "POST") {
@@ -113,6 +150,26 @@ public function index() { }
         }
     }
     public function createNewGenre() {
+        if ($this->request->getMethod() == "POST") {
+            $image = $this->request->files['image'];
+            $nameGemre = $this->request->text['name'];
+            $name = mt_rand();
+
+            $check = $this->uploadImageMethod($image, $name, 'genres');
+            if(!$check) {
+                $this->response->sendStatus(500);
+                $this->response->setContent(['message' => 'error']);
+            } else {
+                $data = [
+                    'image' => $check,
+                    'name' => $nameGemre,
+                ];
+                $model = $this->model('admin');
+                $users = $model->createNewGenre($data);
+                $this->response->sendStatus(201);
+                $this->response->setContent(['message' => 'created']);
+            }
+        }
     }
     public function uploadImage()
     {

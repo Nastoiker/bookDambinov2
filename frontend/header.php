@@ -6,7 +6,7 @@
     <div class="categories">
         <h4><a href="books.php">Книги</a></h4>
         <h4><a href="authors.php">Авторы</a></h4>
-        <h4><a href="">Жанры</a></h4>
+        <h4 id="genres_selection"><a href="index.php?genres">Жанры</a></h4>
     </div>
     <div class="search">
         <input class="input-number" pattern="[А-Яа-я]" id="search" type="text" placeholder="найти книгу">

@@ -13,7 +13,7 @@
     <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="assets/styles/admin.css">
     <title>admin</title>
 </head>
 <body>
@@ -154,7 +154,10 @@
                     <div class="card-header">
                         <span><i ></i></span> Книги
                     </div>
-                    <div class="card-body">
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search..." id="search_book">
+                    </form>
+                    <div id="visibleBook" class="card-body visible">
 
                             <table
                                     id="books"
@@ -162,7 +165,7 @@
                                     style="width: 100%">
 
                               >
-
+                                <thead>
                                 <tr>
                                     <th>id</th>
                                     <th>name</th>
@@ -172,15 +175,19 @@
                                     <th>delete</th>
                                     <th>eddit</th>
                                 </tr>
+                                </thead>
                             </table>
-                        <button onclick="showBookAll()">Вывести</button>
                     </div>
+                    <button id="BtnshowBookAll" onclick="showBookAll()">Вывести</button>
     </div>
     <div class="card">
         <div class="card-header">
             <span><i ></i></span> Пользователи
         </div>
-        <div class="card-body">
+        <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search..." id="search_user">
+        </form>
+        <div id="visibleUsers" class="card-body visible">
 
             <table
                     id="users"
@@ -188,7 +195,7 @@
                     style="width: 100%"
             >
 
-
+                <thead>
                 <tr>
                     <th>id</th>
                     <th>email</th>
@@ -198,9 +205,10 @@
                     <th>status</th>
                     <th>action</th>
                 </tr>
+                </thead>
             </table>
-            <button onclick="showAuthorAll()">Вывести</button>
         </div>
+        <button id="BtnshowUserAll" onclick="showUserAll()">Вывести</button>
     </div>
     <form class="card" id="create_author" enctype="multipart/data">
         <h1>Создание нового автора</h1>
@@ -210,9 +218,10 @@
         <p> <input id="image_author" name="image_author" type="file" accept="image/jpeg,image/png,image/jpg"/></p>
         <p><input type="submit" value="Отправить"></p>
     </form>
-    <form class="card" id="create_author" enctype="multipart/data">
+    <form class="card" id="create_genre" enctype="multipart/data">
         <h1>Добавление нового жанра</h1>
-        <p><input type="text" id="firstName_Author" placeholder="жанр" name="name"></p>
+        <p><input type="text" id="nameGenre" placeholder="жанр" name="name"></p>
+        <p> <input id="image_genre" name="image_genre" type="file" accept="image/jpeg,image/png,image/jpg"/></p>
         <p><input type="submit" value="Отправить"></p>
     </form>
     <form class="card" id="create_book" enctype="multipart/data">

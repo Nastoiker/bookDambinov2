@@ -20,13 +20,15 @@ class ModelsAdmin extends Model {
 
         $firstName = $param['firstName'];
         $lastname = $param['lastName'];
-        $sql = "INSERT INTO `authors`(`id`, `firstName`, `lastname`) VALUES (null,'$firstName','$lastname')";
+        $image = $param['image'];
+        $sql = "INSERT INTO `authors`(`id`, `firstName`, `lastname`, `avatar_author`) VALUES (null,'$firstName','$lastname', '$image')";
         $this->db->query($sql);
         return 'created';
     }
     public function createNewGenre($param) {
         $name = $param['name'];
-        $sql = "INSERT INTO `genres`(`id`, `name`) VALUES (null,'$name')";
+        $image = $param['image'];
+        $sql = "INSERT INTO `genres`(`id`, `name`, `img`) VALUES (null,'$name', '$image')";
         $this->db->query($sql);
         return 'created';
     }
