@@ -42,7 +42,14 @@ class ModelsAdmin extends Model
         $this->db->query($sql);
         return 'created';
     }
-
+    public function getAllComments() {
+        $res = $this->db->query("SELECT `id`, `createdAt`, `comment`, `writtenById`, `bookId` FROM `comment` ");
+        return  $res->rows;
+    }
+    public function deleteComment($id) {
+        $this->db->query("DELETE FROM `comment` WHERE `id` = '$id'");
+        return 'deleted';
+    }
     public function createBook($data)
     {
         $name = $data['name'];
@@ -64,13 +71,19 @@ class ModelsAdmin extends Model
         $check_exist = $this->db->query("select * from `book`  where name='$name'");
         if ($check_exist->num_rows) {
             $id = (int)$check_exist->row['id'];
-            $query = $this->db->query("UPDATE `book` SET  `name`='$name',`releseYear`='$releseYear',`description`='$description',`img`='$img' WHERE id='$id'");
-            foreach ($Authors as $key => $value):
-                $this->db->query("UPDATE `authorsonbook` SET `authorsId`='$value' WHERE `bookId`=" . $id);
-            endforeach;
-            foreach ($Genres as $key => $value):
-                $this->db->query("UPDATE `genresonbook` SET `genresId`= '$value' WHERE `bookId`=" . $id);
-            endforeach;
+            $query = $this->db->query("UPDATE `book` SET  `name`='$name',`releseYear`='$releseYear',`description`='$description',`img`='$img' WHERE name='$name'");
+                foreach ($Authors as $key => $value):
+                    $sqlcheckAuthorExist = $this->db->query("SELECT * FROM `authorsonbook` WHERE `authorsId`='$value' and `bookId`=" . $id);
+                    if(!$sqlcheckAuthorExist->num_rows){
+                        $this->db->query("UPDATE `authorsonbook` SET `authorsId`='$value' WHERE `bookId`=" . $id);
+                    }
+                endforeach;
+                foreach ($Genres as $key => $value):
+                    $sqlcheckGenrerExist = $this->db->query("SELECT * FROM `genresonbook` WHERE `genresId`= '$value' and `bookId`=" . $id);
+                    if(!$sqlcheckGenrerExist->num_rows){
+                        $this->db->query("UPDATE `genresonbook` SET `genresId`= '$value' WHERE `bookId`=" . $id);
+                    }
+                endforeach;
             return 'created';
         } else {
             $sql = "INSERT INTO `book`(`id`, `name`, `releseYear`, `description`, `img`) VALUES (null,'$name','$releseYear','$description','$img')";

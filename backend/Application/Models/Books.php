@@ -11,7 +11,7 @@ class ModelsBooks extends Model {
 
     public function getAllBooks($param) {
 
-        $sql = "SELECT * FROM " . DB_PREFIX . "book";
+        $sql = "SELECT * FROM book";
 
 
 
@@ -42,12 +42,12 @@ class ModelsBooks extends Model {
         return $data;
     }
     public function Authors() {
-        $sql = "SELECT * FROM " . DB_PREFIX . "authors";
+        $sql = "SELECT * FROM authors";
         $res = $this->db->query($sql);
         return $res->rows;
     }
     public function getAllAuthors() {
-        $sql = "SELECT * FROM " . DB_PREFIX . "authors";
+        $sql = "SELECT * FROM authors";
 
 
         $query = $this->db->query($sql);
@@ -70,7 +70,7 @@ class ModelsBooks extends Model {
         return $data;
     }
     public function searchBooksByAuthors($param) {
-        $sql = "SELECT * FROM " . DB_PREFIX . "authors WHERE fullname LIKE '%" . $this->db->escape($param['author']) . "%'";
+        $sql = "SELECT * FROM authors WHERE fullname LIKE '%" . $this->db->escape($param['author']) . "%'";
 
 
 
@@ -120,7 +120,7 @@ class ModelsBooks extends Model {
     public function searchBooksByTitle($param)
     {
         $like = urldecode( $this->db->escape($param['name']));
-        $sql = "SELECT * FROM " . DB_PREFIX . "book WHERE name LIKE '%' '$like' '%'";
+        $sql = "SELECT * FROM book WHERE name LIKE '%' '$like' '%'";
         
 
         $query = $this->db->query($sql);
@@ -257,7 +257,7 @@ class ModelsBooks extends Model {
     }
 
     public function getBookById($id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "book WHERE id = " . (int) $id . "");
+        $query = $this->db->query("SELECT * FROM book WHERE id = " . (int) $id . "");
         if ($query->num_rows) {
             foreach($query->rows as $result):
                 $book = $query->row;
@@ -270,12 +270,12 @@ class ModelsBooks extends Model {
         return $book;
     }
     private function getUser($id) {
-        $query = $this->db->query("SELECT id, email, login, image, status, role FROM " . DB_PREFIX . "usermodel WHERE id = " . (int) $id . "");
+        $query = $this->db->query("SELECT id, email, login, image, status, role FROM usermodel WHERE id = " . (int) $id . "");
 
         return $query->row;
     }
     private function getBooksAuthor($author) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "authorsonbook WHERE authorsId = " . (int) $author . "");
+        $query = $this->db->query("SELECT * FROM authorsonbook WHERE authorsId = " . (int) $author . "");
 
         $data = [];
 
@@ -291,13 +291,13 @@ class ModelsBooks extends Model {
     }
 
     private function getBook($book_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "book WHERE id = " . (int) $book_id . "");
+        $query = $this->db->query("SELECT * FROM book WHERE id = " . (int) $book_id . "");
 
         return $query->row;
     }
 
     private function getAuthorsBook($book_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "authorsonbook WHERE bookId = " . (int) $book_id . "");
+        $query = $this->db->query("SELECT * FROM authorsonbook WHERE bookId = " . (int) $book_id . "");
 
         $data = [];
 
@@ -312,18 +312,18 @@ class ModelsBooks extends Model {
     }
 
     private function getAuthor($author_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "authors WHERE id = " . (int) $author_id . "");
+        $query = $this->db->query("SELECT * FROM  authors WHERE id = " . (int) $author_id . "");
         return $query->row;
     }
 
     private function getCountBooks() {
-        $query = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "book");
+        $query = $this->db->query("SELECT COUNT(*) as total FROM book");
 
         return ($query->num_rows > 0) ? (int) $query->row['total'] : 0;
     }
 
     private function getCountAuthors() {
-        $query = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "authors");
+        $query = $this->db->query("SELECT COUNT(*) as total FROM authors");
 
         return ($query->num_rows > 0) ? (int) $query->row['total'] : 0;
     }

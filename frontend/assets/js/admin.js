@@ -10,9 +10,9 @@ async function getAllAuthor() {
 async function getAllGenre() {
     return new Promise(resolve => fetch('http://bookservice:88/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
-// async function getAllComments() {
-//     return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
-// }
+async function getAllComments() {
+    return new Promise(resolve => fetch('http://bookservice:88/admin/getallcomments').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+}
 $('#search_book').on('keyup', function() {
     var value = $(this).val();
     var patt = new RegExp(value, "i");
@@ -43,19 +43,35 @@ $('#search_user').on('keyup', function() {
     });
 
 });
+$('#search_comment').on('keyup', function() {
+    var value = $(this).val();
+    var patt = new RegExp(value, "i");
+
+    $('#comments').find('tr').each(function() {
+        var $table = $(this);
+
+        if (!($table.find('td').text().search(patt) >= 0)) {
+            $table.not('.t_head').hide();
+        }
+        if (($table.find('td').text().search(patt) >= 0)) {
+            $(this).show();
+        }
+
+    });
+});
 async function passport() {
-
-
     const users = await getAllUsers();
     showUsers(users);
     const books = await getBooks();
     showBooks(books.books);
+    const comments = await getAllComments();
+    showComments(comments);
     await showAuthors();
     await showGenres();
 }
 function showUsers(arr) {
     const userWrapper = document.getElementById('users');
-
+    userWrapper.innerHTML = '';
     arr.forEach(user => {
         let doit = user.status === 'banned' ? 'разбанить' : 'забанить';
             userWrapper.innerHTML +=`<tr>
@@ -69,12 +85,34 @@ function showUsers(arr) {
         </tr>`
     });
 }
-
+function showComments(arr) {
+    const commentWrapper = document.getElementById('comments');
+    commentWrapper.innerHTML = '';
+    arr.forEach(comment => {
+        commentWrapper.innerHTML +=`<tr>
+            <td>${comment.id}</td>
+            <td>${comment.createdAt}</td>
+            <td>${comment.comment}</td>
+            <td>${comment.writtenById}</td>
+            <td><a href="./book.php?id=${comment.bookId}">${comment.bookId}</a></td>
+            <td><button onclick="deleteComment(${comment.id})">удалить</button></td>
+        </tr>`
+    });
+}
 async function deleteBoook(id) {
     id = Number(id);
     console.log(id);
-   await fetch('http://bookservice:88/admin/deletebook', {method: 'POST', body: JSON.stringify({id: id})});
+    await fetch('http://bookservice:88/admin/deletebook', {method: 'POST',  body: JSON.stringify({id: id})});
+    await passport();
 }
+async function deleteComment(id) {
+    id = Number(id);
+    console.log(id);
+    await fetch('http://bookservice:88/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: id})});
+
+    await passport();
+}
+
 async function banUser(id) {
     id = Number(id);
     const query = await fetch('http://bookservice:88/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
@@ -83,6 +121,7 @@ async function banUser(id) {
 }
 async function showAuthors() {
     const authors = await getAllAuthor();
+    document.getElementById('authors').innerHTML = '';
     authors.forEach(author => {
         document.getElementById('authors').innerHTML +=`<option value="${author.id}">${author.firstName + ' ' +author.lastname}</option>`
     })
@@ -111,14 +150,28 @@ function showBookAll() {
 
     }
 }
+function showCommentsAll() {
+    const visible = document.getElementById('visibleComment');
+    const btn = document.getElementById('BtnshowCommentsAll')
+    if(visible.classList.contains('visible')) {
+        visible.classList.remove('visible');
+        btn.innerHTML = 'Скрыть';
+    } else {
+        visible.classList.add('visible');
+        btn.innerHTML = 'Вывести';
+
+    }
+}
 async function showGenres() {
     const genres = await getAllGenre();
+    document.getElementById('genres').innerHTML = '';
     genres.forEach(genre => {
         document.getElementById('genres').innerHTML +=`<option value="${genre.id}">${genre.name}</option>`
     })
 };
 function showBooks(arr) {
     const bookWrapper = document.getElementById('books');
+    bookWrapper.innerHTML = '';
     arr.forEach(book => {
         bookWrapper.innerHTML +=` <tr>
             <td><a href="./book.php?id=${book.book.id}">${book.book.id}</a></td>
@@ -127,15 +180,22 @@ function showBooks(arr) {
             <td>${book.book.description}</td>
             <td>${book.book.img}</td>
             <td><button onclick="deleteBoook(${book.book.id})">удалить</button></td>
-            <td><button onClick="eddit(${book.book.id})">редактировать</button></td>
+            <td><button onclick="eddit('${book.book.name}', '${book.book.description}', '${book.book.releseYear}')">редактировать</button></td>
         </tr>`
     });
 }
-(async () => {
-    await passport()
-
-})();
-$("#create_genre").submit(function(e){
+function eddit(name, description, releseYear) {
+    document.getElementById("titleEdditCreatBook").value = 'Редактирование';
+    document.getElementById("name_book").value = name;
+    document.getElementById("release").value = releseYear;
+    document.getElementById("description").value = description;
+}
+passport();
+// (async () => {
+//     await passport()
+//
+// })();
+$("#create_genre").submit(async function(e){
     e.preventDefault();
     let DataGenre = new FormData();
     let name = $('#nameGenre').val();
@@ -148,15 +208,18 @@ $("#create_genre").submit(function(e){
         data: DataGenre,
         processData: false,
         contentType: false,
-        success: function (response) {
+        cache: false,
+        success: async function (response) {
             console.log('ok');
+            await passport();
+            $("#create_genre")[0].reset();
         },
         error: function (e) {
             console.log(e);
         }
     });
 });
-$("#create_author").submit(function(e){
+$("#create_author").submit(async function(e){
     e.preventDefault();
     let DataAuthor = new FormData();
     let firstName = $('#firstName_Author').val();
@@ -171,15 +234,17 @@ $("#create_author").submit(function(e){
         data: DataAuthor,
         processData: false,
         contentType: false,
-        success: function (response) {
+        success: async function (response) {
             console.log('ok');
+            $("#create_author")[0].reset();
+            await passport();
         },
         error: function (e) {
             console.log(e);
         }
     });
 });
-$("#create_book").submit(function(e){
+$("#create_book").submit(async function(e){
     e.preventDefault();
     let DataBook = new FormData();
     let name_book = $('#name_book').val();
@@ -204,7 +269,6 @@ $("#create_book").submit(function(e){
     for (let pair of DataBook.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
     }
-
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
         url: `http://bookservice:88/admin/createbook`,
@@ -212,8 +276,10 @@ $("#create_book").submit(function(e){
         processData: false,
         contentType: false,
         cache: false,
-        success: function (response) {
+        success: async function (response) {
             console.log('ok');
+            await passport();
+            $("#create_book")[0].reset();
         },
         error: function (e) {
            console.log(e);

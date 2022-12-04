@@ -46,3 +46,5 @@ $router->post('/admin/newgenre', 'Admin@createNewGenre');
 $router->post('/admin/newauthor', 'Admin@newAuthor');
 $router->get('/books/authors', 'Books@allAuthors');
 $router->get('/books/getgenres', 'Books@getGenres');
+$router->post('/admin/deletecomment', 'Admin@deleteComment');
+$router->get('/admin/getallcomments', 'Admin@getAllComments');

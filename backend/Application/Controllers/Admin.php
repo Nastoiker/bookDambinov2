@@ -43,23 +43,7 @@ public function index() { }
             }
         }
     }
-    public function deleteComment() {
-        if ($this->request->getMethod() == "DELETE") {
-            $data = $this->request->input();
-            $model = $this->model('user');
-            $users = $model->banUser($data);
-            if (!($users == 'UserBanned' )) {
-                $data = ['data' => $users];
-                $this->response->sendStatus(201);
-                $this->response->setContent($data);
-            }
-            else {
-                $data = ['data' => $users];
-                $this->response->sendStatus(400);
-                $this->response->setContent($data);
-            }
-        }
-    }
+
     private function uploadImageMethod($image, $name, $directory) {
         $file_name = $image['name'];
         $file_size = $image['size'];
@@ -165,6 +149,21 @@ public function index() { }
                 $this->response->sendStatus(201);
                 $this->response->setContent(['message' => 'created']);
             }
+        }
+    }
+    public function getAllComments() {
+        $model = $this->model('admin');
+        $comments = $model->getAllComments($model);
+        $this->response->sendStatus(201);
+        $this->response->setContent($comments);
+    }
+    public function deleteComment() {
+        if ($this->request->getMethod() == "POST") {
+            $data = $this->request->input();
+            $model = $this->model('admin');
+            $comments = $model->deleteComment($data['id']);
+            $this->response->sendStatus(202);
+            $this->response->setContent($comments);
         }
     }
     public function uploadImage()
