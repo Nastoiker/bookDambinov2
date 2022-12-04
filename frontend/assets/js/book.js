@@ -10,7 +10,7 @@ const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
-$(".form_comment").submit(function(e){
+$(".form_comment").submit(async function(e){
     let BookId = localStorage.getItem('BookId');
     e.preventDefault();
     let comment = $('.comment_text').val();
@@ -21,8 +21,10 @@ $(".form_comment").submit(function(e){
         method: "POST",
         url: `http://bookservice:88/books/setcomment`,
         data: jsonres,
-        success: function () {
+        success: async function () {
+            await passport();
             console.log('комментарий оставлен');
+            $(".form_comment")[0].reset();
         },
         error: function () {
             console.log('error');
@@ -71,7 +73,7 @@ const showBook = (object) => {
 }
 
 const showComment = (object) => {
-
+    commentsBook.innerHTML = '';
     object.forEach(comment => {
         commentsBook.innerHTML += `
     <div class="comments">
@@ -95,15 +97,16 @@ $(function() {
         this.src = 'name.gif'
     })
 });
-$('input[name="rating"]').click(() => {
+$('input[name="rating"]').click(async () => {
     let value =  $('input[name="rating"]:checked').val();
     alert(value);
     $.ajax({
         method: "POST",
         url: `http://bookservice:88/books/setrating`,
-        data: JSON.stringify({rating: value, authorById: 1, bookId: id}),
-        success: function () {
+        data: JSON.stringify({rating: value, authorById: localStorage.getItem('id'), bookId: id}),
+        success: async function () {
             console.log('комментарий оставлен');
+            await passport()
         },
         error: function () {
             console.log('error');

@@ -184,11 +184,20 @@ function showBooks(arr) {
         </tr>`
     });
 }
+function scrollTo(element)
+{
+    window.scroll({
+        left: 0,
+        top: element.offsetTop,
+        behavior: 'smooth'
+    })
+}
 function eddit(name, description, releseYear) {
-    document.getElementById("titleEdditCreatBook").value = 'Редактирование';
+    document.getElementById("titleEdditCreatBook").innerHTML = 'Редактирование';
     document.getElementById("name_book").value = name;
     document.getElementById("release").value = releseYear;
     document.getElementById("description").value = description;
+    scrollTo(document.getElementById("create_book"));
 }
 passport();
 // (async () => {

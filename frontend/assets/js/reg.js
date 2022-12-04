@@ -85,6 +85,7 @@ $("#msform").submit(function(e){
                     localStorage.setItem('id', response.data.id);
                     localStorage.setItem('email', response.data.email);
                     localStorage.setItem('login', response.data.login);
+                    localStorage.setItem('role', 'user');
                     let id = Number(response.data.id);
                     DataImage.append('userId', id);
                     $.ajax({

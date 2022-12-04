@@ -24,6 +24,7 @@
 		<div class="input-form">
 			<label for="email">email</label>
 			<input
+                    required
 					type="email"
 					class="form-control"
 					id="email"
@@ -32,19 +33,18 @@
 					placeholder="Enter email"
 					data-required="email"
 					data-invalid-message="Please provide valid email example@example.com"
-					required
 			/>
 		</div>
 		<div class="input-form">
 			<label for="password">пароль</label>
 			<input
+                    required
 					type="password"
 					class="form-control"
 					id="password"
                     name="password"
 					placeholder="Password"
 					data-required="password"
-					required
 			/>
 		</div>
 		<button type="submit" id="btn_submit" >Авторизоваться</button>

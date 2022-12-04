@@ -3,17 +3,21 @@ switch (localStorage.role) {
         window.location.href = './admin.php'
     }
     case 'user': {
-
+        document.getElementById("welcome__registration").style.display = 'none';
     }
 }
-var hiddenElement = document.querySelector(".container_genres");
-function handleButtonClick() {
-    hiddenElement.scrollIntoView({block: "center", behavior: "smooth"});
+function scrollTo(element)
+{
+    window.scroll({
+        left: 0,
+        top: element.offsetTop,
+        behavior: 'smooth'
+    })
 }
 let get = location.search;
 let genre = get.replace( '?', '');
 if(genre === 'genres') {
-    handleButtonClick();
+    scrollTo(document.querySelector(".container_genres"));
 }
 const el = document.querySelectorAll('.info_book');
 // document.onload =  () => {
@@ -40,7 +44,6 @@ window.addEventListener('DOMContentLoaded', () => {
 //     for(let value of el) {
 //         value.classList.remove('loaded');
 //     }}, 1000);
-localStorage.clear();
 console.log(localStorage.getItem('email'));
 console.log(localStorage.getItem('role'));
 

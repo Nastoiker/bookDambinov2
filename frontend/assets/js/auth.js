@@ -1,7 +1,8 @@
-document.getElementById('btn_submit').addEventListener('click', async (event) => {
+document.querySelector('.form').addEventListener('submit', async (event) => {
     event.preventDefault();
     await onSubmit();
 })
+localStorage.clear();
 async function onSubmit() {
     const form = document.forms['loginForm'];
     const inputEmail = document.getElementById('email');
@@ -31,10 +32,13 @@ async function onSubmit() {
         localStorage.setItem('email', data.email);
         localStorage.setItem('avatar', data.image);
         localStorage.setItem('status', data.status);
+        localStorage.setItem('id', data.id);
         console.log(localStorage);
+        window.location.href = './index.php';
     } catch (err) {
         console.log(err.message);
         notify({ msg: 'Ошибка авторизации', className: 'alert-danger' });
+        document.getElementById('btn_submit').style.border = 'red 3px solid';
     }
 }
 const notify = (response) => {

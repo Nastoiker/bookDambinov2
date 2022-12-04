@@ -13,8 +13,8 @@
         <img style="margin-left: -28px;"src="assets/src/icons/search.svg" alt="search">
     </div>
     <div class="reg_auth_btns">
-        <button onclick="window.location.href = 'reg.php'" class="reg-btn">регистрация</button>
-        <button onclick="window.location.href = 'auth.php'" class="auth-btn">авторизация</button>
+        <button onclick="window.location.href = 'reg.php'" id="signUp" class="reg-btn">регистрация</button>
+        <button onclick="window.location.href = 'auth.php'" id="logout" class="auth-btn">авторизация</button>
     </div>
     <div id="display"></div>
     <div id="profile"class="profile">

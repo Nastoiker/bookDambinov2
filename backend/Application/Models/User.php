@@ -13,10 +13,11 @@ class ModelsUser extends Model {
             } else {
                 $sql = "INSERT INTO `usermodel` (`id`, `email`, `login`, `password`) VALUES (null, '$email' ,  '$login' , '$password' )";
                 $this->db->query($sql);
-                $queryId = $this->db->query("SELECT id FROM usermodel WHERE email = '$email'" );
+                $queryId = $this->db->query("SELECT id, image FROM usermodel WHERE email = '$email'" );
                 return [
                     'login'      => $param['login'],
                     'email'    => $param['email'],
+                    'avatar' => $queryId->row['image'],
                     'id' => $queryId->row['id'],
                 ];
             }

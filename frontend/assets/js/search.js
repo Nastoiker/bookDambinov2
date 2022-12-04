@@ -5,8 +5,9 @@ switch (localStorage.role) {
         window.location.href = 'admin.php'
     }
     case 'user': {
-        document.querySelector('.reg_auth_btns').style = "display: none";
-        document.getElementById("icon_profile").src=`Static/avatars/${localStorage.getItem('image')}`;
+        document.querySelector('.reg-btn').style = "display: none";
+        document.getElementById('logout').innerHTML = 'выйти';
+        document.getElementById("icon_profile").src=`Static/avatars/${localStorage.getItem('avatar')}`;
         document.getElementById('profile').innerHTML+=`<div style="padding-left: 20%"><h5>${localStorage.getItem('login')}</h5><h5>${localStorage.getItem('email')}</h5></div>`
     }
 }
