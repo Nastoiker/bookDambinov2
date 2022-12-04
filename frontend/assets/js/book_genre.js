@@ -2,9 +2,10 @@ let get = location.search;
 let id = get.replace( '?id=', '');
 const bookInfo = document.querySelector(".wrapper__book");
 const genres = ['Мистика',  'Драмма', 'Фанстастика', 'Детектив','Приключения']
+async function getGenre() {
+    return new Promise(resolve => fetch(`http://bookservice:88/books/getgenres`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+}
 
-
-document.getElementById('titleGenre').innerHTML = genres[id - 1];
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
     return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
@@ -12,6 +13,17 @@ async function getBooks(id) {
 async function passport () {
     const res = await getBooks(id);
     let books = JSON.stringify(res);
+
+    let  genres = await getGenre();
+    genres =  JSON.stringify(genres);
+    genres = JSON.parse(genres);
+    genres.forEach(
+        genre => {
+            if(genre.id===id) {
+                document.getElementById('titleGenre').innerHTML = genre.name;
+            }
+        }
+    )
     const res1 = JSON.parse(books);
     console.log(res);
     showBook(res1);

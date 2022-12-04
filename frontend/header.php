@@ -9,7 +9,7 @@
         <h4 id="genres_selection"><a href="index.php?genres">Жанры</a></h4>
     </div>
     <div class="search">
-        <input class="input-number" pattern="[А-Яа-я]" id="search" type="text" placeholder="найти книгу">
+        <input class="input-number" pattern="[А-Яа-я]" id="search" type="text" placeholder="найти книгу,автора">
         <img style="margin-left: -28px;"src="assets/src/icons/search.svg" alt="search">
     </div>
     <div class="reg_auth_btns">

@@ -19,22 +19,25 @@ async function onSubmit() {
         const  { data } = await result;
         if(data === 'admin') {
             localStorage.setItem('role', data);
+            console.log(1);
+            window.location.href = './admin.php';
+        } else {
+            localStorage.setItem('role', data.role);
+            if(!(data.status === 'allow') )  {
+                throw new Error();
+            }
+            if(!(data.status === 'allow') )  {
+                throw new Error('error');
+            }
+            notify({ msg: 'Успешный вход', className: 'alert-success' });
+            localStorage.setItem('login', data.login);
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('avatar', data.image);
+            localStorage.setItem('status', data.status);
+            localStorage.setItem('id', data.id);
+            console.log(localStorage);
+            window.location.href = './index.php';
         }
-        if(!(data.status === 'allow') )  {
-            throw new Error();
-        }
-        if(!(data.status === 'allow') )  {
-            throw new Error('error');
-        }
-        notify({ msg: 'Успешный вход', className: 'alert-success' });
-        localStorage.setItem('role', data.role);
-        localStorage.setItem('login', data.login);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('avatar', data.image);
-        localStorage.setItem('status', data.status);
-        localStorage.setItem('id', data.id);
-        console.log(localStorage);
-        window.location.href = './index.php';
     } catch (err) {
         console.log(err.message);
         notify({ msg: 'Ошибка авторизации', className: 'alert-danger' });

@@ -37,7 +37,39 @@ $(".next").click(function(){
         easing: 'easeInOutBack'
     });
 });
+$("#passwordInput").keyup(function() {
+    if($('#passwordInputConfirm').val() !== $('#passwordInput').val() ) {
+        $('#nextConfirm').css({'opacity': '0',  'width': '0'});
+        console.log('2');
+    } else {
+        $('#nextConfirm').css({'opacity': '1', 'width': '100'});
+        $('#nextConfirm').attr('disabled', false);
+        console.log('1');
+    }
+});
+if(!$('input[type="text"]').val()) {
+    $('.next').css({'opacity': '0',  'width': '0'});
+}
 
+$('input[type="text"]').keyup(function() {
+    if(!$(':input').val()) {
+        $('.next').css({'opacity': '0',  'width': '0'});
+        console.log(1);
+    } else {
+        $('.next').css({'opacity': '1', 'width': '100'});
+        console.log(2);
+    }
+})
+$("#passwordInputConfirm").keyup(function() {
+    if($('#passwordInputConfirm').val() !== $('#passwordInput').val() ) {
+        $('#nextConfirm').css({'opacity': '0', 'width': '0' });
+        console.log('2');
+    } else {
+        $('#nextConfirm').css({'opacity': '1', 'width': '100'});
+        $('#nextConfirm').attr('disabled', false);
+        console.log('1');
+    }
+});
 $(".previous").click(function(){
     if(animating) return false;
     animating = true;
@@ -95,7 +127,7 @@ $("#msform").submit(function(e){
                         processData: false,
                         contentType: false,
                         success: function (e) {
-                            localStorage.setItem('image', e.picture);
+                            localStorage.setItem('avatar', e.picture);
                             $('.notify').fadeIn(function () {
                                 $('.notify').text('успешная регистрация');
                                 $('.notify').animate({
@@ -121,34 +153,3 @@ $("#msform").submit(function(e){
 
 
 
-// $(document).ready(function() {
-//     $('body').on('input', '.input-number', function(){
-//         this.value = this.value.replace(/[^а-я]/g, '');
-//     });
-//     $("#regBtn").click(function() {
-//         let email = $('#emailInput').val();
-//         let login = $('#loginInput').val();
-//         let password = $('#passwordInput').val();
-//         const res1 = { email: email, login: login, password};
-//         const jsonres = JSON.stringify(res1);
-//             const res = JSON.stringify({ name: value});
-//             $("#display").css({"padding": '10px'});
-//             $.ajax({
-//                 method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
-//                 url: `http://bookservice:88/user/registration`,
-//                 data: jsonres,
-//                 success: function(response) {
-//                     $("#display").empty();
-//                     response.result.forEach((e) => {
-//                         $("#display").append(`<a href="./book.php?id=${e.book.id}">${e.book.name}</a><br>`);
-//                     })
-//                 },
-//                 error: function(){
-//                     $("#search").addClass('animate')
-//                 }
-//             });// Указываем путь к обработчику. То есть указывем куда будем отправлять данные на сервере.
-//
-//
-//     });
-//
-// });

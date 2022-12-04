@@ -1,6 +1,7 @@
 console.log(localStorage);
 
-switch (localStorage.role) {
+switch (localStorage.
+    role) {
     case 'admin': {
         window.location.href = 'admin.php'
     }
