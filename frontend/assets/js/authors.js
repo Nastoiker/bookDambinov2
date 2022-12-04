@@ -57,7 +57,7 @@ const showBook = (arr) => {
                         <img  src="./Static/authors/${author.avatar_author}" style="width:100%; height: 100%" alt="book">
                     </div>
                 </div>
-                <h4>${author.firstName + author.lastname}</h4>
+                <h4>${author.firstName + ' ' +author.lastname}</h4>
                 <button onclick="window.location.href =\`./author.php?id=${author.id}\`">Подробнее</button>
             </div>`
     })

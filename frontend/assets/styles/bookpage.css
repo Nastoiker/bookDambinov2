@@ -17,6 +17,9 @@
     justify-content: space-around;
     align-items: center;
 }
+.information {
+    width: 50%;
+}
 .img_book {
     width: 300px;
     height: 500px;
@@ -41,7 +44,6 @@
 
 
 
-/****** Style Star Rating Widget *****/
 
 .rating {
     border: none;
@@ -67,13 +69,12 @@
     float: right;
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked + label:hover,
 .rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > label:hover ~ input:checked ~ label,
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }

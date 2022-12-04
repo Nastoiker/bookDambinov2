@@ -2,10 +2,7 @@
 use MVC\Model;
 class ModelsUser extends Model {
 
-    public function getAllUser() {
-        // can you connect to database
-        // $this->db->query( write your sql syntax: "SELECT * FROM " . DB_PREFIX . "user");
-    }
+
         public function registration($param) {
             $email = strval($param['email']);
             $login = $param['login'];

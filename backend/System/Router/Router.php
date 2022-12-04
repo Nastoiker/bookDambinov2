@@ -27,7 +27,6 @@ class Router {
         $this->url = rtrim($url, '/');
         $this->method = $method;
 
-        // get response class of $GLOBALS var
         $this->response = $GLOBALS['response'];
     }
 
@@ -84,7 +83,6 @@ class Router {
 	    }
         $patternAsRegex = '@^' . $patternAsRegex . '$@';
         
-        // check match request url
         if (preg_match($patternAsRegex, $url, $paramsValue)) {
             array_shift($paramsValue);
             foreach ($params[0] as $key => $value) {
@@ -126,7 +124,6 @@ class Router {
         if (!$this->matchRouter || empty($this->matchRouter)) {
 			$this->sendNotFound();        
 		} else {
-            // call to callback method
             if (is_callable($this->matchRouter[0]->getCallback()))
                 call_user_func($this->matchRouter[0]->getCallback(), $this->params);
             else
@@ -142,7 +139,6 @@ class Router {
         if (file_exists($file)) {
             require_once($file);
 
-            // controller class
             $controller = 'Controllers' . ucfirst($parts[0]);
 
             if (class_exists($controller))
@@ -150,7 +146,6 @@ class Router {
             else
 				$this->sendNotFound();
 
-            // set function in controller
             if (isset($parts[1])) {
                 $method = $parts[1];
 				
@@ -161,7 +156,6 @@ class Router {
                 $method = 'index';
             }
 
-            // call to controller
             if (is_callable([$controller, $method]))
                 return call_user_func([$controller, $method], $params);
             else

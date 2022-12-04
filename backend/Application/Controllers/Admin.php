@@ -8,7 +8,6 @@ public function index() { }
         $users = $model->getAllUser();
         $data =  $users;
 
-        // Send Response
         $this->response->sendStatus(200);
         $this->response->setContent($data);
     }
@@ -74,7 +73,6 @@ public function index() { }
             $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
         }
 
-        // Check file size
         if ($file_size > 2097152) {
             $errors[] = 'File size must be exactly 2 MB';
         }
@@ -117,12 +115,10 @@ public function index() { }
             $file_ext = explode('.', $file_name);
             $file_ext = strtolower(end($file_ext));
             $resultimage = $name . '.' . $file_ext;
-            // Check it's valid file for upload
             if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
             }
 
-            // Check file size
             if ($file_size > 2097152) {
                 $errors[] = 'File size must be exactly 2 MB';
             }
@@ -177,26 +173,21 @@ public function index() { }
             $errors = array();
             $BookId = $this->request->text['bookId'];
             $image = $this->request->files['image'];
-            // File info
 
             $file_name = $image['name'];
             $name = mt_rand();
             $file_size = $image['size'];
             $file_tmp = $image['tmp_name'];
             $file_type = $image['type'];
-            // Get file extension
             $file_ext = explode('.', $file_name);
             $file_ext = strtolower(end($file_ext));
 
-            // White list extensions
             $extensions = array("jpeg", "jpg", "png");
 
-            // Check it's valid file for upload
             if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
             }
 
-            // Check file size
             if ($file_size > 2097152) {
                 $errors[] = 'File size must be exactly 2 MB';
             }

@@ -4,18 +4,7 @@ use MVC\Controller;
 
 class ControllersBooks  extends Controller {
 
-    public function index() {
 
-        // Connect to database
-        $model = $this->model('books');
-
-        // Read All Books And Authors Data
-        $data_list = $model->getAllData();
-
-        // Send Response
-        $this->response->sendStatus(200);
-        $this->response->setContent($data_list);
-    }
     public function setRatingForBook() {
         $param = $this->request->input();
         $model = $this->model('books');
@@ -28,7 +17,6 @@ class ControllersBooks  extends Controller {
         $model = $this->model('books');
         $book_list = $model->getAllBooks($param);
 
-        // Send Response
         $this->response->sendStatus(200);
         $this->response->setContent($book_list);
     }
@@ -55,7 +43,6 @@ class ControllersBooks  extends Controller {
     public function allAuthors() {
         $model = $this->model('books');
         $author_list = $model->Authors();
-        // Send Response
         $this->response->sendStatus(200);
         $this->response->setContent($author_list);
     }
@@ -64,7 +51,6 @@ class ControllersBooks  extends Controller {
         $model = $this->model('books');
         $author_list = $model->getAllAuthors();
 
-        // Send Response
         $this->response->sendStatus(200);
         $this->response->setContent($author_list);
     }
@@ -81,13 +67,11 @@ class ControllersBooks  extends Controller {
     }
     public function searchBooksByAuthors($param) {
 
-        // check valid param
         if (isset($param['author']) && $this->validSearchBooks($param['author'])) {
 
             $model = $this->model('books');
             $result = $model->searchBooksByAuthors($param);
 
-            // Send Response
             $this->response->sendStatus(200);
             $this->response->setContent($result);
         } else {
@@ -105,7 +89,6 @@ class ControllersBooks  extends Controller {
     }
     public function searchBooksByTitle() {
         $param = $this->request->input();
-        // check valid param
         if (isset($param['name']) && $this->validSearchBooks($param['name'])) {
 
             $model = $this->model('books');
@@ -117,7 +100,28 @@ class ControllersBooks  extends Controller {
                 ]);
             } else {
                 $this->response->sendStatus(200);
-                // Send Response
+                $this->response->setContent($result);
+            }
+        } else {
+            $this->response->sendStatus(400);
+            $this->response->setContent([
+                'message'   => 'не найден'
+            ]);
+        }
+    }
+    public function searchAthorByName() {
+        $param = $this->request->input();
+        if (isset($param['name'])) {
+
+            $model = $this->model('books');
+            $result = $model->searchAthorByName($param);
+            if(count($result['result'][0]['author']) === 0) {
+                $this->response->sendStatus(404);
+                $this->response->setContent([
+                    'message'   => 'не найден'
+                ]);
+            } else {
+                $this->response->sendStatus(200);
                 $this->response->setContent($result);
             }
         } else {
@@ -146,7 +150,6 @@ class ControllersBooks  extends Controller {
     }
     private function validSearchBooks($param) {
 
-        // check param
         if (!empty($param) && !is_numeric($param) && strlen((string) $param) > 0)
             return true;
         

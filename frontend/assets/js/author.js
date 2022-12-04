@@ -11,7 +11,7 @@ async function passport () {
     const res = await getBooks(id);
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
-    document.getElementById('titleAuthor').innerHTML = res1.firstName + res1.lastname;
+    document.getElementById('titleAuthor').innerHTML = res1.firstName + ' '+ res1.lastname;
     console.log(res);
     showBook(res1.books);
 }

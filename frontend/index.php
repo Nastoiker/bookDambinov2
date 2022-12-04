@@ -19,7 +19,7 @@
                     Книги могут изменить вашу жизнь
                 </h1>
                 <p>Книжный сервис</p>
-                <button id="welcome__registration" class="welcome__registration">регистрация</button>
+                <button id="welcome__registration" class="welcome__registration" onclick="window.location.href = 'reg.php'">регистрация</button>
             </div>
             <div class="right-side-welcome">
                 <img src="assets/src/imgs/welcome.jpg" alt="">

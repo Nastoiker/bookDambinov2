@@ -119,7 +119,7 @@ async function showGenres() {
 };
 function showBooks(arr) {
     const bookWrapper = document.getElementById('books');
-    arr.forEach(book=> {
+    arr.forEach(book => {
         bookWrapper.innerHTML +=` <tr>
             <td><a href="./book.php?id=${book.book.id}">${book.book.id}</a></td>
             <td>${book.book.name}</td>

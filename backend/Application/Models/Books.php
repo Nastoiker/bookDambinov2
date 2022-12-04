@@ -11,23 +11,17 @@ class ModelsBooks extends Model {
 
     public function getAllBooks($param) {
 
-        // sql statement
         $sql = "SELECT * FROM " . DB_PREFIX . "book";
 
 
 
 
 
-        // render page data
 
-        // read books with limit of page
-
-        // exec query
         $query = $this->db->query($sql);
 
         $data = [];
 
-        // Conclusion
         if ($query->num_rows) {
             foreach($query->rows as $key => $value):
                 $data['books'][] = [
@@ -55,12 +49,6 @@ class ModelsBooks extends Model {
     public function getAllAuthors() {
         $sql = "SELECT * FROM " . DB_PREFIX . "authors";
 
-        // pagination
-        // check valid page
-
-        // render page data
-
-        // read books with limit of page
 
         $query = $this->db->query($sql);
 
@@ -81,21 +69,10 @@ class ModelsBooks extends Model {
         }
         return $data;
     }
-
     public function searchBooksByAuthors($param) {
         $sql = "SELECT * FROM " . DB_PREFIX . "authors WHERE fullname LIKE '%" . $this->db->escape($param['author']) . "%'";
 
-        // total data find
-        $total = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "authors WHERE fullname LIKE '%" . $this->db->escape($param['author']) . "%'");
-        
-        // pagination 
 
-        // check valid page
-
-
-        // render page data
-
-        // read books with limit of page
 
         $query = $this->db->query($sql);
 
@@ -103,9 +80,9 @@ class ModelsBooks extends Model {
         if ($query->num_rows) {
             foreach($query->rows as $key => $value):
                 $data['result'][] = [
-                        'author'   => $value,
-                        'books'    => $this->getBooksAuthor($value['id']),
-                    ];
+                    'author'   => $value,
+                    'books'    => $this->getBooksAuthor($value['id']),
+                ];
             endforeach;
         } else {
             $data['result'][] = [
@@ -117,13 +94,34 @@ class ModelsBooks extends Model {
         return $data;
     }
 
+    public function searchAthorByName($param) {
+        $sql = "SELECT * FROM authors WHERE firstName LIKE '%" . $this->db->escape($param['name']) . "%' or lastname LIKE '%" . $this->db->escape($param['name']) . "%'";
+
+        
+
+        $query = $this->db->query($sql);
+
+        $data = [];
+        if ($query->num_rows) {
+            foreach($query->rows as $key => $value):
+                $data['result'][] = [
+                        'author'   => $value,
+                    ];
+            endforeach;
+        } else {
+            $data['result'][] = [
+                'author'   => array(),
+            ];
+        }
+
+        return $data;
+    }
+
     public function searchBooksByTitle($param)
     {
         $like = urldecode( $this->db->escape($param['name']));
         $sql = "SELECT * FROM " . DB_PREFIX . "book WHERE name LIKE '%' '$like' '%'";
-
-        $total = $this->db->query("SELECT COUNT(*) as total FROM " . DB_PREFIX . "book WHERE name LIKE '%" . $this->db->escape($param['name']) . "%'");
-
+        
 
         $query = $this->db->query($sql);
 

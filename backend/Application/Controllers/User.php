@@ -3,47 +3,11 @@
 use MVC\Controller;
 
 class ControllersUser  extends Controller {
-    public function index() {
-        if ($this->request->getMethod() == "GET") {
-            $model = $this->model('user');
 
-            // Read All Task
-            $users = $model->getAllUser();
-
-            // Prepare Data
-            $data = ['data' => $users];
-
-            // Send Response
-            $this->response->sendStatus(200);
-            $this->response->setContent($data);
-        }
-        // Connect to database
-
-    }
-
-    public function post() {
-
-        if ($this->request->getMethod() == "POST") {
-            // Connect to database
-            $model = $this->model('user');
-
-            // Read All Task
-            $users = $model->getAllUser();
-
-            // Prepare Data
-            $data = ['data' => $users];
-
-            // Send Response
-            $this->response->sendStatus(200);
-            $this->response->setContent($data);
-        }
-    }
     public function Registration() {
         if ($this->request->getMethod() == "POST") {
-            // Connect to database
             $data = $this->request->input();
             $model = $this->model('user');
-            // Read All Task
             $users = $model->registration($data);
             if($users === null) {
                 $this->response->sendStatus(401);
@@ -53,7 +17,6 @@ class ControllersUser  extends Controller {
                 $this->response->sendStatus(201);
                 $this->response->setContent($data);
             }
-            // Prepare Data
 
         }
     }
@@ -96,26 +59,21 @@ class ControllersUser  extends Controller {
             $image = $this->request->files['image'];
             $errors = array();
             $UserId = $this->request->text['userId'];
-            // File info
             $name = mt_rand();
             $file_name = $image['name'];
             $file_size = $image['size'];
             $file_tmp = $image['tmp_name'];
             $file_type = $image['type'];
 
-            // Get file extension
             $file_ext = explode('.', $file_name);
             $file_ext = strtolower(end($file_ext));
 
-            // White list extensions
             $extensions = array("jpeg","jpg","png");
 
-            // Check it's valid file for upload
             if(in_array($file_ext, $extensions) === false) {
                 $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
             }
 
-            // Check file size
             if($file_size > 2097152) {
                 $errors[] = 'File size must be exactly 2 MB';
             }

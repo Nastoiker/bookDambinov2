@@ -1,15 +1,6 @@
 <?php
 
-/**
- *  Config File For Handel Route, Database And Request
- * 
- *  Author: Mohammad Rahmani
- *  Email: rto1680@gmail.com
- *  WebPage: mohammadrahmani.com
- *  
- */
 
-// Http Default Url
 $scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 define('HTTP_URL', '/'. substr_replace(trim($_SERVER['REQUEST_URI'], '/'), '', 0, strlen($scriptName)));
 
@@ -25,8 +16,6 @@ define('DATABASE', [
     'Name'   => 'bookdambinov',
     'User'   => 'root',
     'Pass'   => '',
-    'Prefix' => ''
 ]);
 
-define('DB_PREFIX', '');
 

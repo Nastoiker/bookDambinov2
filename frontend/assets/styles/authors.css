@@ -14,4 +14,15 @@
     padding: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.card_book:hover ~ .card_book {
+    transform: translate3d(50px, 0, 0);
+}
+.container_authors:hover .card_book {
+    opacity: 0.3;
+}
+.container_authors:hover .card_book:hover {
+    transform: scale(1.5);
+    opacity: 1;
 }
