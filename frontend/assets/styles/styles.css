@@ -129,6 +129,7 @@ body {
 .reg-btn {
     background-color: var(--green-light);
     color: white;
+    transition: 1s linear;
 }
 .auth-btn {
     border: none;
@@ -143,11 +144,11 @@ body {
     display: flex;
 }
 .left-side-welcome {
-    align-items: center;
+   margin-top: 50px;
 }
 .right-side-welcome img{
     width: 680px;
-    height: 1024px;
+    height: 900px;
 }
 .info_genre {
     display: flex;
@@ -185,12 +186,18 @@ body {
 .welcome__registration {
     background-color: var(--green-light);
     border: none;
-    width: 219px;
-    height: 61px;
+    width: 150px;
+    height: 40px;
     color: white;
     margin-top: 50px;
+    transition: 1s linear;
 }
-
+.welcome__registration:hover {
+    background-color: #196032;
+}
+.reg-btn:hover {
+    background-color: #196032;
+}
 /* container boooks */
 .container_book {
   display: grid;
