@@ -13,16 +13,38 @@
 
 <body>
 
-        <div class="welcome">
-            <div class="left-side-welcome">
-                <h1>
-                    Книги могут изменить вашу жизнь
-                </h1>
-                <p>Книжный сервис</p>
-                <button id="welcome__registration" class="welcome__registration" onclick="window.location.href = 'reg.php'">регистрация</button>
+        <div class="welcome aboutUs">
+            <div class="left-slide ">
+                <div class="right-side-welcome" style="background-image: url('assets/src/imgs/favorite.jpg')">
+                </div>
+                <div class="right-side-welcome" style="background-image: url('assets/src/imgs/searchbook.jpg')">
+                </div>
+                <div class="right-side-welcome"  style="background-image: url('assets/src/imgs/welcome.jpg')">
+                </div>
             </div>
-            <div class="right-side-welcome">
-                <img src="assets/src/imgs/welcome.jpg" alt="">
+            <div class="right-slide infoAbout">
+                <div class="">
+                    <h1>
+                        Книги могут изменить вашу жизнь
+                        <p>Книжный сервис</p>
+                        <button id="welcome__registration" class="welcome__registration" onclick="window.location.href = 'reg.php'">регистрация</button>
+                    </h1>
+
+
+                </div>
+                <div class="">
+                    <h1>
+
+                      На этом сайте вы можете найти подходящую для вас книгу
+
+                    </h1>
+                </div>
+                <div class="">
+                    <h1>
+                         Оставьте отзыв на понравшуюся вам книгу!
+                    </h1>
+                </div>
+
             </div>
         </div>
         <div class="genres">
@@ -62,7 +84,7 @@
 </body>
 
 <script src="assets/js/script.js"></script>
-
+<script src="assets/js/scroll.js"></script>
 <?php include 'footer.php';?>
 
 </html>
