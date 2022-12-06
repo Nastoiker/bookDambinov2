@@ -11,6 +11,9 @@ async function getRatingByUser(userId, bookId) {
     return new Promise(resolve => fetch('http://bookservice:88/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $(".form_comment").submit(async function(e){
+    if(!localStorage.getItem('id')) {
+        window.location.href = './reg.php';
+    }
     let BookId = localStorage.getItem('BookId');
     e.preventDefault();
     let comment = $('.comment_text').val();
@@ -78,8 +81,14 @@ const showBook = (object) => {
         <use xlink:href="#starBook${object.id}" fill="url(#halfBook${object.id})"></use>
     </svg>`
     }
+    if(ratingBook===0){
+        for (let i = 0; i < 5; i++) {
+            document.getElementById(`BookAvgRating${object.rating['round(AVG(rating),1)']}`).innerHTML += '<img  style="width:32px; margin-left: 10px;" src="assets/src/icons/grayStar.svg" alt=""/>'
+        }
+    }
 }
 const showComment = async (object) => {
+    document.querySelectorAll('.comments').forEach(e => e.innerHTML ='');
     commentsBook.innerHTML = '';
     for (const comment of object) {
         commentsBook.innerHTML += `
@@ -99,18 +108,19 @@ const showComment = async (object) => {
         getRating = JSON.stringify(getRating);
         getRating = JSON.parse(getRating);
         console.log(getRating);
-        let ratingUser  = Number( getRating.rating.rating);
-        const commentsAuthor = comment.commentsAuthor.map( comment => comment);
-        for(let i = 0; i < Math.trunc(ratingUser); i++) {
+        let ratingUser = Number(getRating.rating.rating);
+        const commentsAuthor = comment.commentsAuthor.map(comment => comment);
+        document.getElementById(`${comment.author.id}`).innerHTML = '';
+        for (let i = 0; i < Math.trunc(ratingUser); i++) {
             document.getElementById(`${comment.author.id}`).innerHTML += '<img  style="width:50px;" src="assets/src/icons/star.svg" alt=""/>'
         }
         let lastStar = ratingUser - Math.trunc(ratingUser);
-        if(lastStar>0) {
+        if (lastStar > 0) {
             document.getElementById(`${comment.author.id}`).innerHTML += `    <svg width="0" height="0" viewBox="0 0 32 32">
   <defs>
     <linearGradient id="half${comment.author.id}" x1="0" x2="100%" y1="0" y2="0">
-      <stop offset="${lastStar  * 100}%" stop-color="#fed94b"></stop>
-      <stop offset="${lastStar  * 100}%" stop-color="#f7efc5"></stop>
+      <stop offset="${lastStar * 100}%" stop-color="#fed94b"></stop>
+      <stop offset="${lastStar * 100}%" stop-color="#f7efc5"></stop>
     </linearGradient>
     
     <symbol viewBox="0 0 32 32" id="star${comment.author.id}">
@@ -125,19 +135,23 @@ const showComment = async (object) => {
     </svg>`;
         }
         const commentsHtml = document.getElementById(`authorId${comment.author.id}`);
+        commentsHtml.innerHTML = '';
         console.log(commentsHtml);
-        commentsAuthor.forEach( e => { e.createdAt = e.createdAt.replace('.000', ''); commentsHtml.innerHTML += `<div class="message"><p>${e.comment}</p> <span>${e.createdAt}</span></div>` });
+        commentsAuthor.forEach(e => {
+            e.createdAt = e.createdAt.replace('.000', '');
+            if (e.writtenById === localStorage.getItem('id')) {
+                commentsHtml.innerHTML += `<div class="message"><div style="display: flex; align-items: center"><p>${e.comment}</p>  <button style="margin-left: 20px; background: #be7b7b; color: white" onclick="deleteComment(${e.id})">удалить</button></div><span>${e.createdAt}</span></div>`;
+            } else {
+                commentsHtml.innerHTML += `<div class="message"><p>${e.comment}</p> <span>${e.createdAt}</span></div>`;
+            }
+        });
     }
 }
-
-$(function() {
-    $('.info__usercomment').find('img[src=""]').each(function() {
-        this.src = 'name.gif'
-    })
-});
 $('input[name="rating"]').click(async () => {
-    let value =  $('input[name="rating"]:checked').val();
-    alert(value);
+    if(!localStorage.getItem('id')) {
+        window.location.href = './reg.php';
+    }
+    let value = $('input[name="rating"]:checked').val();
     $.ajax({
         method: "POST",
         url: `http://bookservice:88/books/setrating`,
@@ -151,5 +165,13 @@ $('input[name="rating"]').click(async () => {
         }
     });
 });
-
-passport()
+async function deleteComment(idComment) {
+    idComment = Number(idComment);
+    console.log(idComment);
+    await fetch('http://bookservice:88/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: idComment})});
+    const res = await getBooks(id);
+    let books = JSON.stringify(res);
+    const res1 = JSON.parse(books);
+    showComment(res1.comment);
+}
+passport();

@@ -16,7 +16,7 @@ const showBook = (arr) => {
             classcheck = 'card_book' + ' ' + 'displayNoneBook';
         }
         container_book.innerHTML +=` <div class="${classcheck}" data-pos="${book.book.id}"data-rating="${book.ratingCount}" data-avg-rating="${book.ratingAvg}">
-                <div class="loaded info_book">
+                <div onclick="window.location.href =\`./book.php?id=${book.book.id}\`" class="loaded info_book">
                     <div class="header-card">
                         <div>
                              <svg width="0" height="0" viewBox="0 0 32 32">

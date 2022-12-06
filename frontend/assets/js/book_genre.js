@@ -33,9 +33,8 @@ const showBook = (arr) => {
     arr.forEach(book => {
 
         container_book.innerHTML +=` <div class="card_book" data-pos="${book.id}" data-rating="${book.rating["COUNT(rating)"]}" data-avg-rating="${book.rating['round(AVG(rating),1)']}">
-                <div class="info_book">
+                <div onclick="window.location.href =\`./book.php?id=${book.id}\`" class="info_book">
                     <div class="header-card">
-                        
                            <div  style="display: flex; align-items: center;">
                         <svg width="0" height="0" viewBox="0 0 32 32">
   <defs>

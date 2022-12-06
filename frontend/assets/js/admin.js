@@ -1,6 +1,5 @@
 document.getElementById('logoutAdmin').addEventListener('click',  () => {
     localStorage.clear();
-    console.log(1);
     window.location.href='./index.php';
 });
 async function getBooks() {
