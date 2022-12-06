@@ -165,7 +165,6 @@ const showBook = (arr) => {
 </svg>
                             
 
-<!-- Пример применения звезды с наложением градиента -->
     <svg class="c-icon" width="32" height="32" viewBox="0 0 32 32">
         <use xlink:href="#star${book.book.id}" fill="url(#half${book.book.id})"></use>
     </svg>

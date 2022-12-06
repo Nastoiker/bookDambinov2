@@ -20,7 +20,21 @@ class ControllersUser  extends Controller {
 
         }
     }
-
+    public function getRatingBookByUserId() {
+        if ($this->request->getMethod() == "POST") {
+            $data = $this->request->input();
+            $model = $this->model('user');
+            $users = $model->getRatingBookByUserId($data);
+            $data = ['rating' => $users];
+            if($data['rating'] === null ){
+                $this->response->sendStatus(404);
+                $this->response->setContent(['message' => 'не найден']);
+            } else {
+                $this->response->sendStatus(200);
+                $this->response->setContent($data);
+            }
+        }
+    }
     public function Auth() {
         if ($this->request->getMethod() == "POST") {
             $data = $this->request->input();

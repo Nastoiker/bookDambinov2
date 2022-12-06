@@ -29,12 +29,12 @@ $(document).ready(function() {
         }
         else {
             const res = JSON.stringify({ name: value});
-            $("#display").css({"padding": '10px'});
             $.ajax({
                 method: "POST",
                 url: `http://bookservice:88/books/name`,
                 data: res,
                 success: function(response) {
+                    $("#display").css({"padding": '10px'});
                     $("#display").empty();
                     response.result.forEach((e) => {
                         $("#display").append(`<a href="./author.php?id=${e.book.id}">${e.book.name}</a><br>`);
@@ -52,6 +52,12 @@ $(document).ready(function() {
                             })
                         },
                         error: function(){
+                            if($("#display").html() == '') {
+                                $("#display").css({"padding": '0'});
+                                console.log(0);
+                            } else {
+                                $("#display").css({"padding": '10px'});
+                            }
                             $("#search").addClass('animate');
                         }
                     });

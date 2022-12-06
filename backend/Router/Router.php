@@ -19,7 +19,6 @@ $router->post('/authors/name', 'Books@searchAthorByName');
 
 
 $router->get('/authors/:author', 'Books@searchBooksByAuthors');
-$router->get('/authors/:author/:page', 'Books@searchBooksByAuthors');
 $router->get('/home', 'home@index');
 $router->get('/books/getbooksbygenre/:genreId', 'Books@getBooksByGenre');
 
@@ -34,6 +33,7 @@ $router->post('/books/setpicture', 'Books@uploadImage');
 $router->get('/books/searchbooksbyid/:id', 'Books@searchBooksById');
 $router->post('/user/setavatar', 'User@uploadImage');
 $router->post('/user/banuser', 'User@banUser');
+$router->post('/user/getratinguser', 'User@getRatingBookByUserId');
 $router->post('/books/getuserbyid', 'Books@getUserByid');
 $router->delete('/books/getuserbyid', 'Books@getUserByid');
 $router->get('/books/getbooksbyauthors/:id', 'Books@getbooksbyauthors');

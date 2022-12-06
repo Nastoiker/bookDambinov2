@@ -22,6 +22,11 @@ class ModelsUser extends Model {
                 ];
             }
         }
+        public function getRatingBookByUserId($param) {
+            $sql = "SELECT rating, authorId from rating where bookId =" .$param['bookId'] . " and authorId =" .$param['userId'];
+            $query = $this->db->query($sql);
+            return $query->row;
+        }
         public function setAvatar($img, $id) {
             $sql = "UPDATE usermodel SET image = '$img' where id = '$id'";
             $query = $this->db->query($sql);

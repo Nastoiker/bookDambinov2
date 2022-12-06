@@ -44,7 +44,6 @@
 </div>
 </body>
 <?php include 'footer.php';?>
-<script src="assets/js/comment.js"></script>
 
 <script src="assets/js/book.js"></script>
 </html>

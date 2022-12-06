@@ -25,13 +25,14 @@
 </header>
 <style>
     #display {
-        position: fixed;
-        margin-top: 200px;
+        position: absolute;
         margin-left: 600px;
         color: white;
+        top: 100px;
         background-color: white;
         border-radius: 25px;
         border: 1px solid black;
+        align-items: center
     }
     .animate {
         animation: shake .3s;

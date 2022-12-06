@@ -6,6 +6,9 @@
     display: flex;
     align-items: center;
 }
+img[src="assets/src/icons/star.svg"] {
+    width: 10px;
+}
 .info__usercomment img{
     width: 100px;
     height: 80px;
@@ -14,7 +17,7 @@
 }
 .wrapper__book {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 .information {
@@ -40,6 +43,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 25px;
 }
 
 
