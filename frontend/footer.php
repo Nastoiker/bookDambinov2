@@ -8,7 +8,7 @@
         align-self: center; flex: 0 0 auto;">
     <div style="align-self: center">
         <h3>Компания</h3>
-        <p><a href="">О нас</a></p>
+        <p><a>О нас</a></p>
     </div>
     <div style="align-self: center">
         <p>damirdambinov@gmail.com</p>

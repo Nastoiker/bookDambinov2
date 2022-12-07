@@ -32,7 +32,8 @@
         background-color: white;
         border-radius: 25px;
         border: 1px solid black;
-        align-items: center
+        align-items: center;
+        z-index: 1;
     }
     .animate {
         animation: shake .3s;

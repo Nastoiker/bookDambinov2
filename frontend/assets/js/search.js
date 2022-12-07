@@ -38,7 +38,9 @@ $(document).ready(function() {
                     $("#display").empty();
                     response.result.forEach((e) => {
                         $("#display").append(`<a href="./author.php?id=${e.book.id}">${e.book.name}</a><br>`);
-                    })
+                         console.log(e.book.name);
+                    });
+                   
                 },
                 error: function(){
                     $.ajax({
@@ -49,7 +51,10 @@ $(document).ready(function() {
                             $("#display").empty();
                             response.result.forEach((e) => {
                                 $("#display").append(`<a href="./author.php?id=${e.author.id}">${e.author.firstName + ' '+ e.author.lastname}</a><br>`);
-                            })
+                            });
+                            console.log(
+                              e.author.firstName + " " + e.author.lastname
+                            );
                         },
                         error: function(){
                             if($("#display").html() == '') {
