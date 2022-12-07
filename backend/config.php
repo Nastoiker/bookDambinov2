@@ -15,7 +15,7 @@ define('DATABASE', [
     'Driver' => 'PDO',
     'Name'   => 'bookdambinov',
     'User'   => 'root',
-    'Pass'   => 'root',
+    'Pass'   => '',
 ]);
 
 
