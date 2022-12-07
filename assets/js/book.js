@@ -11,9 +11,7 @@ async function getRatingByUser(userId, bookId) {
     return new Promise(resolve => fetch('http://bookDambinov2:80/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $(".form_comment").submit(async function(e){
-    if(!localStorage.getItem('id')) {
-        window.location.href = './reg.php';
-    }
+
     let BookId = localStorage.getItem('BookId');
     e.preventDefault();
     let comment = $('.comment_text').val();
@@ -26,11 +24,24 @@ $(".form_comment").submit(async function(e){
         data: jsonres,
         success: async function () {
             await passport();
-            console.log('комментарий оставлен');
             $(".form_comment")[0].reset();
+            $('.notify').css('background', 'blue');
+            $('.notify').text('комментарий оставлен' + value);
+            $('.notify').animate({
+                'width': '100%',
+                'left': 0
+            }, 1000).animate({'top': 0});
+            setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
         },
         error: function () {
+            $('.notify').css('background', 'red');
+            $('.notify').text('зарегестрируйтесь');
+            $('.notify').animate({
+                'width': '100%',
+                'left': 0
+            }, 1000).animate({'top': 0});
             console.log('error');
+            setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
         }
     });});
 async function passport () {
@@ -148,20 +159,32 @@ const showComment = async (object) => {
     }
 }
 $('input[name="rating"]').click(async () => {
-    if(!localStorage.getItem('id')) {
-        window.location.href = './reg.php';
-    }
+
     let value = $('input[name="rating"]:checked').val();
     $.ajax({
         method: "POST",
         url: `http://bookservice:80/books/setrating`,
         data: JSON.stringify({rating: value, authorById: localStorage.getItem('id'), bookId: id}),
         success: async function () {
-            console.log('комментарий оставлен');
+            $('.notify').css('background', 'blue');
+            $('.notify').text('рейтинк поставлен' + value);
+            $('.notify').animate({
+                'width': '100%',
+                'left': 0
+            }, 1000).animate({'top': 0});
+            setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
             await passport()
         },
         error: function () {
-            console.log('error');
+            $('.notify').fadeIn(function () {
+                $('.notify').css('background', 'red');
+                $('.notify').text('зарегестрируйтесь');
+                $('.notify').animate({
+                    'width': '100%',
+                    'left': 0
+                }, 1000).animate({'top': 0});
+                setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            });
         }
     });
 });

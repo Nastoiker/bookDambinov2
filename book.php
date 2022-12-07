@@ -42,6 +42,9 @@
 <div class="comment">
 
 </div>
+<div class="notify">
+    Успешный вход
+</div>
 </body>
 <?php include 'footer.php';?>
 

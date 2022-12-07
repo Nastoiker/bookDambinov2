@@ -75,6 +75,15 @@ img[src="assets/src/icons/star.svg"] {
 }
 
 
+.notify{
+    position: fixed;
+    background-color:#4FC1E9;
+    width:750px;
+    padding: 20px 25px;
+    top:-50px;
+    left:-850px;
+    color: #fff;
+}
 .rating > input:checked ~ label,
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
