@@ -217,7 +217,7 @@ $("#create_genre").submit(async function(e){
     DataGenre.append('name', name);
     $.ajax({
         method: "POST",
-        url: `http://bookservice:80/admin/newgenre`,
+        url: `http://bookDambinov2:80/backend/admin/newgenre`,
         data: DataGenre,
         processData: false,
         contentType: false,
@@ -243,7 +243,7 @@ $("#create_author").submit(async function(e){
     DataAuthor.append('image', image);
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
-        url: `http://bookservice:80/admin/newauthor`,
+        url: `http://bookDambinov2:80/backend/admin/newauthor`,
         data: DataAuthor,
         processData: false,
         contentType: false,
@@ -284,7 +284,7 @@ $("#create_book").submit(async function(e){
     }
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
-        url: `http://bookservice:80/admin/createbook`,
+        url: `http://bookDambinov2:80/backend/admin/createbook`,
         data: DataBook,
         processData: false,
         contentType: false,
