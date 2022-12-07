@@ -51,10 +51,10 @@ if(localStorage.status === 'Banned') {
     window.location.href = "";
 }
 async function getBooks() {
-    return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllGenre() {
-    return new Promise(resolve => fetch('http://bookservice:88/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 
 
@@ -88,7 +88,7 @@ document.getElementById('more_book').addEventListener( 'click',(e) => {
 });
 const container_book = document.querySelector('.container_book');
 async function getBooksBygenre(id) {
-    return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookservice:80/books/getbooksbygenre/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 
 const getCountBygenres = async (id) => {

@@ -5,10 +5,10 @@ localStorage.setItem('BookId', id);
 const bookInfo = document.querySelector(".wrapper__book");
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
-    return new Promise(resolve => fetch(`http://bookservice:88/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookservice:80/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getRatingByUser(userId, bookId) {
-    return new Promise(resolve => fetch('http://bookservice:88/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $(".form_comment").submit(async function(e){
     if(!localStorage.getItem('id')) {
@@ -22,7 +22,7 @@ $(".form_comment").submit(async function(e){
     const jsonres = JSON.stringify(res1);
     $.ajax({
         method: "POST",
-        url: `http://bookservice:88/books/setcomment`,
+        url: `http://bookservice:80/books/setcomment`,
         data: jsonres,
         success: async function () {
             await passport();
@@ -154,7 +154,7 @@ $('input[name="rating"]').click(async () => {
     let value = $('input[name="rating"]:checked').val();
     $.ajax({
         method: "POST",
-        url: `http://bookservice:88/books/setrating`,
+        url: `http://bookservice:80/books/setrating`,
         data: JSON.stringify({rating: value, authorById: localStorage.getItem('id'), bookId: id}),
         success: async function () {
             console.log('комментарий оставлен');
@@ -168,7 +168,7 @@ $('input[name="rating"]').click(async () => {
 async function deleteComment(idComment) {
     idComment = Number(idComment);
     console.log(idComment);
-    await fetch('http://bookservice:88/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: idComment})});
+    await fetch('http://bookservice:80/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: idComment})});
     const res = await getBooks(id);
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);

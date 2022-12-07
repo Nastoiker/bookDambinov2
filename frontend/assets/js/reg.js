@@ -108,7 +108,7 @@ $("#msform").submit(function(e){
             $("#display").css({"padding": '10px'});
             $.ajax({
                 method: "POST",
-                url: `http://bookservice:88/user/registration`,
+                url: `http://bookservice:80/user/registration`,
                 data: jsonres,
                 processData: false,
                 cache: false,
@@ -121,7 +121,7 @@ $("#msform").submit(function(e){
                     DataImage.append('userId', id);
                     $.ajax({
                         method: "POST",
-                        url: `http://bookservice:88/user/setavatar`,
+                        url: `http://bookservice:80/user/setavatar`,
                         data: DataImage,
                         processData: false,
                         contentType: false,

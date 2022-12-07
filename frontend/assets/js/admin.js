@@ -3,19 +3,19 @@ document.getElementById('logoutAdmin').addEventListener('click',  () => {
     window.location.href='./index.php';
 });
 async function getBooks() {
-    return new Promise(resolve => fetch('http://bookservice:88/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllUsers() {
-    return new Promise(resolve => fetch('http://bookservice:88/admin/users').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/admin/users').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllAuthor() {
-    return new Promise(resolve => fetch('http://bookservice:88/books/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/books/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllGenre() {
-    return new Promise(resolve => fetch('http://bookservice:88/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllComments() {
-    return new Promise(resolve => fetch('http://bookservice:88/admin/getallcomments').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookservice:80/admin/getallcomments').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $('#search_book').on('keyup', function() {
     var value = $(this).val();
@@ -106,20 +106,20 @@ function showComments(arr) {
 async function deleteBoook(id) {
     id = Number(id);
     console.log(id);
-    await fetch('http://bookservice:88/admin/deletebook', {method: 'POST',  body: JSON.stringify({id: id})});
+    await fetch('http://bookservice:80/admin/deletebook', {method: 'POST',  body: JSON.stringify({id: id})});
     await passport();
 }
 async function deleteComment(id) {
     id = Number(id);
     console.log(id);
-    await fetch('http://bookservice:88/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: id})});
+    await fetch('http://bookservice:80/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: id})});
 
     await passport();
 }
 
 async function banUser(id) {
     id = Number(id);
-    const query = await fetch('http://bookservice:88/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
+    const query = await fetch('http://bookservice:80/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
     const users = await getAllUsers();
     showUsers(users);
 }
@@ -217,7 +217,7 @@ $("#create_genre").submit(async function(e){
     DataGenre.append('name', name);
     $.ajax({
         method: "POST",
-        url: `http://bookservice:88/admin/newgenre`,
+        url: `http://bookservice:80/admin/newgenre`,
         data: DataGenre,
         processData: false,
         contentType: false,
@@ -243,7 +243,7 @@ $("#create_author").submit(async function(e){
     DataAuthor.append('image', image);
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
-        url: `http://bookservice:88/admin/newauthor`,
+        url: `http://bookservice:80/admin/newauthor`,
         data: DataAuthor,
         processData: false,
         contentType: false,
@@ -284,7 +284,7 @@ $("#create_book").submit(async function(e){
     }
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
-        url: `http://bookservice:88/admin/createbook`,
+        url: `http://bookservice:80/admin/createbook`,
         data: DataBook,
         processData: false,
         contentType: false,

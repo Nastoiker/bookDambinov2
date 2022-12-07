@@ -5,7 +5,7 @@ const bookInfo = document.querySelector(".wrapper__book");
 
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
-    return new Promise(resolve => fetch(`http://bookservice:88/books/getbooksbyauthors/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookservice:80/books/getbooksbyauthors/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function passport () {
     const res = await getBooks(id);

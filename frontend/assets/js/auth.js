@@ -9,7 +9,7 @@ async function onSubmit() {
     const inputPassword =  document.getElementById('password');
     try {
         const response = await fetch(
-            `http://bookservice:88/user/auth`, {
+            `http://bookservice:80/user/auth`, {
                 method: 'POST',
                 body:  JSON.stringify({ email: inputEmail.value, password: inputPassword.value }),
             },
@@ -53,7 +53,7 @@ const notify = (response) => {
  async function registration(email, login, password) {
     try {
         const response = await fetch(
-            `http://bookservice:88/user/reg`, {
+            `http://bookservice:80/user/reg`, {
                 method: 'POST',
                 body:  JSON.stringify({ email,login ,password }),
             },

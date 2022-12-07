@@ -9,7 +9,7 @@ setTimeout(function () {
     }}, 1000);
 const commentsBook = document.querySelector(".comment");
 async function getBooks() {
-    return new Promise(resolve => fetch(`http://bookservice:88/authors`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookservice:80/authors`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function passport () {
     const res = await getBooks(id);
