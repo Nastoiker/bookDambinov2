@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="./assets/styles/genres.css">
 
 </head>
-<?php include 'header.php';
-
-
-?>
+<?php include 'header.php'; ?>
 
 <body>
 
