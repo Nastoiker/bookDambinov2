@@ -3,19 +3,19 @@ document.getElementById('logoutAdmin').addEventListener('click',  () => {
     window.location.href='./index.php';
 });
 async function getBooks() {
-    return new Promise(resolve => fetch('http://bookservice:80/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllUsers() {
-    return new Promise(resolve => fetch('http://bookservice:80/admin/users').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/admin/users').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllAuthor() {
-    return new Promise(resolve => fetch('http://bookservice:80/books/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/books/authors').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllGenre() {
-    return new Promise(resolve => fetch('http://bookservice:80/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getAllComments() {
-    return new Promise(resolve => fetch('http://bookservice:80/admin/getallcomments').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/admin/getallcomments').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $('#search_book').on('keyup', function() {
     var value = $(this).val();

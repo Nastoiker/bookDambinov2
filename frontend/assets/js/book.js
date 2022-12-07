@@ -5,10 +5,10 @@ localStorage.setItem('BookId', id);
 const bookInfo = document.querySelector(".wrapper__book");
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
-    return new Promise(resolve => fetch(`http://bookservice:80/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookDambinov2:80/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getRatingByUser(userId, bookId) {
-    return new Promise(resolve => fetch('http://bookservice:80/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $(".form_comment").submit(async function(e){
     if(!localStorage.getItem('id')) {
@@ -22,7 +22,7 @@ $(".form_comment").submit(async function(e){
     const jsonres = JSON.stringify(res1);
     $.ajax({
         method: "POST",
-        url: `http://bookservice:80/books/setcomment`,
+        url: `http://bookDambinov2:80/books/setcomment`,
         data: jsonres,
         success: async function () {
             await passport();

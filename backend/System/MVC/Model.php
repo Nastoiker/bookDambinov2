@@ -11,7 +11,7 @@ class Model {
 
     public function __construct() {
         $this->db = new \Database\DatabaseAdapter(
-            DATABASE['Driver'],
+            'PDO',
             DATABASE['Host'],
             DATABASE['User'],
             DATABASE['Pass'],

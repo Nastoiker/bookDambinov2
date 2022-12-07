@@ -31,7 +31,7 @@ $(document).ready(function() {
             const res = JSON.stringify({ name: value});
             $.ajax({
                 method: "POST",
-                url: `http://bookservice:80/books/name`,
+                url: `http://bookDambinov2:80/backend/books/name`,
                 data: res,
                 success: function(response) {
                     $("#display").css({"padding": '10px'});
@@ -45,7 +45,7 @@ $(document).ready(function() {
                 error: function(){
                     $.ajax({
                         method: "POST",
-                        url: `http://bookservice:80/authors/name`,
+                        url: `http://bookDambinov2:80/backend/authors/name`,
                         data: res,
                         success: function(response) {
                             $("#display").empty();

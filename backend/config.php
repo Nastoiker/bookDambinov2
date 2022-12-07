@@ -12,7 +12,6 @@ define('UPLOAD', SCRIPT . '../frontend/Static/');
 define('DATABASE', [
     'Port'   => '3306',
     'Host'   => 'localhost',
-    'Driver' => 'PDO',
     'Name'   => 'bookdambinov',
     'User'   => 'root',
     'Pass'   => '',
