@@ -147,6 +147,7 @@ class ModelsBooks extends Model {
         return $data;
     }
     public function deleteBookById($id) {
+
         $query = $this->db->query("DELETE FROM book where id=" . $id);
         return 'correct';
     }

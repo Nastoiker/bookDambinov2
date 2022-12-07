@@ -56,8 +56,6 @@ async function getBooks() {
 async function getAllGenre() {
     return new Promise(resolve => fetch('http://bookDambinov2:80/backend/books/getgenres').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
-
-
 async function passport ()
 {
     const res = await getBooks();
