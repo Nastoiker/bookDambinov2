@@ -23,25 +23,28 @@ $(".form_comment").submit(async function(e){
         url: `http://bookDambinov2:80/books/setcomment`,
         data: jsonres,
         success: async function () {
-            await passport();
             $(".form_comment")[0].reset();
-            $('.notify').css('background', 'blue');
-            $('.notify').text('комментарий оставлен' + value);
-            $('.notify').animate({
-                'width': '100%',
-                'left': 0
-            }, 1000).animate({'top': 0});
-            setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            $('.notify').fadeIn(function () {
+                $('.notify').css('background', 'blue');
+                $('.notify').text('ваш комментарий оставлен');
+                $('.notify').animate({
+                    'width': '100%',
+                    'left': 0
+                }, 1000).animate({'top': 0});
+                setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            });
+            await passport();
         },
         error: function () {
-            $('.notify').css('background', 'red');
-            $('.notify').text('зарегестрируйтесь');
-            $('.notify').animate({
-                'width': '100%',
-                'left': 0
-            }, 1000).animate({'top': 0});
-            console.log('error');
-            setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            $('.notify').fadeIn(function () {
+                $('.notify').css('background', 'red');
+                $('.notify').text('зарегестрируйтесь');
+                $('.notify').animate({
+                    'width': '100%',
+                    'left': 0
+                }, 1000).animate({'top': 0});
+                setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            });
         }
     });});
 async function passport () {
@@ -166,13 +169,15 @@ $('input[name="rating"]').click(async () => {
         url: `http://bookservice:80/books/setrating`,
         data: JSON.stringify({rating: value, authorById: localStorage.getItem('id'), bookId: id}),
         success: async function () {
-            $('.notify').css('background', 'blue');
-            $('.notify').text('рейтинк поставлен' + value);
-            $('.notify').animate({
-                'width': '100%',
-                'left': 0
-            }, 1000).animate({'top': 0});
-            setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            $('.notify').fadeIn(function () {
+                $('.notify').css('background', 'blue');
+                $('.notify').text('вам комментарий оставлен');
+                $('.notify').animate({
+                    'width': '100%',
+                    'left': 0
+                }, 1000).animate({'top': 0});
+                setTimeout(() =>{ $('.notify').css({'display':'none'})}, 3000);
+            });
             await passport()
         },
         error: function () {

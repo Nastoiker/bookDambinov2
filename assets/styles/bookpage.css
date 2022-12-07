@@ -87,7 +87,6 @@ img[src="assets/src/icons/star.svg"] {
 .rating > input:checked ~ label,
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
-
 .rating > input:checked + label:hover,
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label,
