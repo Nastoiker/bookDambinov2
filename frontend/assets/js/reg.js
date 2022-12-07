@@ -33,7 +33,6 @@ $(".next").click(function(){
             current_fs.hide();
             animating = false;
         },
-        //this comes from the custom easing plugin
         easing: 'easeInOutBack'
     });
 });
@@ -108,7 +107,7 @@ $("#msform").submit(function(e){
         const jsonres = JSON.stringify(res1);
             $("#display").css({"padding": '10px'});
             $.ajax({
-                method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+                method: "POST",
                 url: `http://bookservice:88/user/registration`,
                 data: jsonres,
                 processData: false,
@@ -121,7 +120,7 @@ $("#msform").submit(function(e){
                     let id = Number(response.data.id);
                     DataImage.append('userId', id);
                     $.ajax({
-                        method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+                        method: "POST",
                         url: `http://bookservice:88/user/setavatar`,
                         data: DataImage,
                         processData: false,

@@ -43,7 +43,7 @@ class Response {
 
 
     public function getStatusCodeText(int $code) : string {
-        return (string) isset($this->statusTexts[$code]) ? $this->statusTexts[$code] : 'unknown status';
+        return (string) isset($this->statusTexts[$code]) ? $this->statusTexts[$code] : 'неизвестный статус';
     }
 
 
@@ -68,7 +68,7 @@ class Response {
 
     public function redirect($url) {
         if (empty($url)) {
-            trigger_error('Cannot redirect to an empty URL.');
+            trigger_error('невозможно перейти по url.');
             exit;
         }
 

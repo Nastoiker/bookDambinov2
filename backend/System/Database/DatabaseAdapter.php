@@ -16,7 +16,7 @@ class DatabaseAdapter {
         if (class_exists($class)) {
             $this->dbConnection = new $class($hostname, $username, $password, $database, $port);
         } else {
-            exit('Error: Could not load database driver ' . $driver . '!');
+            exit('Error: ошибка загрузки драйвера ' . $driver . '!');
         }
     }
 

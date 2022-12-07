@@ -34,7 +34,7 @@ final class Route {
         if (in_array(strtoupper($method), $this->list_method)) 
             return $method;
         
-            throw new Exception('Invalid Method Name');
+            throw new Exception('Неизвестный метод');
     }
 
 

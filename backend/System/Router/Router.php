@@ -165,6 +165,6 @@ class Router {
 	
 	private function sendNotFound() {
 		$this->response->sendStatus(404);
-		$this->response->setContent(['error' => 'Sorry This Route Not Found !', 'status_code' => 404]);
+		$this->response->setContent(['error' => 'Роутер не найден !', 'status_code' => 404]);
 	}
 }

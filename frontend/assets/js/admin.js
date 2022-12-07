@@ -216,7 +216,7 @@ $("#create_genre").submit(async function(e){
     DataGenre.append('image', image);
     DataGenre.append('name', name);
     $.ajax({
-        method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
+        method: "POST",
         url: `http://bookservice:88/admin/newgenre`,
         data: DataGenre,
         processData: false,
