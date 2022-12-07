@@ -153,18 +153,22 @@
     <form class="card" id="create_book" enctype="multipart/data">
         <h1 id="titleEdditCreatBook">Создание новой книги</h1>
         <p><input type="text" id="name_book" required placeholder="name" name="name"></p>
-        <p><input type="date" id="release"  required placeholder="release" name="	release"></p>
+        <p><input type="date" id="release"  required placeholder="release" name="release"></p>
         <p><input type="text" id="description" required placeholder="description" name="description"></p>
         <label for="image_file">обложка </label>
         <p> <input id="image_file" name="image_file" type="file" accept="image/jpeg,image/png,image/jpg"/></p>
         <p>
-            <select required size="3" multiple id="genres" name="genres">
+            <label for="authors">Выберите жанры(ы)</label>
+            <br>
+            <select required size="5" multiple id="genres" name="genres">
                 <option  disabled>Выберите жанр(ы)</option>
             </select>
         </p>
         <p>
-            <select required size="3" multiple id="authors" name="authors">
-                <option  disabled>Выберите автора(ы)</option>
+            <label for="authors">Выберите автора(ы)</label>
+            <br>
+            <select required size="5" multiple id="authors" name="authors">
+                <option  disabled></option>
             </select>
         </p>
         <p><input type="submit" value="Отправить"></p>
