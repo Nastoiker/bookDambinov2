@@ -66,13 +66,19 @@ const showBook = (object) => {
         <h3>Описание</h3>
         <p>${object.description}</p>
         <h4>Авторы</h4>
-        <p>${object.author[0].firstName + ' ' + object.author[0].lastname}</p>
+        <p id="authorsBook${object.id}"></p>
         <h4>Год издания</h4>
         <p>${object.releseYear}</p>
         <h4>Жанры</h4>
-        <p>${object.genres.name}</p>
+        <p id="genreByBook${object.id}"></p>
     </div>
     `;
+    object.author.forEach( e => {
+        document.getElementById(`authorsBook${object.id}`).innerHTML+=`<br><a href="./author.php?id=${e.id}">${e.firstName + ' ' + e.lastname}</a><br>`
+    })
+    object.genres.forEach( e => {
+        document.getElementById(`genreByBook${object.id}`).innerHTML+=`<br><a href="./genre.php?id=${e.id}">${e.name+ '           '}</a><br>`
+    })
     let ratingBook = Number(object.rating['round(AVG(rating),1)']);
     for (let i = 0; i < Math.trunc(ratingBook); i++) {
         document.getElementById(`BookAvgRating${object.rating['round(AVG(rating),1)']}`).innerHTML += '<img  style="width:32px; margin-left: 10px;" src="assets/src/icons/star.svg" alt=""/>'

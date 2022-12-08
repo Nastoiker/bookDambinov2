@@ -8,13 +8,8 @@ setTimeout(function () {
         value.classList.remove('loaded');
     }}, 1000);
 const showBook = (arr) => {
-    let count = 0;
     let classcheck = 'card_book';
     arr.forEach(book => {
-        count++;
-        if(count >=8) {
-            classcheck = 'card_book' + ' ' + 'displayNoneBook';
-        }
         container_book.innerHTML +=` <div class="${classcheck}" data-pos="${book.book.id}"data-rating="${book.ratingCount}" data-avg-rating="${book.ratingAvg}">
                 <div onclick="window.location.href =\`./book.php?id=${book.book.id}\`" class="loaded info_book">
                     <div class="header-card">

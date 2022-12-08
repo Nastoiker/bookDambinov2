@@ -185,8 +185,8 @@ class ModelsBooks extends Model {
     }
     private function getGenres($id) {
 //        $query  = $this->db->query("SELECT * FROM  genresonbook  where bookId =" . (int) $id) ;
-        $query =  $this->db->query("select name from genresonbook INNER JOIN genres  on genres.id = genresonbook.genresId  where bookId =" .  $id . "") ;
-        return $query->row;
+        $query =  $this->db->query("select name, id from genresonbook INNER JOIN genres  on genres.id = genresonbook.genresId  where bookId =" .  $id . "") ;
+        return $query->rows;
     }
     public function getAllGenres() {
         $query =  $this->db->query("SELECT `id`, `name`, `img` FROM `genres`");
@@ -297,18 +297,9 @@ class ModelsBooks extends Model {
     }
 
     private function getAuthorsBook($book_id) {
-        $query = $this->db->query("SELECT * FROM authorsonbook WHERE bookId = " . (int) $book_id . "");
-
-        $data = [];
-
-        if ($query->num_rows) {
-            foreach($query->rows as $result):
-                $author = $this->getAuthor($result['authorsId']);
-                array_push($data, $author);
-            endforeach;
-        }
-
-        return $data;
+        $sql = "select * from authorsonbook INNER JOIN authors  on authors.id = authorsonbook.authorsId  where bookId =" .  (int) $book_id . "";
+        $result = $this->db->query($sql);
+        return $result->rows;
     }
 
     private function getAuthor($author_id) {
