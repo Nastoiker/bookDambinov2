@@ -166,7 +166,6 @@ class ModelsBooks extends Model {
         $rating = $param["rating"];
         $query = $this->db->query("SELECT * from rating where authorId ='$authorById' and bookId= '$bookId'");
         if ($query->num_rows) {
-            return 'lol';
             $this->db->query("UPDATE `rating` SET `rating`='$rating' WHERE authorId = '$authorById' and bookId= '$bookId'");
         } else {
             $query = $this->db->query("INSERT INTO `rating`(`id`, `createdAt`, `updatedAt`, `bookId`, `authorId`, `rating`) VALUES (null,'$date','$date','$bookId','$authorById','$rating')");
