@@ -48,3 +48,4 @@ $router->get('/books/authors', 'Books@allAuthors');
 $router->get('/books/getgenres', 'Books@getGenres');
 $router->post('/admin/deletecomment', 'Admin@deleteComment');
 $router->get('/admin/getallcomments', 'Admin@getAllComments');
+$router->post('/admin/unban', 'Admin@unban');

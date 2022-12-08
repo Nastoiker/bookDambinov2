@@ -23,7 +23,11 @@ class ModelsAdmin extends Model
         $res = $this->db->query($sql);
         return 'delete';
     }
-
+    public function unban($param) {
+        $sql = "UPDATE `usermodel` SET `status`='allow' WHERE id=" . $param['id'];
+        $this->db->query($sql);
+        return 'banned';
+    }
     public function createNewAuthor($param)
     {
 

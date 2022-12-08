@@ -19,6 +19,14 @@ public function index() { }
             $this->response->sendStatus(202);
             $this->response->setContent(['message' => 'deleted']);
     }
+    public function unban() {
+
+        $data = $this->request->input();
+        $model = $this->model('admin');
+        $users = $model->unban($data);
+        $this->response->sendStatus(201);
+        $this->response->setContent(['message' => 'unbaned']);
+    }
     public function newAuthor() {
         if ($this->request->getMethod() == "POST") {
             $image = $this->request->files['image'];

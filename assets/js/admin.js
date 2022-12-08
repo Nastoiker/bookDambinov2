@@ -77,7 +77,7 @@ function showUsers(arr) {
     const userWrapper = document.getElementById('users');
     userWrapper.innerHTML = '';
     arr.forEach(user => {
-        let doit = user.status === 'banned' ? '' : 'забанить';
+        let doit = user.status === 'banned' ? 'разбанить' : 'забанить';
             if (user.status !== 'banned') {
                 userWrapper.innerHTML +=`<tr>
             <td>${user.id}</td>
@@ -96,6 +96,7 @@ function showUsers(arr) {
             <td>${user.image}</td>
             <td>${user.role}</td>
             <td>${user.status}</td>
+             <td><button onclick="banUser(${user.id})">${doit}</button></td>
         </tr>`
             }
 
@@ -131,6 +132,12 @@ async function deleteComment(id) {
 async function banUser(id) {
     id = Number(id);
     const query = await fetch('http://bookDambinov2:80/backend/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
+    const users = await getAllUsers();
+    showUsers(users);
+}
+async function unban(id) {
+    id = Number(id);
+    const query = await fetch('http://bookDambinov2:80/backend/admin/unban', {method: 'POST', body: JSON.stringify({id: id})});
     const users = await getAllUsers();
     showUsers(users);
 }

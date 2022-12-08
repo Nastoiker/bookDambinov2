@@ -168,7 +168,7 @@ $('input[name="rating"]').click(async () => {
         success: async function () {
             $('.notify').fadeIn(function () {
                 $('.notify').css('background', 'blue');
-                $('.notify').text('вам комментарий оставлен');
+                $('.notify').text('ваш рейтинг оставлен: ' + value);
                 $('.notify').animate({
                     'width': '100%',
                     'left': 0
