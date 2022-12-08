@@ -77,8 +77,9 @@ function showUsers(arr) {
     const userWrapper = document.getElementById('users');
     userWrapper.innerHTML = '';
     arr.forEach(user => {
-        let doit = user.status === 'banned' ? 'разбанить' : 'забанить';
-            userWrapper.innerHTML +=`<tr>
+        let doit = user.status === 'banned' ? '' : 'забанить';
+            if (user.status !== 'banned') {
+                userWrapper.innerHTML +=`<tr>
             <td>${user.id}</td>
             <td>${user.email}</td>
             <td>${user.login}</td>
@@ -87,8 +88,20 @@ function showUsers(arr) {
             <td>${user.status}</td>
             <td><button onclick="banUser(${user.id})">${doit}</button></td>
         </tr>`
+            } else {
+                userWrapper.innerHTML +=`<tr>
+            <td>${user.id}</td>
+            <td>${user.email}</td>
+            <td>${user.login}</td>
+            <td>${user.image}</td>
+            <td>${user.role}</td>
+            <td>${user.status}</td>
+        </tr>`
+            }
+
     });
 }
+
 function showComments(arr) {
     const commentWrapper = document.getElementById('comments');
     commentWrapper.innerHTML = '';
@@ -105,21 +118,19 @@ function showComments(arr) {
 }
 async function deleteBoook(id) {
     id = Number(id);
-    console.log(id);
-    await fetch('http://bookservice:80/admin/deletebook', {method: 'POST',  body: JSON.stringify({id: id})});
+    await fetch('http://bookDambinov2:80/backend/admin/deletebook', {method: 'POST',  body: JSON.stringify({id: id})});
     await passport();
 }
 async function deleteComment(id) {
     id = Number(id);
-    console.log(id);
-    await fetch('http://bookservice:80/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: id})});
+    await fetch('http://bookDambinov2:80/backend/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: id})});
 
     await passport();
 }
 
 async function banUser(id) {
     id = Number(id);
-    const query = await fetch('http://bookservice:80/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
+    const query = await fetch('http://bookDambinov2:80/backend/user/banuser', {method: 'POST', body: JSON.stringify({id: id})});
     const users = await getAllUsers();
     showUsers(users);
 }
@@ -223,12 +234,10 @@ $("#create_genre").submit(async function(e){
         contentType: false,
         cache: false,
         success: async function (response) {
-            console.log('ok');
             await passport();
             $("#create_genre")[0].reset();
         },
         error: function (e) {
-            console.log(e);
         }
     });
 });
@@ -248,12 +257,10 @@ $("#create_author").submit(async function(e){
         processData: false,
         contentType: false,
         success: async function (response) {
-            console.log('ok');
             $("#create_author")[0].reset();
             await passport();
         },
         error: function (e) {
-            console.log(e);
         }
     });
 });
@@ -278,10 +285,7 @@ $("#create_book").submit(async function(e){
     genres = genres.join()
     DataBook.append('authorId', `${authors}`);
     DataBook.append('GenreId', `${genres}`);
-    console.log(DataBook.get('authorId'));
-    for (let pair of DataBook.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]);
-    }
+
     $.ajax({
         method: "POST", // Указываем что будем обращатся к серверу через метод 'POST'
         url: `http://bookDambinov2:80/backend/admin/createbook`,
@@ -290,12 +294,10 @@ $("#create_book").submit(async function(e){
         contentType: false,
         cache: false,
         success: async function (response) {
-            console.log('ok');
             await passport();
             $("#create_book")[0].reset();
         },
         error: function (e) {
-           console.log(e);
         }
     });
 });

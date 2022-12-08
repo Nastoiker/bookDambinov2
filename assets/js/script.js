@@ -33,7 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }}, 2000);
 });
 // if (document.readyState === 'loading ') {
-//     console.log(1);
 //     const el = document.querySelectorAll('.loaded');
 //     for(let value of el) {
 //         value.classList.remove('loaded');
@@ -44,8 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
 //     for(let value of el) {
 //         value.classList.remove('loaded');
 //     }}, 1000);
-console.log(localStorage.getItem('email'));
-console.log(localStorage.getItem('role'));
 
 if(localStorage.status === 'Banned') {
     window.location.href = "";
@@ -65,7 +62,6 @@ async function passport ()
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
     showGenre(genres);
-    console.log(res1.books);
     showBook(res1.books);
 }
 document.getElementById('more_book').addEventListener( 'click',(e) => {
@@ -106,8 +102,6 @@ const sortGenre = (typeSort= 1) => {
     switch (typeSort) {
         case 1: {
             const sortedItemsByPopular = list.sort((a, b) => Number(b.getAttribute('countBooksByGenre')) - Number(a.getAttribute('countBooksByGenre')));
-            console.log(1);
-            console.log(sortedItemsByPopular);
             sortedItemsByPopular.forEach((el) => {
                 container_genres.appendChild(el)
             })
@@ -198,8 +192,6 @@ const sort = (typeSort= 1) => {
     switch (typeSort) {
         case 1: {
             const sortedItemsByColDawn = list.sort((a, b) => Number(b.getAttribute('data-avg-rating')) - Number(a.getAttribute('data-avg-rating')));
-            console.log(1);
-            console.log(sortedItemsByColDawn);
             sortedItemsByColDawn.forEach((el) => {
                 container_book.appendChild(el)
             })

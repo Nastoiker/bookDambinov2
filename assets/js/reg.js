@@ -39,11 +39,9 @@ $(".next").click(function(){
 $("#passwordInput").keyup(function() {
     if($('#passwordInputConfirm').val() !== $('#passwordInput').val() ) {
         $('#nextConfirm').css({'opacity': '0',  'width': '0'});
-        console.log('2');
     } else {
         $('#nextConfirm').css({'opacity': '1', 'width': '100'});
         $('#nextConfirm').attr('disabled', false);
-        console.log('1');
     }
 });
 if(!$('input[type="text"]').val()) {
@@ -53,20 +51,16 @@ if(!$('input[type="text"]').val()) {
 $('input[type="text"]').keyup(function() {
     if(!$(':input').val()) {
         $('.next').css({'opacity': '0',  'width': '0'});
-        console.log(1);
     } else {
         $('.next').css({'opacity': '1', 'width': '100'});
-        console.log(2);
     }
 })
 $("#passwordInputConfirm").keyup(function() {
     if($('#passwordInputConfirm').val() !== $('#passwordInput').val() ) {
         $('#nextConfirm').css({'opacity': '0', 'width': '0' });
-        console.log('2');
     } else {
         $('#nextConfirm').css({'opacity': '1', 'width': '100'});
         $('#nextConfirm').attr('disabled', false);
-        console.log('1');
     }
 });
 $(".previous").click(function(){
@@ -108,7 +102,7 @@ $("#msform").submit(function(e){
             $("#display").css({"padding": '10px'});
             $.ajax({
                 method: "POST",
-                url: `http://bookDambinov2:80/user/registration`,
+                url: `http://bookDambinov2:80/backend/user/registration`,
                 data: jsonres,
                 processData: false,
                 cache: false,
@@ -121,7 +115,7 @@ $("#msform").submit(function(e){
                     DataImage.append('userId', id);
                     $.ajax({
                         method: "POST",
-                        url: `http://bookDambinov2:80/user/setavatar`,
+                        url: `http://bookDambinov2:80/backend/user/setavatar`,
                         data: DataImage,
                         processData: false,
                         contentType: false,

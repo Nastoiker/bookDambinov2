@@ -1,5 +1,5 @@
 async function getBooks() {
-    return new Promise(resolve => fetch('http://bookDambinov2:88/backend/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/books').then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 const container_book = document.querySelector('.container_book');
 setTimeout(function () {
@@ -59,8 +59,6 @@ const sort = (typeSort= 1) => {
     switch (typeSort) {
         case 1: {
             const sortedItemsByColDawn = list.sort((a, b) => Number(b.getAttribute('data-avg-rating')) - Number(a.getAttribute('data-avg-rating')));
-            console.log(1);
-            console.log(sortedItemsByColDawn);
             sortedItemsByColDawn.forEach((el) => {
                 container_book.appendChild(el)
             })
@@ -90,7 +88,6 @@ async function passport ()
     const res = await getBooks();
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
-    console.log(res1.books);
     showBook(res1.books);
 }
 passport();

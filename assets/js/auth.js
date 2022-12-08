@@ -15,11 +15,9 @@ async function onSubmit() {
             },
         );
         const result = await response.json();
-        console.log(result);
         const  { data } = await result;
         if(data === 'admin') {
             localStorage.setItem('role', data);
-            console.log(1);
             window.location.href = './admin.php';
         } else {
             localStorage.setItem('role', data.role);
@@ -35,11 +33,9 @@ async function onSubmit() {
             localStorage.setItem('avatar', data.image);
             localStorage.setItem('status', data.status);
             localStorage.setItem('id', data.id);
-            console.log(localStorage);
             window.location.href = './index.php';
         }
     } catch (err) {
-        console.log(err.message);
         notify({ msg: 'Ошибка авторизации', className: 'alert-danger' });
         document.getElementById('btn_submit').style.border = 'red 3px solid';
     }
@@ -74,12 +70,10 @@ const notify = (response) => {
 }
  async function login(email, password) {
     try {
-        console.log(JSON.stringify({ email, password }));
 
 
         return await response.json();
     } catch (err) {
-        console.log(err);
         return Promise.reject(err);
     }
 }

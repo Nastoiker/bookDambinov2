@@ -7,10 +7,15 @@ class ControllersBooks  extends Controller {
 
     public function setRatingForBook() {
         $param = $this->request->input();
-        $model = $this->model('books');
-        $result = $model->setRatingByBookId($param);
-        $this->response->sendStatus(201);
-        $this->response->setContent($result);
+        if(empty($param['authorById'])) {
+      $this->response->sendStatus(400);
+      $this->response->setContent(['MESSAGE' => 'ERROR']);
+        } else {
+      $model = $this->model('books');
+      $result = $model->setRatingByBookId($param);
+      $this->response->sendStatus(201);
+      $this->response->setContent($result);
+        }
     }
     public function books($param) {
 
@@ -132,11 +137,18 @@ class ControllersBooks  extends Controller {
         }
     }
     public function setCommentByBookId() {
-        $param = $this->request->input();
-        $model = $this->model('books');
-            $result = $model->setCommentByBookId($param);
-            $this->response->sendStatus(201);
-            $this->response->setContent($result);
+    $param = $this->request->input();
+
+    if (!$param['writtenById']) {
+      $this->response->sendStatus(400);
+      $this->response->setContent(['MESSAGE' => 'ERROR']);
+    } else {
+      $model = $this->model('books');
+      $result = $model->setCommentByBookId($param);
+      $this->response->sendStatus(201);
+      $this->response->setContent($result);
+    }
+     
 
     }
     public function deleteBookId() {

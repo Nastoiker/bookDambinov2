@@ -19,8 +19,7 @@ class ModelsAdmin extends Model
     {
         $id = $param['id'];
         $sql = "DELETE FROM book where id = '$id'";
-        $exist = $this->db->query("SELECT image FROM book WHERE id='$id'");
-        unlink(UPLOAD . '/images/' . $exist );
+
         $res = $this->db->query($sql);
         return 'delete';
     }

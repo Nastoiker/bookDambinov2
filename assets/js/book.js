@@ -5,10 +5,10 @@ localStorage.setItem('BookId', id);
 const bookInfo = document.querySelector(".wrapper__book");
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
-    return new Promise(resolve => fetch(`http://bookDambinov2:80/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookDambinov2:80/backend/books/searchbooksbyid/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function getRatingByUser(userId, bookId) {
-    return new Promise(resolve => fetch('http://bookDambinov2:80/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch('http://bookDambinov2:80/backend/user/getratinguser', { method: 'POST', body: JSON.stringify({userId, bookId})}).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 $(".form_comment").submit(async function(e){
 
@@ -20,7 +20,7 @@ $(".form_comment").submit(async function(e){
     const jsonres = JSON.stringify(res1);
     $.ajax({
         method: "POST",
-        url: `http://bookDambinov2:80/books/setcomment`,
+        url: `http://bookDambinov2:80/backend/books/setcomment`,
         data: jsonres,
         success: async function () {
             $(".form_comment")[0].reset();
@@ -51,7 +51,6 @@ async function passport () {
     const res = await getBooks(id);
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
-    console.log(res1);
     showBook(res1);
     showComment(res1.comment);
 }
@@ -121,7 +120,6 @@ const showComment = async (object) => {
 
         getRating = JSON.stringify(getRating);
         getRating = JSON.parse(getRating);
-        console.log(getRating);
         let ratingUser = Number(getRating.rating.rating);
         const commentsAuthor = comment.commentsAuthor.map(comment => comment);
         document.getElementById(`${comment.author.id}`).innerHTML = '';
@@ -150,7 +148,6 @@ const showComment = async (object) => {
         }
         const commentsHtml = document.getElementById(`authorId${comment.author.id}`);
         commentsHtml.innerHTML = '';
-        console.log(commentsHtml);
         commentsAuthor.forEach(e => {
             e.createdAt = e.createdAt.replace('.000', '');
             if (e.writtenById === localStorage.getItem('id')) {
@@ -166,7 +163,7 @@ $('input[name="rating"]').click(async () => {
     let value = $('input[name="rating"]:checked').val();
     $.ajax({
         method: "POST",
-        url: `http://bookservice:80/books/setrating`,
+        url: `http://bookDambinov2:80/backend/books/setrating`,
         data: JSON.stringify({rating: value, authorById: localStorage.getItem('id'), bookId: id}),
         success: async function () {
             $('.notify').fadeIn(function () {
@@ -195,8 +192,7 @@ $('input[name="rating"]').click(async () => {
 });
 async function deleteComment(idComment) {
     idComment = Number(idComment);
-    console.log(idComment);
-    await fetch('http://bookservice:80/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: idComment})});
+    await fetch('http://bookDambinov2:80/backend/admin/deletecomment', {method: 'POST', body: JSON.stringify({id: idComment})});
     const res = await getBooks(id);
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);

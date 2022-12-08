@@ -5,14 +5,13 @@ const bookInfo = document.querySelector(".wrapper__book");
 
 const commentsBook = document.querySelector(".comment");
 async function getBooks(id) {
-    return new Promise(resolve => fetch(`http://bookservice:80/books/getbooksbyauthors/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
+    return new Promise(resolve => fetch(`http://bookDambinov2:80/backend/books/getbooksbyauthors/${id}`).then(e => e.json()).then(res => setTimeout(3000, resolve(res))));
 }
 async function passport () {
     const res = await getBooks(id);
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
     document.getElementById('titleAuthor').innerHTML = res1.firstName + ' '+ res1.lastname;
-    console.log(res);
     showBook(res1.books);
 }
 let container_book = document.querySelector('.container_book');
@@ -54,7 +53,6 @@ const showBook = (arr) => {
                 <h4>${book.book.name}</h4>
                 <button onclick="window.location.href =\`./book.php?id=${book.book.id}\`">Подробнее</button>
             </div>`;
-        console.log(book.book.id);
     })
 }
 const sort = (typeSort= 1) => {
@@ -63,8 +61,6 @@ const sort = (typeSort= 1) => {
     switch (typeSort) {
         case 1: {
             const sortedItemsByColDawn = list.sort((a, b) => Number(b.getAttribute('data-avg-rating')) - Number(a.getAttribute('data-avg-rating')));
-            console.log(1);
-            console.log(sortedItemsByColDawn);
             sortedItemsByColDawn.forEach((el) => {
                 container_book.appendChild(el)
             })

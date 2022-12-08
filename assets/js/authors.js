@@ -15,7 +15,6 @@ async function passport () {
     const res = await getBooks(id);
     let books = JSON.stringify(res);
     const res1 = JSON.parse(books);
-    console.log(res);
     showBook(res1);
 }
 let container_authors = document.querySelector('.container_authors');
@@ -68,8 +67,6 @@ const sort = (typeSort= 1) => {
     switch (typeSort) {
         case 1: {
             const sortedItemsByColDawn = list.sort((a, b) => Number(b.getAttribute('data-avg-rating')) - Number(a.getAttribute('data-avg-rating')));
-            console.log(1);
-            console.log(sortedItemsByColDawn);
             sortedItemsByColDawn.forEach((el) => {
                 container_authors.appendChild(el)
             })
