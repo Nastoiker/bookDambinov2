@@ -17,17 +17,15 @@
 ?>
 
 <form id="msform" enctype="multipart/data">
-    <!-- progressbar -->
     <ul id="progressbar">
         <li class="active">Персональные данные</li>
         <li>Пароль</li>
         <li>Аватар</li>
     </ul>
-    <!-- fieldsets -->
     <fieldset>
         <h2 class="fs-title">Создать свой аккаунт</h2>
         <h3 class="fs-subtitle">Ваш профиль</h3>
-        <input type="text" required id="emailInput" name="email" placeholder="Email" />
+        <input type="email" required id="emailInput" name="email" placeholder="Email" />
         <input type="text" required id="loginInput" name="login" placeholder="Логин" />
         <input type="button" name="next" class="next action-button" value="Далeе" />
     </fieldset>
