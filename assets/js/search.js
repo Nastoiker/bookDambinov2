@@ -36,7 +36,7 @@ $(document).ready(function() {
                     $("#display").css({"padding": '10px'});
                     $("#display").empty();
                     response.result.forEach((e) => {
-                        $("#display").append(`<a href="./author.php?id=${e.book.id}">${e.book.name}</a><br>`);
+                        $("#display").append(`<a href="./book.php?id=${e.book.id}">${e.book.name}</a><br>`);
                     });
                    
                 },
@@ -50,7 +50,6 @@ $(document).ready(function() {
                             response.result.forEach((e) => {
                                 $("#display").append(`<a href="./author.php?id=${e.author.id}">${e.author.firstName + ' '+ e.author.lastname}</a><br>`);
                             });
-
                         },
                         error: function(){
                             if($("#display").html() == '') {

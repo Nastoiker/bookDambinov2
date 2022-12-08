@@ -135,20 +135,32 @@
         </div>
         <button id="BtnshowCommentsAll" onclick="showCommentsAll()">Вывести</button>
     </div>
-    <form class="card" id="create_author" enctype="multipart/data">
-        <h1>Создание нового автора</h1>
-        <p><input type="text" id="firstName_Author" required placeholder="firstName_Author" name="name"></p>
-        <p><input type="text" id="lastName_Author" required placeholder="lastName_Author" name="description"></p>
-        <label for="image_file" required>Фотка автора </label>
-        <p> <input id="image_author" required name="image_author"  type="file" accept="image/jpeg,image/png,image/jpg"/></p>
-        <p><input type="submit" value="Отправить"></p>
-    </form>
-    <form class="card" id="create_genre" enctype="multipart/data">
-        <h1>Добавление нового жанра</h1>
-        <p><input type="text" id="nameGenre" required placeholder="жанр" name="name"></p>
-        <p> <input id="image_genre" name="image_genre" required type="file" accept="image/jpeg,image/png,image/jpg"/></p>
-        <p><input type="submit" value="Отправить"></p>
-    </form>
+    <div class="tabs">
+        <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
+        <label for="tab-btn-1">Новый автор</label>
+        <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+        <label for="tab-btn-2">Новый жанр</label>
+
+        <div id="content-1">
+            <form class="card" id="create_author" enctype="multipart/data">
+                <h1>Создание нового автора</h1>
+                <p><input type="text" id="firstName_Author" required placeholder="firstName_Author" name="name"></p>
+                <p><input type="text" id="lastName_Author" required placeholder="lastName_Author" name="description"></p>
+                <label for="image_file" required>Фотка автора </label>
+                <p> <input id="image_author" required name="image_author"  type="file" accept="image/jpeg,image/png,image/jpg"/></p>
+                <p><input type="submit" value="Отправить"></p>
+            </form>
+        </div>
+        <div id="content-2">
+            <form class="card" id="create_genre" enctype="multipart/data">
+                <h1>Добавление нового жанра</h1>
+                <p><input type="text" id="nameGenre" required placeholder="жанр" name="name"></p>
+                <p> <input id="image_genre" name="image_genre" required type="file" accept="image/jpeg,image/png,image/jpg"/></p>
+                <p><input type="submit" value="Отправить"></p>
+            </form>
+        </div>
+
+    </div>
     <form class="card" id="create_book" enctype="multipart/data">
         <h1 id="titleEdditCreatBook">Создание новой книги</h1>
         <p><input type="text" id="name_book" required placeholder="name" name="name"></p>
@@ -172,7 +184,7 @@
         </p>
         <p><input type="submit" value="Отправить"></p>
     </form>
-
+</body>
 </main>
 <script src="assets/js/admin.js"> </script>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
